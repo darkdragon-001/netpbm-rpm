@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 9.24
-Release: 3
+Release: 5
 Copyright: freeware
 Group: System Environment/Libraries
 Source0: netpbm-9.24-nojbig.tar.bz2
@@ -10,6 +10,7 @@ Source2: test-images.tar.gz
 Patch0: netpbm-9.8-install.patch
 Patch1: netpbm-9.9-time.patch
 Patch2: netpbm-9.24-struct.patch
+Patch3: netpbm-9.24-strip.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -56,6 +57,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch0 -p1 -b .install
 %patch1 -p1 -b .time
 %patch2 -p1 -b .struct
+%patch3 -p1 -b .strip
 
 mv shhopt/shhopt.h shhopt/pbmshhopt.h
 perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -174,6 +176,12 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %{_mandir}/man5/*
 
 %changelog
+* Wed Jun 19 2002 Phil Knirsch <pknirsch@redhat.com> 9.24-5
+- Don't forcibly strip binaries
+
+* Thu May 23 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
 * Tue Apr 09 2002 Phil Knirsch <pknirsch@redhat.com> 9.24-3
 - Fixed a possible gcc compiler problem for inline struct parameters (#62181).
 - Added missing .map files to progs files selection (#61625).
