@@ -1,12 +1,12 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.26
+Version: 10.26.4
 Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
-Source0: netpbm-nojbig-%{version}.tar.bz2
-Source1: netpbmdoc-nojbig-%{version}.tar.bz2
+Source0: netpbm-%{version}.tar.bz2
+Source1: netpbmdoc-%{version}.tar.bz2
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.18-manpath.patch
@@ -124,6 +124,12 @@ ln -sf libnetpbm.so.10 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 mkdir -p $RPM_BUILD_ROOT%{_mandir}
 tar jxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_mandir}
 
+# Don't ship man packages for non-existent binaries
+for i in hpcdtoppm.1 pcdovtoppm.1 pnmtojbig.1 \
+	 ppmsvgalib.1 vidtoppm.1 picttoppm.1; do
+	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/${i}
+done
+
 mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_libdir}
 rm -rf $RPM_BUILD_ROOT/usr/README
 rm -rf $RPM_BUILD_ROOT/usr/VERSION
@@ -131,6 +137,8 @@ rm -rf $RPM_BUILD_ROOT/usr/link
 rm -rf $RPM_BUILD_ROOT/usr/misc
 rm -rf $RPM_BUILD_ROOT/usr/man
 rm -rf $RPM_BUILD_ROOT/usr/pkginfo
+
+
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -158,6 +166,11 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Thu Mar 03 2005 Jindrich Novy <jnovy@redhat.com> 10.26.4-1
+- update to netpbm-10.26.4, remove jbig, hpcd
+- this version fixes #149924
+- regenerate man pages (don't include man pages without binaries - #146863)
+
 * Wed Jan 05 2005 Jindrich Novy <jnovy@redhat.com> 10.26-1
 - update to netpbm-10.26-1, remove jbig, hpcd
 - regenerate man pages, remove man pages for non existent binaries
