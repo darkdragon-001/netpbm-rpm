@@ -18,6 +18,7 @@ Patch8: netpbm-10.23-security.patch
 Patch9: netpbm-10.23-pngtopnm.patch
 Patch10: netpbm-10.24-nodoc.patch
 Patch11: netpbm-10.26.4-gcc4.patch
+Patch12: netpbm-10.27-badlink.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -72,6 +73,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch9 -p1 -b .pngtopnm
 %patch10 -p1 -b .nodoc
 %patch11 -p1 -b .gcc4
+%patch12 -p1 -b .badlink
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -139,6 +141,7 @@ rm -rf $RPM_BUILD_ROOT/usr/link
 rm -rf $RPM_BUILD_ROOT/usr/misc
 rm -rf $RPM_BUILD_ROOT/usr/man
 rm -rf $RPM_BUILD_ROOT/usr/pkginfo
+rm -rf $RPM_BUILD_ROOT/usr/config_template
 
 
 
@@ -173,6 +176,8 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 - update .security2, .security patch
 - regenerate man pages
 - remove jbig, hpcd
+- remove config_template from /usr
+- don't create symlink to pamtopnm
 
 * Mon Mar 14 2005 Jindrich Novy <jnovy@redhat.com> 10.26.4-3
 - fix overflow checking of integers with incompatible endianess
