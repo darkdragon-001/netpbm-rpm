@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 9.24
-Release: 5
+Release: 6
 Copyright: freeware
 Group: System Environment/Libraries
 Source0: netpbm-9.24-nojbig.tar.bz2
@@ -176,6 +176,9 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %{_mandir}/man5/*
 
 %changelog
+* Fri Jun 21 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
 * Wed Jun 19 2002 Phil Knirsch <pknirsch@redhat.com> 9.24-5
 - Don't forcibly strip binaries
 
