@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.26.4
-Release: 3
+Version: 10.27
+Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -168,6 +168,12 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Tue Mar 29 2005 Jindrich Novy <jnovy@redhat.com> 10.27-1
+- update to the new 10.27 release
+- update .security2, .security patch
+- regenerate man pages
+- remove jbig, hpcd
+
 * Mon Mar 14 2005 Jindrich Novy <jnovy@redhat.com> 10.26.4-3
 - fix overflow checking of integers with incompatible endianess
   causing problems using xwdtopnm (#147790)
