@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.22
-Release: 1
+Release: 2
 License: freeware
 Group: System Environment/Libraries
 Source0: netpbm-nojbig-%{version}.tar.bz2
@@ -13,6 +13,10 @@ Patch4: netpbm-10.18-manpath.patch
 Patch5: netpbm-10.19-message.patch
 Patch6: netpbm-10.22-security2.patch
 Patch7: netpbm-10.19-gcc34.patch
+Patch8: netpbm-10.22-cmapsize.patch
+Patch9: netpbm-10.22-tempdir.patch
+Patch10: netpbm-10.22-nestedfunc.patch
+Patch11: netpbm-10.22-initvar.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -63,6 +67,10 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch5 -p1 -b .message
 %patch6 -p1 -b .security2
 %patch7 -p1 -b .gcc34
+%patch8 -p1 -b .cmapsize
+%patch9 -p1 -b .tempdir
+%patch10 -p1 -b .nestedfunc
+%patch11 -p1 -b .initvar
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -151,6 +159,12 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Fri Jul 02 2004 Phil Knirsch <pknirsch@redhat.com> 10.22-2
+- Fixed Zero byte allocation error in bmptopnm (#123169)
+- Honour the $TMPDIR in ppmfade (#117247)
+- Fixed nested function bug (#117377)
+- Fixed several uninitialized variables (#117377)
+
 * Mon Jun 28 2004 Phil Knirsch <pknirsch@redhat.com> 10.22-1
 - Update to latest upstream version 10.22 (also for docs).
 - Removed jbig and hdcp code from tarball.
