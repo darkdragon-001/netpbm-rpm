@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.25
-Release: 1
+Release: 2
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -164,6 +164,9 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Mon Oct 18 2004 Jindrich Novy <jnovy@redhat.com> 10.25-2
+- avoid compile crash when "-msse" is in CFLAGS
+
 * Mon Oct 18 2004 Jindrich Novy <jnovy@redhat.com> 10.25-1
 - update to latest upstream 10.25
 - drop initvar patch
