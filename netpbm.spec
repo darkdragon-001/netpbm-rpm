@@ -1,22 +1,19 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 9.9
-Release: 2
+Release: 5
 Copyright: freeware
 Group: System Environment/Libraries
 Source0: netpbm-9.9-nojbig.tgz
-Source1: jpeg-to-pnm.fpi
-Source2: pnm-to-ps.fpi
-Source3: bmp-to-pnm.fpi
-Source4: gif-to-pnm.fpi
-Source5: rast-to-pnm.fpi
-Source6: tiff-to-pnm.fpi
-Source7: png-to-pnm.fpi
+Source1: mf50-netpbm_filters
+Source2: test-images.tar.gz
 Patch0: netpbm-9.8-install.patch
 Patch1: netpbm-9.5-pktopbm.patch
 Patch2: netpbm-9.5-pnmtotiff.patch
 Patch3: netpbm-9.5-pstopnm.patch
 Patch4: netpbm-9.9-asciitopgm.patch
+Patch5: netpbm-9.9-manpages.patch
+Patch6: netpbm-9.9-time.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -65,8 +62,13 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch2 -p1 -b .pnmtotiff
 %patch3 -p1 -b .pstopnm
 %patch4 -p1 -b .asciitopgm
+%patch5 -p1 -b .manpages
+%patch6 -p1 -b .time
+
 mv shhopt/shhopt.h shhopt/pbmshhopt.h
 perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"`
+
+tar xzf %{SOURCE2}
 
 %build
 TOP=`pwd`
@@ -83,6 +85,13 @@ make \
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
+mkdir -p $RPM_BUILD_ROOT/usr/share/printconf/mf_rules
+cp %{SOURCE1} $RPM_BUILD_ROOT/usr/share/printconf/mf_rules/
+
+mkdir -p $RPM_BUILD_ROOT/usr/share/printconf/tests
+cp test-images/* $RPM_BUILD_ROOT/usr/share/printconf/tests/
+
 PATH="`pwd`:${PATH}" make install \
 	JPEGINC_DIR=$RPM_BUILD_ROOT%{_includedir} \
 	PNGINC_DIR=$RPM_BUILD_ROOT%{_includedir} \
@@ -97,12 +106,6 @@ PATH="`pwd`:${PATH}" make install \
 	INSTALLMANUALS1=$RPM_BUILD_ROOT%{_mandir}/man1 \
 	INSTALLMANUALS3=$RPM_BUILD_ROOT%{_mandir}/man3 \
 	INSTALLMANUALS5=$RPM_BUILD_ROOT%{_mandir}/man5
-
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/rhs/rhs-printfilters
-for filter in $RPM_SOURCE_DIR/*.fpi ; do
-    install -m755 $filter \
-	$RPM_BUILD_ROOT%{_libdir}/rhs/rhs-printfilters
-done
 
 # Install header files.
 mkdir -p $RPM_BUILD_ROOT%{_includedir}
@@ -147,17 +150,22 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %files progs
 %defattr(-,root,root)
 %{_bindir}/*
-%{_libdir}/rhs/rhs-printfilters/jpeg-to-pnm.fpi
-%{_libdir}/rhs/rhs-printfilters/pnm-to-ps.fpi
-%{_libdir}/rhs/rhs-printfilters/bmp-to-pnm.fpi
-%{_libdir}/rhs/rhs-printfilters/gif-to-pnm.fpi
-%{_libdir}/rhs/rhs-printfilters/rast-to-pnm.fpi
-%{_libdir}/rhs/rhs-printfilters/tiff-to-pnm.fpi
-%{_libdir}/rhs/rhs-printfilters/png-to-pnm.fpi
+/usr/share/printconf/mf_rules/*
+/usr/share/printconf/tests/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
 %changelog
+* Mon Feb 12 2001 Philipp Knirsch <pknirsch@redhat.de>
+- Fixed bugzilla bug #26767 where the new glibc time and sys/time fixes needed
+  to be done.
+
+* Fri Feb  9 2001 Crutcher Dunnavant <crutcher@redhat.com>
+- switched filters to printconf filters
+
+* Wed Jan 24 2001 Philipp Knirsch <pknirsch@redhat.de>
+- Fixed bugzilla bug #21644 where few manpages had a small error.
+
 * Tue Dec 19 2000 Philipp Knirsch <pknirsch@redhat.de>
 - Fixed bugzilla bug #19487 where asciitopgm dumped core on Alpha. Actually
   dumped core everywhere
