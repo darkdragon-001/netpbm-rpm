@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.19
-Release: 8
+Release: 9
 License: freeware
 Group: System Environment/Libraries
 Source0: netpbm-10.19.tar.bz2
@@ -14,6 +14,7 @@ Patch5: netpbm-10.19-message.patch
 Patch6: netpbm-10.19-security2.patch
 Patch7: netpbm-10.19-getopt.patch
 Patch8: netpbm-10.19-gcc34.patch
+Patch9: netpbm-10.19-malloc.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -65,6 +66,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch6 -p1 -b .security2
 %patch7 -p1 -b .getopt
 %patch8 -p1 -b .gcc34
+%patch9 -p1 -b .malloc
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -153,6 +155,9 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Sat Jun 19 2004 Alan Cox <alan@redhat.com>
+- merged fix for pnmrotate crash freeing wrong number of rows
+
 * Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
