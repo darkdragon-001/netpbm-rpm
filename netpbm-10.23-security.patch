@@ -406,7 +406,7 @@
  
      *colsP = h11FixedP->pixmap_width;
      *rowsP = h11FixedP->pixmap_height;
-+    overflow2(h11P->bytes_per_line, 8);
++    overflow2(h11FixedP->bytes_per_line, 8);
      *padrightP =
          h11FixedP->bytes_per_line * 8 / h11FixedP->bits_per_pixel -
          h11FixedP->pixmap_width;
