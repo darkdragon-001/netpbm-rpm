@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.24
-Release: 2
+Release: 3
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -19,6 +19,7 @@ Patch9: netpbm-10.23-security.patch
 Patch10: netpbm-10.23-pngtopnm.patch
 Patch11: netpbm-10.23-malloc.patch
 Patch12: netpbm-10.24-misc.patch
+Patch13: netpbm-10.24-nodoc.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -74,6 +75,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch10 -p1 -b .pngtopnm
 %patch11 -p1 -b .malloc
 %patch12 -p1 -b .misc
+%patch13 -p1 -b .nodoc
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -162,6 +164,9 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Thu Sep 23 2004 Jindrich Novy <jnovy@redhat.com> 10.24-3
+- added patch to suppress installation of doc.url to /usr/bin #133346
+
 * Wed Aug 18 2004 Jindrich Novy <jnovy@redhat.com> 10.24-2
 - added patch to fix compile crash for 64bit machines
 - various hacks related to .security patch
