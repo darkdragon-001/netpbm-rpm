@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 9.24
-Release: 10.90.1
+Release: 12
 License: freeware
 Group: System Environment/Libraries
 Source0: netpbm-9.24-nojbig.tar.bz2
@@ -10,7 +10,6 @@ Patch1: netpbm-9.9-time.patch
 Patch2: netpbm-9.24-struct.patch
 Patch3: netpbm-9.24-strip.patch
 Patch4: netpbm-9.24-security.patch
-Patch5: netpbm-9.24-debiansecurity.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -59,7 +58,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch2 -p1 -b .struct
 %patch3 -p1 -b .strip
 %patch4 -p1 -b .security
-%patch5 -p1 -b .debiansecurity
 
 mv shhopt/shhopt.h shhopt/pbmshhopt.h
 perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -170,8 +168,11 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %{_mandir}/man5/*
 
 %changelog
-* Thu Jan 22 2004 Phil Knirsch <pknirsch@redhat.com> 9.24-10.90.1
-- Included new debian security fixes and made security errata.
+* Wed Jun 04 2003 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Fri Feb 28 2003 Phil Knirsch <pknirsch@redhat.com> 9.24-11
+- Updated Alan's patch.
 
 * Wed Feb 19 2003 Phil Knirsch <pknirsch@redhat.com> 9.24-10
 - Added big security patch by Alan Cox.
