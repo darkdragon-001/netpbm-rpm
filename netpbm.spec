@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.19
-Release: 6.1
+Release: 7
 License: freeware
 Group: System Environment/Libraries
 Source0: netpbm-10.19.tar.bz2
@@ -13,6 +13,7 @@ Patch4: netpbm-10.18-manpath.patch
 Patch5: netpbm-10.19-message.patch
 Patch6: netpbm-10.19-security2.patch
 Patch7: netpbm-10.19-getopt.patch
+Patch8: netpbm-10.19-gcc34.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -63,6 +64,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch5 -p1 -b .message
 %patch6 -p1 -b .security2
 %patch7 -p1 -b .getopt
+%patch8 -p1 -b .gcc34
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -151,6 +153,9 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Tue Mar 30 2004 Harald Hoyer <harald@redhat.com> - 10.19-7
+- fixed compilation with gcc34
+
 * Tue Mar 02 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
