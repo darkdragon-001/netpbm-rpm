@@ -1,10 +1,10 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 9.5
-Release: 5
+Version: 9.9
+Release: 2
 Copyright: freeware
 Group: System Environment/Libraries
-Source0: ftp://download.sourceforge.net/pub/sourceforge/netpbm/netpbm-%{version}.tgz
+Source0: netpbm-9.9-nojbig.tgz
 Source1: jpeg-to-pnm.fpi
 Source2: pnm-to-ps.fpi
 Source3: bmp-to-pnm.fpi
@@ -12,12 +12,13 @@ Source4: gif-to-pnm.fpi
 Source5: rast-to-pnm.fpi
 Source6: tiff-to-pnm.fpi
 Source7: png-to-pnm.fpi
-Patch0: netpbm-9.5-install.patch
+Patch0: netpbm-9.8-install.patch
 Patch1: netpbm-9.5-pktopbm.patch
 Patch2: netpbm-9.5-pnmtotiff.patch
 Patch3: netpbm-9.5-pstopnm.patch
+Patch4: netpbm-9.9-asciitopgm.patch
 Buildroot: %{_tmppath}/%{name}-root
-BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel
+BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
 
 %description
@@ -29,7 +30,7 @@ programs for handling various graphics file formats, including .pbm
 %package devel
 Summary: Development tools for programs which will use the netpbm libraries.
 Group: Development/Libraries
-Requires: netpbm = %{version}
+Requires: netpbm = %{version}-%{release}
 Obsoletes: libgr-devel
 
 %description devel
@@ -44,7 +45,7 @@ to have the netpbm package installed.
 %package progs
 Summary: Tools for manipulating graphics files in netpbm supported formats.
 Group: Applications/Multimedia
-Requires: netpbm = %{version}
+Requires: netpbm = %{version}-%{release}
 Obsoletes: libgr-progs
 
 %description progs
@@ -63,11 +64,16 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch1 -p1 -b .pktopbm
 %patch2 -p1 -b .pnmtotiff
 %patch3 -p1 -b .pstopnm
+%patch4 -p1 -b .asciitopgm
+mv shhopt/shhopt.h shhopt/pbmshhopt.h
+perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"`
 
 %build
+TOP=`pwd`
 make \
 	CC=%{__cc} \
 	CFLAGS="$RPM_OPT_FLAGS -fPIC" \
+	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
 	TIFFINC_DIR=%{_includedir} \
@@ -100,14 +106,15 @@ done
 
 # Install header files.
 mkdir -p $RPM_BUILD_ROOT%{_includedir}
-install -m644 pbm/pbm.h $RPM_BUILD_ROOT/%{_includedir}/
-install -m644 pbmplus.h $RPM_BUILD_ROOT/%{_includedir}/
-install -m644 pgm/pgm.h $RPM_BUILD_ROOT/%{_includedir}/
-install -m644 pnm/pnm.h $RPM_BUILD_ROOT/%{_includedir}/
-install -m644 ppm/ppm.h $RPM_BUILD_ROOT/%{_includedir}/
+install -m644 pbm/pbm.h $RPM_BUILD_ROOT%{_includedir}/
+install -m644 pbmplus.h $RPM_BUILD_ROOT%{_includedir}/
+install -m644 pgm/pgm.h $RPM_BUILD_ROOT%{_includedir}/
+install -m644 pnm/pnm.h $RPM_BUILD_ROOT%{_includedir}/
+install -m644 ppm/ppm.h $RPM_BUILD_ROOT%{_includedir}/
+install -m644 shhopt/pbmshhopt.h $RPM_BUILD_ROOT%{_includedir}/
 
 # Install the static-only librle.a
-install -m644 urt/{rle,rle_config}.h $RPM_BUILD_ROOT/%{_includedir}/
+install -m644 urt/{rle,rle_config}.h $RPM_BUILD_ROOT%{_includedir}/
 install -m644 urt/librle.a $RPM_BUILD_ROOT%{_libdir}/
 
 # Fixup symlinks.
@@ -128,7 +135,7 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %files
 %defattr(-,root,root)
 %doc COPYRIGHT.PATENT GPL_LICENSE.txt HISTORY README README.CONFOCAL
-%{_libdir}/lib*.so.%{version}
+%{_libdir}/lib*.so.*
 
 %files devel
 %defattr(-,root,root)
@@ -151,6 +158,24 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %{_mandir}/man5/*
 
 %changelog
+* Tue Dec 19 2000 Philipp Knirsch <pknirsch@redhat.de>
+- Fixed bugzilla bug #19487 where asciitopgm dumped core on Alpha. Actually
+  dumped core everywhere
+
+* Tue Dec 19 2000 Philipp Knirsch <pknirsch@redhat.de>
+- update to 9.9
+- Due to patent infringement problems removed the jbig support from the tarball
+  (pnm/jbig + Makefile changes) and created a new tarball
+
+* Wed Oct 25 2000 Nalin Dahyabhai <nalin@redhat.com>
+- include shared libraries missing from previous build
+
+* Tue Oct 24 2000 Nalin Dahyabhai <nalin@redhat.com>
+- update to 9.8
+- make sure shhopt.h is included in the -devel package (#19672)
+- rename shhopt.h to pbmshhopt.h because it's not the same as the normal
+  shhopt.h that other things (like util-linux) expect
+
 * Wed Aug  9 2000 Crutcher Dunnavant <crutcher@redhat.com>
 - added a png-to-pnm.fpi filter
 
