@@ -1,20 +1,18 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.19
-Release: 9
+Version: 10.22
+Release: 1
 License: freeware
 Group: System Environment/Libraries
-Source0: netpbm-10.19.tar.bz2
-Source1: netpbmdoc-10.19.tar.bz2
+Source0: netpbm-nojbig-%{version}.tar.bz2
+Source1: netpbmdoc-%{version}.tar.bz2
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
-Patch3: netpbm-10.19-security.patch
+Patch3: netpbm-10.22-security.patch
 Patch4: netpbm-10.18-manpath.patch
 Patch5: netpbm-10.19-message.patch
-Patch6: netpbm-10.19-security2.patch
-Patch7: netpbm-10.19-getopt.patch
-Patch8: netpbm-10.19-gcc34.patch
-Patch9: netpbm-10.19-malloc.patch
+Patch6: netpbm-10.22-security2.patch
+Patch7: netpbm-10.19-gcc34.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -64,9 +62,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch4 -p1 -b .manpath
 %patch5 -p1 -b .message
 %patch6 -p1 -b .security2
-%patch7 -p1 -b .getopt
-%patch8 -p1 -b .gcc34
-%patch9 -p1 -b .malloc
+%patch7 -p1 -b .gcc34
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -155,6 +151,10 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Mon Jun 28 2004 Phil Knirsch <pknirsch@redhat.com> 10.22-1
+- Update to latest upstream version 10.22 (also for docs).
+- Removed jbig and hdcp code from tarball.
+
 * Sat Jun 19 2004 Alan Cox <alan@redhat.com>
 - merged fix for pnmrotate crash freeing wrong number of rows
 
