@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 9.24
-Release: 2
+Release: 3
 Copyright: freeware
 Group: System Environment/Libraries
 Source0: netpbm-9.24-nojbig.tar.bz2
@@ -9,6 +9,7 @@ Source1: mf50-netpbm_filters
 Source2: test-images.tar.gz
 Patch0: netpbm-9.8-install.patch
 Patch1: netpbm-9.9-time.patch
+Patch2: netpbm-9.24-struct.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -54,6 +55,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %setup -q
 %patch0 -p1 -b .install
 %patch1 -p1 -b .time
+%patch2 -p1 -b .struct
 
 mv shhopt/shhopt.h shhopt/pbmshhopt.h
 perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -165,16 +167,21 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %files progs
 %defattr(-,root,root)
 %{_bindir}/*
+%{_libdir}/*.map
 /usr/share/printconf/mf_rules/*
 /usr/share/printconf/tests/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
 %changelog
-* Tue Apr 02 2002 Phil Knirsch <pknirsch@redhat.com>
+* Tue Apr 09 2002 Phil Knirsch <pknirsch@redhat.com> 9.24-3
+- Fixed a possible gcc compiler problem for inline struct parameters (#62181).
+- Added missing .map files to progs files selection (#61625).
+
+* Tue Apr 02 2002 Phil Knirsch <pknirsch@redhat.com> 9.24-2
 - Fixed stupid dangling symlink problem (#62478)
 
-* Tue Mar 12 2002 Phil Knirsch <pknirsch@redhat.com>
+* Tue Mar 12 2002 Phil Knirsch <pknirsch@redhat.com> 9.24-1
 - Updated to netpbm version 9.24
 - Hacked around a couple of library problems.
 
