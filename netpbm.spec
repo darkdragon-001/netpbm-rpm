@@ -1,16 +1,15 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 9.24
-Release: 6
-Copyright: freeware
+Release: 9.80.2
+License: freeware
 Group: System Environment/Libraries
 Source0: netpbm-9.24-nojbig.tar.bz2
-Source1: mf50-netpbm_filters
-Source2: test-images.tar.gz
 Patch0: netpbm-9.8-install.patch
 Patch1: netpbm-9.9-time.patch
 Patch2: netpbm-9.24-struct.patch
 Patch3: netpbm-9.24-strip.patch
+Patch4: netpbm-9.24-security.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -58,11 +57,10 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch1 -p1 -b .time
 %patch2 -p1 -b .struct
 %patch3 -p1 -b .strip
+%patch4 -p1 -b .security
 
 mv shhopt/shhopt.h shhopt/pbmshhopt.h
 perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
-
-tar xzf %{SOURCE2}
 
 %build
 ./configure <<EOF
@@ -97,12 +95,6 @@ make \
 rm -f buildtools/try_ldconfig
 ln -sf /bin/true buildtools/try_ldconfig
 
-mkdir -p $RPM_BUILD_ROOT/usr/share/printconf/mf_rules
-cp %{SOURCE1} $RPM_BUILD_ROOT/usr/share/printconf/mf_rules/
-
-mkdir -p $RPM_BUILD_ROOT/usr/share/printconf/tests
-cp test-images/* $RPM_BUILD_ROOT/usr/share/printconf/tests/
-
 PATH="`pwd`:${PATH}" make install \
 	JPEGINC_DIR=$RPM_BUILD_ROOT%{_includedir} \
 	PNGINC_DIR=$RPM_BUILD_ROOT%{_includedir} \
@@ -117,6 +109,8 @@ PATH="`pwd`:${PATH}" make install \
 	INSTALLMANUALS1=$RPM_BUILD_ROOT%{_mandir}/man1 \
 	INSTALLMANUALS3=$RPM_BUILD_ROOT%{_mandir}/man3 \
 	INSTALLMANUALS5=$RPM_BUILD_ROOT%{_mandir}/man5
+
+[ %{_libdir} = /usr/lib ] || mv $RPM_BUILD_ROOT/usr/lib/* $RPM_BUILD_ROOT%{_libdir}
 
 # Install header files.
 mkdir -p $RPM_BUILD_ROOT%{_includedir}
@@ -170,12 +164,28 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %defattr(-,root,root)
 %{_bindir}/*
 %{_libdir}/*.map
-/usr/share/printconf/mf_rules/*
-/usr/share/printconf/tests/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
 %changelog
+* Fri Feb 28 2003 Phil Knirsch <pknirsch@redhat.com> 9.24-11
+- Updated Alan's patch.
+
+* Wed Feb 19 2003 Phil Knirsch <pknirsch@redhat.com> 9.24-10
+- Added big security patch by Alan Cox.
+
+* Wed Jan 22 2003 Tim Powers <timp@redhat.com> 9.24-9
+- rebuilt
+
+* Thu Dec 19 2002 Phil Knirsch <pknirsch@redhat.com> 9.24-8
+- Removed print filters again as they are too dangerous.
+
+* Mon Dec 16 2002 Elliot Lee <sopwith@redhat.com> 9.24-7
+- Merge in hammer changes, rebuild
+
+* Sun Sep 08 2002 Arjan van de Ven <arjanv@redhat.com>
+- fix for x86-64
+
 * Fri Jun 21 2002 Tim Powers <timp@redhat.com>
 - automated rebuild
 
@@ -308,7 +318,7 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 - added pnm-to-ps.fpi that was missing from previous packages
 
 * Thu Apr 30 1998 Cristian Gafton <gafton@redhat.com>
-- altered %install so that the package installs now even if a previous
+- altered install so that the package installs now even if a previous
   version was not installed on the system 
 
 * Thu Apr 16 1998 Erik Troan <ewt@redhat.com>
