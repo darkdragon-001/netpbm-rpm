@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.24
-Release: 3
+Version: 10.25
+Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -13,13 +13,13 @@ Patch3: netpbm-10.18-manpath.patch
 Patch4: netpbm-10.19-message.patch
 Patch5: netpbm-10.22-security2.patch
 Patch6: netpbm-10.22-cmapsize.patch
-Patch7: netpbm-10.22-initvar.patch
-Patch8: netpbm-10.23-gcc34.patch
-Patch9: netpbm-10.23-security.patch
-Patch10: netpbm-10.23-pngtopnm.patch
-Patch11: netpbm-10.23-malloc.patch
-Patch12: netpbm-10.24-misc.patch
-Patch13: netpbm-10.24-nodoc.patch
+Patch7: netpbm-10.23-gcc34.patch
+Patch8: netpbm-10.23-security.patch
+Patch9: netpbm-10.23-pngtopnm.patch
+Patch10: netpbm-10.23-malloc.patch
+Patch11: netpbm-10.24-misc.patch
+Patch12: netpbm-10.24-nodoc.patch
+Patch13: netpbm-10.25-bmpbpp.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -69,19 +69,20 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch4 -p1 -b .message
 %patch5 -p1 -b .security2
 %patch6 -p1 -b .cmapsize
-%patch7 -p1 -b .initvar
-%patch8 -p1 -b .gcc34
-%patch9 -p1 -b .security
-%patch10 -p1 -b .pngtopnm
-%patch11 -p1 -b .malloc
-%patch12 -p1 -b .misc
-%patch13 -p1 -b .nodoc
+%patch7 -p1 -b .gcc34
+%patch8 -p1 -b .security
+%patch9 -p1 -b .pngtopnm
+%patch10 -p1 -b .malloc
+%patch11 -p1 -b .misc
+%patch12 -p1 -b .nodoc
+%patch13 -p1 -b .bmpbpp
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
 
 %build
 ./configure <<EOF
+
 
 
 
@@ -155,7 +156,6 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_libdir}/lib*.a
 %{_libdir}/lib*.so
 %{_mandir}/man3/*
-
 %files progs
 %defattr(-,root,root)
 %{_bindir}/*
@@ -164,6 +164,12 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Mon Oct 18 2004 Jindrich Novy <jnovy@redhat.com> 10.25-1
+- update to latest upstream 10.25
+- drop initvar patch
+- update security, misc patch
+- add bmpbpp patch to use only appropriate bit depths for BMP (#135675)
+
 * Thu Sep 23 2004 Jindrich Novy <jnovy@redhat.com> 10.24-3
 - added patch to suppress installation of doc.url to /usr/bin #133346
 

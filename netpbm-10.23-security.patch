@@ -789,17 +789,6 @@
  
 --- netpbm-10.23/converter/ppm/ppmtompeg/parallel.c.security	2004-08-04 13:39:34.312585960 +0200
 +++ netpbm-10.23/converter/ppm/ppmtompeg/parallel.c	2004-08-04 13:39:34.374576536 +0200
-@@ -376,8 +376,8 @@
-       free(bigBuffer);
-     }
- 
--    bigBuffer = (unsigned char *) malloc(bigBufferSize*
--                         sizeof(unsigned char));
-+    bigBuffer = (unsigned char *) malloc2(bigBufferSize, 
-+                                         sizeof(unsigned char));
-       }
- 
-       /* now read in the bytes */
 @@ -708,7 +708,7 @@
    
    TransmitPortNum(parallelHostName, portNum, combinePortNum);
@@ -2397,18 +2386,6 @@
  	    pbm_readpbmrow( ifp, nextrow, cols, format );
  
          for ( col = 0; col < cols; ++col )
---- netpbm-10.23/editor/pnmenlarge.c.security	2004-07-12 19:23:23.000000000 +0200
-+++ netpbm-10.23/editor/pnmenlarge.c	2004-08-04 13:39:34.477560880 +0200
-@@ -51,6 +51,9 @@
- 
-         pnm_readpnminit(ifP, &cols, &rows, &maxval, &format);
-         xelrow = pnm_allocrow(cols);
-+	
-+	overflow2(cols, n);
-+	overflow2(rows, n);
-         pnm_writepnminit(stdout, cols * n, rows * n, maxval, format, 0);
-         newxelrow = pnm_allocrow(cols * n);
-         
 --- netpbm-10.23/editor/pamcut.c.security	2004-07-12 17:33:40.000000000 +0200
 +++ netpbm-10.23/editor/pamcut.c	2004-08-04 13:39:34.480560424 +0200
 @@ -379,6 +379,8 @@
