@@ -71,7 +71,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch8 -p1 -b .security
 %patch9 -p1 -b .pngtopnm
 %patch10 -p1 -b .nodoc
-#%patch11 -p1 -b .gcc4
+%patch11 -p1 -b .gcc4
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
