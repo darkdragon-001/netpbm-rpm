@@ -1,29 +1,23 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 9.14
+Version: 9.24
 Release: 2
 Copyright: freeware
 Group: System Environment/Libraries
-Source0: netpbm-9.14-nojbig.tgz
+Source0: netpbm-9.24-nojbig.tar.bz2
 Source1: mf50-netpbm_filters
 Source2: test-images.tar.gz
-Source3: tests50.netpbm.xml
 Patch0: netpbm-9.8-install.patch
-Patch1: netpbm-9.5-pktopbm.patch
-Patch2: netpbm-9.5-pnmtotiff.patch
-Patch3: netpbm-9.5-pstopnm.patch
-Patch4: netpbm-9.9-asciitopgm.patch
-Patch5: netpbm-9.9-manpages.patch
-Patch6: netpbm-9.9-time.patch
+Patch1: netpbm-9.9-time.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
 
 %description
-The netpbm package contains a library of functions that support
+The netpbm package contains a library of functions which support
 programs for handling various graphics file formats, including .pbm
 (portable bitmaps), .pgm (portable graymaps), .pnm (portable anymaps),
-.ppm (portable pixmaps), and others.
+.ppm (portable pixmaps) and others.
 
 %package devel
 Summary: Development tools for programs which will use the netpbm libraries.
@@ -32,9 +26,13 @@ Requires: netpbm = %{version}-%{release}
 Obsoletes: libgr-devel
 
 %description devel
-The netpbm-devel package contains the header files and static
-libraries, etc., for developing programs which can handle the various
-graphics file formats supported by the netpbm libraries.
+The netpbm-devel package contains the header files and static libraries,
+etc., for developing programs which can handle the various graphics file
+formats supported by the netpbm libraries.
+
+Install netpbm-devel if you want to develop programs for handling the
+graphics file formats supported by the netpbm libraries.  You'll also need
+to have the netpbm package installed.
 
 %package progs
 Summary: Tools for manipulating graphics files in netpbm supported formats.
@@ -43,32 +41,36 @@ Requires: netpbm = %{version}-%{release}
 Obsoletes: libgr-progs
 
 %description progs
-The netpbm-progs package contains a group of scripts for manipulating
-the graphics files in formats which are supported by the netpbm
-libraries. For example, netpbm-progs includes the rasttopnm script,
-which will convert a Sun rasterfile into a portable anymap.
-Netpbm-progs contains many other scripts for converting from one
-graphics file format to another.
+The netpbm-progs package contains a group of scripts for manipulating the
+graphics files in formats which are supported by the netpbm libraries.  For
+example, netpbm-progs includes the rasttopnm script, which will convert a
+Sun rasterfile into a portable anymap.  Netpbm-progs contains many other
+scripts for converting from one graphics file format to another.
+
+If you need to use these conversion scripts, you should install
+netpbm-progs.  You'll also need to install the netpbm package.
 
 %prep
 %setup -q
 %patch0 -p1 -b .install
-#%patch1 -p1 -b .pktopbm
-#%patch2 -p1 -b .pnmtotiff
-#%patch3 -p1 -b .pstopnm
-#%patch4 -p1 -b .asciitopgm
-#%patch5 -p1 -b .manpages
-%patch6 -p1 -b .time
+%patch1 -p1 -b .time
 
 mv shhopt/shhopt.h shhopt/pbmshhopt.h
-perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"`
+perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
 
 tar xzf %{SOURCE2}
 
 %build
 ./configure <<EOF
-1
+
+
+
+
 /usr
+
+
+
+
 
 EOF
 
@@ -87,11 +89,15 @@ make \
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
+# Nasty hack to work around a useless ldconfig script
+rm -f buildtools/try_ldconfig
+ln -sf /bin/true buildtools/try_ldconfig
+
 mkdir -p $RPM_BUILD_ROOT/usr/share/printconf/mf_rules
 cp %{SOURCE1} $RPM_BUILD_ROOT/usr/share/printconf/mf_rules/
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/printconf/tests
-cp test-images/* %{SOURCE3} $RPM_BUILD_ROOT/usr/share/printconf/tests/
+cp test-images/* $RPM_BUILD_ROOT/usr/share/printconf/tests/
 
 PATH="`pwd`:${PATH}" make install \
 	JPEGINC_DIR=$RPM_BUILD_ROOT%{_includedir} \
@@ -111,7 +117,7 @@ PATH="`pwd`:${PATH}" make install \
 # Install header files.
 mkdir -p $RPM_BUILD_ROOT%{_includedir}
 install -m644 pbm/pbm.h $RPM_BUILD_ROOT%{_includedir}/
-install -m644 pbmplus.h $RPM_BUILD_ROOT%{_includedir}/
+#install -m644 pbmplus.h $RPM_BUILD_ROOT%{_includedir}/
 install -m644 pgm/pgm.h $RPM_BUILD_ROOT%{_includedir}/
 install -m644 pnm/pnm.h $RPM_BUILD_ROOT%{_includedir}/
 install -m644 ppm/ppm.h $RPM_BUILD_ROOT%{_includedir}/
@@ -124,6 +130,14 @@ install -m644 urt/librle.a $RPM_BUILD_ROOT%{_libdir}/
 # Fixup symlinks.
 ln -sf gemtopnm $RPM_BUILD_ROOT%{_bindir}/gemtopbm
 ln -sf pnmtoplainpnm $RPM_BUILD_ROOT%{_bindir}/pnmnoraw
+rm -f $RPM_BUILD_ROOT%{_libdir}/libpbm.so
+rm -f $RPM_BUILD_ROOT%{_libdir}/libpgm.so
+rm -f $RPM_BUILD_ROOT%{_libdir}/libpnm.so
+rm -f $RPM_BUILD_ROOT%{_libdir}/libppm.so
+ln -sf libpbm.so.9 $RPM_BUILD_ROOT%{_libdir}/libpbm.so
+ln -sf libpgm.so.9 $RPM_BUILD_ROOT%{_libdir}/libpgm.so
+ln -sf libpnm.so.9 $RPM_BUILD_ROOT%{_libdir}/libpnm.so
+ln -sf libppm.so.9 $RPM_BUILD_ROOT%{_libdir}/libppm.so
 
 # Fixup perl paths in the two scripts that require it.
 perl -pi -e 's^/bin/perl^%{__perl}^' \
@@ -138,7 +152,7 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 
 %files
 %defattr(-,root,root)
-%doc COPYRIGHT.PATENT GPL_LICENSE.txt HISTORY README README.CONFOCAL
+%doc COPYRIGHT.PATENT GPL_LICENSE.txt HISTORY README
 %{_libdir}/lib*.so.*
 
 %files devel
@@ -157,8 +171,15 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %{_mandir}/man5/*
 
 %changelog
-* Wed Aug 29 2001 Crutcher Dunnavant <crutcher@redhat.com> 9.14-2
-- added printconf print tests mainifest 'tests50.netpbm.xml'
+* Tue Apr 02 2002 Phil Knirsch <pknirsch@redhat.com>
+- Fixed stupid dangling symlink problem (#62478)
+
+* Tue Mar 12 2002 Phil Knirsch <pknirsch@redhat.com>
+- Updated to netpbm version 9.24
+- Hacked around a couple of library problems.
+
+* Tue Nov 06 2001 Phil Knirsch <phil@redhat.de>
+- Updated to netpbm version 9.20
 
 * Fri Jun 22 2001 Philipp Knirsch <pknirsch@redhat.de>
 - Updated to netpbm version 9.14
