@@ -1,10 +1,10 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 9.9
-Release: 5
+Version: 9.14
+Release: 1
 Copyright: freeware
 Group: System Environment/Libraries
-Source0: netpbm-9.9-nojbig.tgz
+Source0: netpbm-9.14-nojbig.tgz
 Source1: mf50-netpbm_filters
 Source2: test-images.tar.gz
 Patch0: netpbm-9.8-install.patch
@@ -58,11 +58,11 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %prep
 %setup -q
 %patch0 -p1 -b .install
-%patch1 -p1 -b .pktopbm
-%patch2 -p1 -b .pnmtotiff
-%patch3 -p1 -b .pstopnm
-%patch4 -p1 -b .asciitopgm
-%patch5 -p1 -b .manpages
+#%patch1 -p1 -b .pktopbm
+#%patch2 -p1 -b .pnmtotiff
+#%patch3 -p1 -b .pstopnm
+#%patch4 -p1 -b .asciitopgm
+#%patch5 -p1 -b .manpages
 %patch6 -p1 -b .time
 
 mv shhopt/shhopt.h shhopt/pbmshhopt.h
@@ -71,6 +71,12 @@ perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"`
 tar xzf %{SOURCE2}
 
 %build
+./configure <<EOF
+1
+/usr
+
+EOF
+
 TOP=`pwd`
 make \
 	CC=%{__cc} \
@@ -156,6 +162,13 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %{_mandir}/man5/*
 
 %changelog
+* Fri Jun 22 2001 Philipp Knirsch <pknirsch@redhat.de>
+- Updated to netpbm version 9.14
+- Removed pnmtotiff resize patch as it is now part of the original package
+- Removed pstopnm csh fix as it is now part of the original package
+- Removed asciitopgm memcpy fix as it is now part of the original package
+- Removed manpages patch as it is now part of the original package
+
 * Mon Feb 12 2001 Philipp Knirsch <pknirsch@redhat.de>
 - Fixed bugzilla bug #26767 where the new glibc time and sys/time fixes needed
   to be done.
