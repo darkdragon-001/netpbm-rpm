@@ -1,16 +1,14 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 9.24
-Release: 12.1.1
+Version: 10.19
+Release: 2
 License: freeware
 Group: System Environment/Libraries
-Source0: netpbm-9.24-nojbig.tar.bz2
-Patch0: netpbm-9.8-install.patch
-Patch1: netpbm-9.9-time.patch
-Patch2: netpbm-9.24-struct.patch
-Patch3: netpbm-9.24-strip.patch
-Patch4: netpbm-9.24-security.patch
-Patch5: netpbm-9.24-debiansecurity.patch
+Source0: netpbm-10.19.tar.bz2
+Patch1: netpbm-10.17-time.patch
+Patch2: netpbm-9.24-strip.patch
+Patch3: netpbm-10.19-security.patch
+Patch4: netpbm-10.18-manpath.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -54,15 +52,13 @@ netpbm-progs.  You'll also need to install the netpbm package.
 
 %prep
 %setup -q
-%patch0 -p1 -b .install
 %patch1 -p1 -b .time
-%patch2 -p1 -b .struct
-%patch3 -p1 -b .strip
-%patch4 -p1 -b .security
-%patch5 -p1 -b .debiansecurity
+%patch2 -p1 -b .strip
+%patch3 -p1 -b .security
+%patch4 -p1 -b .manpath
 
-mv shhopt/shhopt.h shhopt/pbmshhopt.h
-perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
+##mv shhopt/shhopt.h shhopt/pbmshhopt.h
+##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
 
 %build
 ./configure <<EOF
@@ -70,7 +66,12 @@ perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUma
 
 
 
-/usr
+
+
+
+
+
+
 
 
 
@@ -93,55 +94,26 @@ make \
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-# Nasty hack to work around a useless ldconfig script
-rm -f buildtools/try_ldconfig
-ln -sf /bin/true buildtools/try_ldconfig
+mkdir -p $RPM_BUILD_ROOT
+make package pkgdir=$RPM_BUILD_ROOT/usr
 
-PATH="`pwd`:${PATH}" make install \
-	JPEGINC_DIR=$RPM_BUILD_ROOT%{_includedir} \
-	PNGINC_DIR=$RPM_BUILD_ROOT%{_includedir} \
-	TIFFINC_DIR=$RPM_BUILD_ROOT%{_includedir} \
-	JPEGLIB_DIR=%{_libdir} \
-	PNGLIB_DIR=%{_libdir} \
-	TIFFLIB_DIR=%{_libdir} \
-	INSTALL_PREFIX=$RPM_BUILD_ROOT%{_prefix} \
-	INSTALLBINARIES=$RPM_BUILD_ROOT%{_bindir} \
-	INSTALLHDRS=$RPM_BUILD_ROOT%{_includedir} \
-	INSTALLLIBS=$RPM_BUILD_ROOT%{_libdir} \
-	INSTALLMANUALS1=$RPM_BUILD_ROOT%{_mandir}/man1 \
-	INSTALLMANUALS3=$RPM_BUILD_ROOT%{_mandir}/man3 \
-	INSTALLMANUALS5=$RPM_BUILD_ROOT%{_mandir}/man5
+# Ugly hack to have libs in correct dir on 64bit archs.
+mkdir -p $RPM_BUILD_ROOT%{_libdir}
+if [ "%{_libdir}" != "/usr/lib" ]; then
+  mv $RPM_BUILD_ROOT/usr/lib/lib* $RPM_BUILD_ROOT%{_libdir}
+fi
 
-[ %{_libdir} = /usr/lib ] || mv $RPM_BUILD_ROOT/usr/lib/* $RPM_BUILD_ROOT%{_libdir}
+cp -af lib/libnetpbm.a $RPM_BUILD_ROOT%{_libdir}/libnetpbm.a
+ln -sf libnetpbm.so.10 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 
-# Install header files.
-mkdir -p $RPM_BUILD_ROOT%{_includedir}
-install -m644 pbm/pbm.h $RPM_BUILD_ROOT%{_includedir}/
-#install -m644 pbmplus.h $RPM_BUILD_ROOT%{_includedir}/
-install -m644 pgm/pgm.h $RPM_BUILD_ROOT%{_includedir}/
-install -m644 pnm/pnm.h $RPM_BUILD_ROOT%{_includedir}/
-install -m644 ppm/ppm.h $RPM_BUILD_ROOT%{_includedir}/
-install -m644 shhopt/pbmshhopt.h $RPM_BUILD_ROOT%{_includedir}/
-
-# Install the static-only librle.a
-install -m644 urt/{rle,rle_config}.h $RPM_BUILD_ROOT%{_includedir}/
-install -m644 urt/librle.a $RPM_BUILD_ROOT%{_libdir}/
-
-# Fixup symlinks.
-ln -sf gemtopnm $RPM_BUILD_ROOT%{_bindir}/gemtopbm
-ln -sf pnmtoplainpnm $RPM_BUILD_ROOT%{_bindir}/pnmnoraw
-rm -f $RPM_BUILD_ROOT%{_libdir}/libpbm.so
-rm -f $RPM_BUILD_ROOT%{_libdir}/libpgm.so
-rm -f $RPM_BUILD_ROOT%{_libdir}/libpnm.so
-rm -f $RPM_BUILD_ROOT%{_libdir}/libppm.so
-ln -sf libpbm.so.9 $RPM_BUILD_ROOT%{_libdir}/libpbm.so
-ln -sf libpgm.so.9 $RPM_BUILD_ROOT%{_libdir}/libpgm.so
-ln -sf libpnm.so.9 $RPM_BUILD_ROOT%{_libdir}/libpnm.so
-ln -sf libppm.so.9 $RPM_BUILD_ROOT%{_libdir}/libppm.so
-
-# Fixup perl paths in the two scripts that require it.
-perl -pi -e 's^/bin/perl^%{__perl}^' \
-$RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
+mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_libdir}
+rm -rf $RPM_BUILD_ROOT/usr/README
+rm -rf $RPM_BUILD_ROOT/usr/VERSION
+rm -rf $RPM_BUILD_ROOT/usr/link
+rm -rf $RPM_BUILD_ROOT/usr/misc
+rm -rf $RPM_BUILD_ROOT/usr/man
+rm -rf $RPM_BUILD_ROOT/usr/man
+rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -152,7 +124,7 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 
 %files
 %defattr(-,root,root)
-%doc COPYRIGHT.PATENT GPL_LICENSE.txt HISTORY README
+%doc doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README
 %{_libdir}/lib*.so.*
 
 %files devel
@@ -170,8 +142,11 @@ $RPM_BUILD_ROOT%{_bindir}/{ppmfade,ppmshadow}
 %{_mandir}/man5/*
 
 %changelog
-* Thu Jan 22 2004 Phil Knirsch <pknirsch@redhat.com> 9.24-12.1.1
-- Included new debian security fixes and made security errata.
+* Fri Jan 30 2004 Phil Knirsch <pknirsch@redhat.com> 10.19-2
+- No need anymore to fix ppmfade and ppmshade.
+
+* Thu Jan 29 2004 Phil Knirsch <pknirsch@redhat.com> 10.19-1
+- Major update to latest upstream version 10.19.
 
 * Wed Jun 04 2003 Elliot Lee <sopwith@redhat.com>
 - rebuilt
