@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.26.4
-Release: 1
+Release: 2
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -17,6 +17,7 @@ Patch7: netpbm-10.23-gcc34.patch
 Patch8: netpbm-10.23-security.patch
 Patch9: netpbm-10.23-pngtopnm.patch
 Patch10: netpbm-10.24-nodoc.patch
+Patch11: netpbm-10.26.4-gcc4.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -70,6 +71,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch8 -p1 -b .security
 %patch9 -p1 -b .pngtopnm
 %patch10 -p1 -b .nodoc
+#%patch11 -p1 -b .gcc4
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -166,6 +168,11 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Mon Mar 09 2005 Jindrich Novy <jnovy@redhat.com> 10.26.4-2
+- add .gcc4 patch to fix some missing declarations of headers,
+  some pointer signedness mismatches, remove xmalloc2
+- rebuilt with gcc4
+
 * Thu Mar 03 2005 Jindrich Novy <jnovy@redhat.com> 10.26.4-1
 - update to netpbm-10.26.4, remove jbig, hpcd
 - this version fixes #149924

@@ -1305,7 +1305,7 @@
  	*depthP = 1;	/* very old file */
 -    
 +
-+    overflow_add(colsP, 31);
++    overflow_add((int)colsP, 31);
 +        
      *padrightP = ( ( *colsP + 31 ) / 32 ) * 32 - *colsP;
      
