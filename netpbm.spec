@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.19
-Release: 7
+Release: 8
 License: freeware
 Group: System Environment/Libraries
 Source0: netpbm-10.19.tar.bz2
@@ -153,6 +153,9 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Tue Mar 30 2004 Harald Hoyer <harald@redhat.com> - 10.19-7
 - fixed compilation with gcc34
 
