@@ -1,14 +1,18 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.19
-Release: 2
+Release: 6.1
 License: freeware
 Group: System Environment/Libraries
 Source0: netpbm-10.19.tar.bz2
+Source1: netpbmdoc-10.19.tar.bz2
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.19-security.patch
 Patch4: netpbm-10.18-manpath.patch
+Patch5: netpbm-10.19-message.patch
+Patch6: netpbm-10.19-security2.patch
+Patch7: netpbm-10.19-getopt.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -56,6 +60,9 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch2 -p1 -b .strip
 %patch3 -p1 -b .security
 %patch4 -p1 -b .manpath
+%patch5 -p1 -b .message
+%patch6 -p1 -b .security2
+%patch7 -p1 -b .getopt
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -106,12 +113,14 @@ fi
 cp -af lib/libnetpbm.a $RPM_BUILD_ROOT%{_libdir}/libnetpbm.a
 ln -sf libnetpbm.so.10 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 
+mkdir -p $RPM_BUILD_ROOT%{_mandir}
+tar jxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_mandir}
+
 mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_libdir}
 rm -rf $RPM_BUILD_ROOT/usr/README
 rm -rf $RPM_BUILD_ROOT/usr/VERSION
 rm -rf $RPM_BUILD_ROOT/usr/link
 rm -rf $RPM_BUILD_ROOT/usr/misc
-rm -rf $RPM_BUILD_ROOT/usr/man
 rm -rf $RPM_BUILD_ROOT/usr/man
 rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 
@@ -142,6 +151,24 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Tue Mar 02 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Tue Feb 17 2004 Phil Knirsch <pknirsch@redhat.com> 10.19-6
+- Fixed problem in pnmquant with GetOptions() and args/ARGV (#115788).
+
+* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com> 10.19-5
+- rebuilt
+
+* Tue Feb 10 2004 Phil Knirsch <pknirsch@redhat.com> 10.19-4
+- Fixed several tmp vulnerabilities in scripts and apps. Based on Debian
+  security fix for netpbm-9.24.
+
+* Mon Feb 09 2004 Phil Knirsch <pknirsch@redhat.com> 10.19-3
+- Included doc tarball with manpages (#114755).
+- Fixed small manpage incorrectness (#84922).
+- Fixed message from giftopnm (#114756).
+
 * Fri Jan 30 2004 Phil Knirsch <pknirsch@redhat.com> 10.19-2
 - No need anymore to fix ppmfade and ppmshade.
 
