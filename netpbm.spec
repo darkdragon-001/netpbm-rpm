@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.25
-Release: 3
+Version: 10.26
+Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -16,9 +16,7 @@ Patch6: netpbm-10.22-cmapsize.patch
 Patch7: netpbm-10.23-gcc34.patch
 Patch8: netpbm-10.23-security.patch
 Patch9: netpbm-10.23-pngtopnm.patch
-Patch10: netpbm-10.23-malloc.patch
-Patch11: netpbm-10.24-misc.patch
-Patch12: netpbm-10.24-nodoc.patch
+Patch10: netpbm-10.24-nodoc.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -71,9 +69,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch7 -p1 -b .gcc34
 %patch8 -p1 -b .security
 %patch9 -p1 -b .pngtopnm
-%patch10 -p1 -b .malloc
-%patch11 -p1 -b .misc
-%patch12 -p1 -b .nodoc
+%patch10 -p1 -b .nodoc
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -162,6 +158,12 @@ rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 %{_mandir}/man5/*
 
 %changelog
+* Wed Jan 05 2005 Jindrich Novy <jnovy@redhat.com> 10.26-1
+- update to netpbm-10.26-1, remove jbig, hpcd
+- regenerate man pages, remove man pages for non existent binaries
+- update security patch, additional fixes
+- drop upstreamed misc patch, merge malloc patch with security patch
+
 * Mon Oct 25 2004 Jindrich Novy <jnovy@redhat.com> 10.25-3
 - include man pages in troff format, thanks to Michal Jaegerman (#136959)
 - drop bmpbpp patch, fixed upstream
