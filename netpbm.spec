@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.27
-Release: 1
+Release: 2
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -19,6 +19,9 @@ Patch9: netpbm-10.23-pngtopnm.patch
 Patch10: netpbm-10.24-nodoc.patch
 Patch11: netpbm-10.26.4-gcc4.patch
 Patch12: netpbm-10.27-badlink.patch
+Patch13: netpbm-10.27-bmptopnm.patch
+Patch14: netpbm-10.27-libpm.patch
+Patch15: netpbm-10.27-pnmtojpeg.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -74,6 +77,9 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch10 -p1 -b .nodoc
 %patch11 -p1 -b .gcc4
 %patch12 -p1 -b .badlink
+%patch13 -p1 -b .bmptopnm
+%patch14 -p1 -b .libpm
+%patch15 -p1 -b .pnmtojpeg
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -171,6 +177,12 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Mon May 09 2005 Jindrich Novy <jnovy@redhat.com> 10.27-2
+- fix invalid strcmp condition in bmptopnm, typo in pnmtojpeg
+  (David Constanzo, #157106, #157118)
+- proper read longs and shorts in libpm.c (David Constanzo, #157110)
+- fix segfault in bmptopnm caused by freeing an uninitialized pointer
+
 * Tue Mar 29 2005 Jindrich Novy <jnovy@redhat.com> 10.27-1
 - update to the new 10.27 release
 - update .security2, .security patch
