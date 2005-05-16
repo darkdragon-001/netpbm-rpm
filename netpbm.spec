@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.27
-Release: 2
+Release: 3
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -13,15 +13,14 @@ Patch3: netpbm-10.18-manpath.patch
 Patch4: netpbm-10.19-message.patch
 Patch5: netpbm-10.22-security2.patch
 Patch6: netpbm-10.22-cmapsize.patch
-Patch7: netpbm-10.23-gcc34.patch
-Patch8: netpbm-10.23-security.patch
-Patch9: netpbm-10.23-pngtopnm.patch
-Patch10: netpbm-10.24-nodoc.patch
-Patch11: netpbm-10.26.4-gcc4.patch
-Patch12: netpbm-10.27-badlink.patch
-Patch13: netpbm-10.27-bmptopnm.patch
-Patch14: netpbm-10.27-libpm.patch
-Patch15: netpbm-10.27-pnmtojpeg.patch
+Patch7: netpbm-10.23-security.patch
+Patch8: netpbm-10.23-pngtopnm.patch
+Patch9: netpbm-10.24-nodoc.patch
+Patch10: netpbm-10.26.4-gcc4.patch
+Patch11: netpbm-10.27-badlink.patch
+Patch12: netpbm-10.27-bmptopnm.patch
+Patch13: netpbm-10.27-libpm.patch
+Patch14: netpbm-10.27-pnmtojpeg.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -71,15 +70,14 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch4 -p1 -b .message
 %patch5 -p1 -b .security2
 %patch6 -p1 -b .cmapsize
-%patch7 -p1 -b .gcc34
-%patch8 -p1 -b .security
-%patch9 -p1 -b .pngtopnm
-%patch10 -p1 -b .nodoc
-%patch11 -p1 -b .gcc4
-%patch12 -p1 -b .badlink
-%patch13 -p1 -b .bmptopnm
-%patch14 -p1 -b .libpm
-%patch15 -p1 -b .pnmtojpeg
+%patch7 -p1 -b .security
+%patch8 -p1 -b .pngtopnm
+%patch9 -p1 -b .nodoc
+%patch10 -p1 -b .gcc4
+%patch11 -p1 -b .badlink
+%patch12 -p1 -b .bmptopnm
+%patch13 -p1 -b .libpm
+%patch14 -p1 -b .pnmtojpeg
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -177,6 +175,10 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Mon May 16 2005 Jindrich Novy <jnovy@redhat.com> 10.27-3
+- fix ppmdither leak caused by bug in security patch (#157757)
+- drop gcc34 patch
+
 * Mon May 09 2005 Jindrich Novy <jnovy@redhat.com> 10.27-2
 - fix invalid strcmp condition in bmptopnm, typo in pnmtojpeg
   (David Constanzo, #157106, #157118)
