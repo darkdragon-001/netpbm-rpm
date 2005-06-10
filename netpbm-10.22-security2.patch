@@ -1,5 +1,5 @@
---- netpbm-10.27/converter/other/anytopnm.security2	2004-10-13 17:05:53.000000000 +0200
-+++ netpbm-10.27/converter/other/anytopnm	2005-03-29 14:03:43.449904176 +0200
+--- netpbm-10.28/converter/other/anytopnm.security2	2005-05-27 00:10:39.000000000 +0200
++++ netpbm-10.28/converter/other/anytopnm	2005-06-10 09:42:48.609492080 +0200
 @@ -522,11 +522,7 @@ else
      inputFile="-"
  fi
@@ -8,7 +8,7 @@
 -mkdir $tempdir || { echo "Could not create temporary file. Exiting."; exit 1;}
 -chmod 700 $tempdir
 -
--trap 'rm -rf $tempdir' 0 1 3 15
+-trap 'rm -rf $tempdir' 0
 +tempdir=$(mktemp -d -t anytopnm.XXXXXXXXXX) || exit 1
  
  findAwk;
@@ -31,23 +31,8 @@
 +fi
 +
  exit 0
---- netpbm-10.27/converter/ppm/ppmtompeg/parallel.c.security2	2005-03-05 06:07:50.000000000 +0100
-+++ netpbm-10.27/converter/ppm/ppmtompeg/parallel.c	2005-03-29 14:03:43.452903720 +0200
-@@ -1058,8 +1058,11 @@ GetRemoteFrame(MpegFrame * const frameP,
-             int numBytes;  /* Number of data bytes in message */
-             FILE * filePtr;
-             char fileName[256];
-+#define TMPFILE_TEMPLATE "/tmp/ppmtompeg.XXXXXX"
- 
--            sprintf(fileName, "/tmp/foobar%d", machineNumber);
-+            strcpy(fileName, TMPFILE_TEMPLATE);
-+            if (-1 == mkstemp(fileName))
-+                pm_error( "could not create temporary convolution file");
-             filePtr = fopen(fileName, "wb");
- 
-             /* read in stuff, write to file, perform local conversion */
---- netpbm-10.27/editor/ppmfade.security2	2005-03-16 22:10:39.000000000 +0100
-+++ netpbm-10.27/editor/ppmfade	2005-03-29 14:29:07.975141112 +0200
+--- netpbm-10.28/editor/ppmfade.security2	2005-03-16 22:10:39.000000000 +0100
++++ netpbm-10.28/editor/ppmfade	2005-06-10 09:02:04.545046352 +0200
 @@ -14,6 +14,7 @@
  #
  #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -312,8 +297,8 @@
  
  exit(0);
  
---- netpbm-10.27/editor/ppmquantall.security2	2005-03-17 00:44:03.000000000 +0100
-+++ netpbm-10.27/editor/ppmquantall	2005-03-29 14:03:43.441905392 +0200
+--- netpbm-10.28/editor/ppmquantall.security2	2005-03-17 00:44:03.000000000 +0100
++++ netpbm-10.28/editor/ppmquantall	2005-06-10 09:02:04.547046048 +0200
 @@ -63,13 +63,8 @@ for i in ${files[@]}; do
      heights=(${heights[*]} `grep -v '^#' $i | sed '1d; s/.* //; 2q'`)
  done
@@ -330,8 +315,8 @@
  
  pnmcat -topbottom -jleft -white ${files[@]} | pnmquant $newcolors > $all
  if [ $? != 0 ]; then
---- netpbm-10.27/editor/pnmmargin.security2	2003-12-31 05:01:26.000000000 +0100
-+++ netpbm-10.27/editor/pnmmargin	2005-03-29 14:03:43.442905240 +0200
+--- netpbm-10.28/editor/pnmmargin.security2	2003-12-31 05:01:26.000000000 +0100
++++ netpbm-10.28/editor/pnmmargin	2005-06-10 09:02:04.549045744 +0200
 @@ -11,16 +11,11 @@
  # documentation.  This software is provided "as is" without express or
  # implied warranty.
@@ -402,8 +387,8 @@
 +if [ -d "$tmpdir" ]; then
 +    rm -rf "$tmpdir"
 +fi
---- netpbm-10.27/editor/pamstretch-gen.security2	2004-07-25 02:01:24.000000000 +0200
-+++ netpbm-10.27/editor/pamstretch-gen	2005-03-29 14:03:43.443905088 +0200
+--- netpbm-10.28/editor/pamstretch-gen.security2	2004-07-25 02:01:24.000000000 +0200
++++ netpbm-10.28/editor/pamstretch-gen	2005-06-10 09:02:04.550045592 +0200
 @@ -31,10 +31,7 @@ if [ "$1" = "" ]; then
    exit 1
  fi
@@ -416,18 +401,18 @@
  
  trap 'rm -rf $tempdir' 0 1 3 15
  
---- netpbm-10.27/editor/ppmshadow.security2	2005-03-16 22:10:25.000000000 +0100
-+++ netpbm-10.27/editor/ppmshadow	2005-03-29 14:03:43.447904480 +0200
-@@ -27,9 +27,10 @@ use strict;
- my $true=1; my $false=0;
+--- netpbm-10.28/editor/ppmshadow.security2	2005-04-23 23:16:16.000000000 +0200
++++ netpbm-10.28/editor/ppmshadow	2005-06-10 09:37:19.253561792 +0200
+@@ -72,9 +72,10 @@ sub makeConvolutionKernel($$) {
+ 
  
  my $tmpdir = $ENV{TMPDIR} || "/tmp";
 -my $ourtmp = "$tmpdir/ppmshadow$$";
--mkdir($ourtmp) or 
+-mkdir($ourtmp, 0777) or
 -    die("Unable to create directory for temporary files '$ourtmp");
 +chomp($ourtmp = `mktemp -d -t PPMshadow.XXXXXX`);
 +if ($? >> 8) {
-+    die "Can't create tmpdir";
++    die "Can't create directory for temporary files";
 +}
  
  #   Process command line options

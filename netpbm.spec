@@ -1,12 +1,13 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.27
-Release: 4
+Version: 10.28
+Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 Source0: netpbm-%{version}.tar.bz2
 Source1: netpbmdoc-%{version}.tar.bz2
+Patch0: netpbm-10.28-legal.patch
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.18-manpath.patch
@@ -14,14 +15,12 @@ Patch4: netpbm-10.19-message.patch
 Patch5: netpbm-10.22-security2.patch
 Patch6: netpbm-10.22-cmapsize.patch
 Patch7: netpbm-10.23-security.patch
-Patch8: netpbm-10.23-pngtopnm.patch
-Patch9: netpbm-10.24-nodoc.patch
-Patch10: netpbm-10.26.4-gcc4.patch
-Patch11: netpbm-10.27-badlink.patch
-Patch12: netpbm-10.27-bmptopnm.patch
-Patch13: netpbm-10.27-libpm.patch
-Patch14: netpbm-10.27-pnmtojpeg.patch
-Patch15: netpbm-10.27-pnmcolormap.patch
+Patch8: netpbm-10.24-nodoc.patch
+Patch9: netpbm-10.26-4-gcc4.patch
+Patch10: netpbm-10.27-badlink.patch
+Patch11: netpbm-10.27-bmptopnm.patch
+Patch12: netpbm-10.27-libpm.patch
+Patch13: netpbm-10.27-pnmtojpeg.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -65,6 +64,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 
 %prep
 %setup -q
+%patch0 -p1 -b .legal
 %patch1 -p1 -b .time
 %patch2 -p1 -b .strip
 %patch3 -p1 -b .manpath
@@ -72,14 +72,12 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch5 -p1 -b .security2
 %patch6 -p1 -b .cmapsize
 %patch7 -p1 -b .security
-%patch8 -p1 -b .pngtopnm
-%patch9 -p1 -b .nodoc
-%patch10 -p1 -b .gcc4
-%patch11 -p1 -b .badlink
-%patch12 -p1 -b .bmptopnm
-%patch13 -p1 -b .libpm
-%patch14 -p1 -b .pnmtojpeg
-%patch15 -p1 -b .pnmcolormap
+%patch8 -p1 -b .nodoc
+%patch9 -p1 -b .gcc4
+%patch10 -p1 -b .badlink
+%patch11 -p1 -b .bmptopnm
+%patch12 -p1 -b .libpm
+%patch13 -p1 -b .pnmtojpeg
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -177,6 +175,12 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Fri Jun 10 2005 Jindrich Novy <jnovy@redhat.com> 10.28-1
+- update to 10.28
+- regenerated man pages
+- sync .security, .security2, .badlink, .libpm, .gcc4 patches
+- drop upstreamed .pngtopnm, .pnmcolormap patches
+
 * Tue May 31 2005 Jindrich Novy <jnovy@redhat.com> 10.27-4
 - fix segfault in pnmcolormap what makes latex2html/ppmquant
   unusable (#158665, #139111)
