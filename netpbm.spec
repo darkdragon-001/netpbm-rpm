@@ -16,7 +16,7 @@ Patch5: netpbm-10.22-security2.patch
 Patch6: netpbm-10.22-cmapsize.patch
 Patch7: netpbm-10.23-security.patch
 Patch8: netpbm-10.24-nodoc.patch
-Patch9: netpbm-10.26-4-gcc4.patch
+Patch9: netpbm-10.28-gcc4.patch
 Patch10: netpbm-10.27-badlink.patch
 Patch11: netpbm-10.27-bmptopnm.patch
 Patch12: netpbm-10.27-libpm.patch
