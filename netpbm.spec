@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.28
-Release: 1
+Release: 2
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -21,6 +21,7 @@ Patch10: netpbm-10.27-badlink.patch
 Patch11: netpbm-10.27-bmptopnm.patch
 Patch12: netpbm-10.27-libpm.patch
 Patch13: netpbm-10.27-pnmtojpeg.patch
+Patch14: netpbm-10.28-ndebug.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -78,6 +79,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch11 -p1 -b .bmptopnm
 %patch12 -p1 -b .libpm
 %patch13 -p1 -b .pnmtojpeg
+%patch14 -p1 -b .ndebug
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -175,6 +177,12 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Tue Jun 21 2005 Jindrich Novy <jnovy@redhat.com> 10.28-2
+- fix segfault in pbmtolj caused by unchecked assertions
+  caused by definition of NDEBUG (#160429)
+- drop hunk from .security patch causing dual inclusion
+  of string.h in pbmtolj.c
+
 * Fri Jun 10 2005 Jindrich Novy <jnovy@redhat.com> 10.28-1
 - update to 10.28
 - regenerated man pages

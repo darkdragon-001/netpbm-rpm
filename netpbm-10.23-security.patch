@@ -1441,14 +1441,6 @@
              if ((car >= MAXPKCHAR) || !filename[car]) {
 --- netpbm-10.28/converter/pbm/pbmtolj.c.security	2005-04-23 22:24:05.000000000 +0200
 +++ netpbm-10.28/converter/pbm/pbmtolj.c	2005-06-10 09:44:00.364583648 +0200
-@@ -32,6 +32,7 @@
- #include "mallocvar.h"
- #include <string.h>
- #include <assert.h>
-+#include <string.h>
- 
- static char *rowBuffer, *prevRowBuffer, *packBuffer, *deltaBuffer;
- static int rowBufferSize, rowBufferIndex, prevRowBufferIndex;
 @@ -119,7 +120,11 @@ parseCommandLine(int argc, char ** argv,
  static void
  allocateBuffers(unsigned int const cols) {
