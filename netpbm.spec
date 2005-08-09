@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.28
-Release: 4
+Release: 5
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -21,6 +21,7 @@ Patch10: netpbm-10.27-bmptopnm.patch
 Patch11: netpbm-10.27-libpm.patch
 Patch12: netpbm-10.27-pnmtojpeg.patch
 Patch13: netpbm-10.28-pbmtolj.patch
+Patch14: netpbm-10.28-CAN-2005-2471.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -78,6 +79,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch11 -p1 -b .libpm
 %patch12 -p1 -b .pnmtojpeg
 %patch13 -p1 -b .pbmtolj
+%patch14 -p1 -b .CAN-2005-2471
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -175,6 +177,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Tue Aug 09 2005 Jindrich Novy <jnovy@redhat.com> 10.28-5
+- fix CAN-2005-2471, unsafe gs calls from pstopnm (#165355)
+
 * Thu Jul 21 2005 Jindrich Novy <jnovy@redhat.com> 10.28-4
 - fix buffer overflow in pbmtolj (#163596)
 
