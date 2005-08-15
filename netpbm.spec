@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.28
-Release: 5
+Release: 6
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -109,6 +109,7 @@ make \
 	CC=%{__cc} \
 	CFLAGS="$RPM_OPT_FLAGS -fPIC" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
+	LADD="-lm"
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
 	TIFFINC_DIR=%{_includedir} \
@@ -177,6 +178,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Mon Aug 15 2005 Jindrich Novy <jnovy@redhat.com> 10.28-6
+- link libnetpbm.so against -lm (#165980)
+
 * Tue Aug 09 2005 Jindrich Novy <jnovy@redhat.com> 10.28-5
 - fix CAN-2005-2471, unsafe gs calls from pstopnm (#165355)
 
