@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.28
-Release: 6
+Version: 10.29
+Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -18,10 +18,7 @@ Patch7: netpbm-10.23-security.patch
 Patch8: netpbm-10.24-nodoc.patch
 Patch9: netpbm-10.28-gcc4.patch
 Patch10: netpbm-10.27-bmptopnm.patch
-Patch11: netpbm-10.27-libpm.patch
-Patch12: netpbm-10.27-pnmtojpeg.patch
-Patch13: netpbm-10.28-pbmtolj.patch
-Patch14: netpbm-10.28-CAN-2005-2471.patch
+Patch11: netpbm-10.28-CAN-2005-2471.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -76,10 +73,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch8 -p1 -b .nodoc
 %patch9 -p1 -b .gcc4
 %patch10 -p1 -b .bmptopnm
-%patch11 -p1 -b .libpm
-%patch12 -p1 -b .pnmtojpeg
-%patch13 -p1 -b .pbmtolj
-%patch14 -p1 -b .CAN-2005-2471
+%patch11 -p1 -b .CAN-2005-2471
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -178,6 +172,12 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Tue Aug 16 2005 Jindrich Novy <jnovy@redhat.com> 10.29-1
+- update to 10.29
+- drop upstreamed .libpm, .pnmtojpeg, .pbmtolj patches
+- update .CAN-2005-2471 patch
+- regenerate man pages
+
 * Mon Aug 15 2005 Jindrich Novy <jnovy@redhat.com> 10.28-6
 - link libnetpbm.so against -lm (#165980)
 
