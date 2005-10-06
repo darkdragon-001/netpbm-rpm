@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.29
-Release: 1
+Release: 2
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -19,6 +19,7 @@ Patch8: netpbm-10.24-nodoc.patch
 Patch9: netpbm-10.28-gcc4.patch
 Patch10: netpbm-10.27-bmptopnm.patch
 Patch11: netpbm-10.28-CAN-2005-2471.patch
+Patch12: netpbm-10.29-pnmtopng.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -74,6 +75,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch9 -p1 -b .gcc4
 %patch10 -p1 -b .bmptopnm
 %patch11 -p1 -b .CAN-2005-2471
+%patch12 -p1 -b .pnmtopng
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -172,6 +174,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Thu Oct 06 2005 Jindrich Novy <jnovy@redhat.com> 10.29-2
+- fix segfault in pnmtopng caused by referencing a NULL pointer (#169532)
+
 * Tue Aug 16 2005 Jindrich Novy <jnovy@redhat.com> 10.29-1
 - update to 10.29
 - drop upstreamed .libpm, .pnmtojpeg, .pbmtolj patches
