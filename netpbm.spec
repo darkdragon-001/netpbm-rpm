@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.29
-Release: 2
+Version: 10.30
+Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -10,16 +10,15 @@ Source1: netpbmdoc-%{version}.tar.bz2
 Patch0: netpbm-10.28-legal.patch
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
-Patch3: netpbm-10.18-manpath.patch
-Patch4: netpbm-10.19-message.patch
-Patch5: netpbm-10.22-security2.patch
-Patch6: netpbm-10.22-cmapsize.patch
-Patch7: netpbm-10.23-security.patch
-Patch8: netpbm-10.24-nodoc.patch
-Patch9: netpbm-10.28-gcc4.patch
-Patch10: netpbm-10.27-bmptopnm.patch
-Patch11: netpbm-10.28-CAN-2005-2471.patch
-Patch12: netpbm-10.29-pnmtopng.patch
+Patch3: netpbm-10.19-message.patch
+Patch4: netpbm-10.22-security2.patch
+Patch5: netpbm-10.22-cmapsize.patch
+Patch6: netpbm-10.23-security.patch
+Patch7: netpbm-10.24-nodoc.patch
+Patch8: netpbm-10.28-gcc4.patch
+Patch9: netpbm-10.27-bmptopnm.patch
+Patch10: netpbm-10.28-CAN-2005-2471.patch
+Patch11: netpbm-10.29-pnmtopng.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -66,16 +65,15 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch0 -p1 -b .legal
 %patch1 -p1 -b .time
 %patch2 -p1 -b .strip
-%patch3 -p1 -b .manpath
-%patch4 -p1 -b .message
-%patch5 -p1 -b .security2
-%patch6 -p1 -b .cmapsize
-%patch7 -p1 -b .security
-%patch8 -p1 -b .nodoc
-%patch9 -p1 -b .gcc4
-%patch10 -p1 -b .bmptopnm
-%patch11 -p1 -b .CAN-2005-2471
-%patch12 -p1 -b .pnmtopng
+%patch3 -p1 -b .message
+%patch4 -p1 -b .security2
+%patch5 -p1 -b .cmapsize
+%patch6 -p1 -b .security
+%patch7 -p1 -b .nodoc
+%patch8 -p1 -b .gcc4
+%patch9 -p1 -b .bmptopnm
+%patch10 -p1 -b .CAN-2005-2471
+%patch11 -p1 -b .pnmtopng
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -174,6 +172,14 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Fri Oct 21 2005 Jindrich Novy <jnovy@redhat.com> 10.30-1
+- update to 10.30
+- update manpath, gcc4 patches
+- update security patch - fixed length problem in rle_addhist
+- update partly upstreamed bmptopnm, pnmtopng patches
+- drop manpath patch
+- regenerate man pages
+
 * Thu Oct 06 2005 Jindrich Novy <jnovy@redhat.com> 10.29-2
 - fix segfault in pnmtopng caused by referencing a NULL pointer (#169532)
 
@@ -181,7 +187,6 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 - update to 10.29
 - drop upstreamed .libpm, .pnmtojpeg, .pbmtolj patches
 - update .CAN-2005-2471 patch
-- regenerate man pages
 
 * Mon Aug 15 2005 Jindrich Novy <jnovy@redhat.com> 10.28-6
 - link libnetpbm.so against -lm (#165980)
