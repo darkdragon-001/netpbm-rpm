@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.31
-Release: 3.1
+Release: 4
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -20,6 +20,7 @@ Patch9: netpbm-10.27-bmptopnm.patch
 Patch10: netpbm-10.28-CAN-2005-2471.patch
 Patch11: netpbm-10.29-pnmtopng.patch
 Patch12: netpbm-10.30-rgbtxt.patch
+Patch13: netpbm-10.31-xwdfix.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildPrereq: libjpeg-devel, libpng-devel, libtiff-devel, perl
 Obsoletes: libgr
@@ -76,6 +77,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch10 -p1 -b .CAN-2005-2471
 %patch11 -p1 -b .pnmtopng
 %patch12 -p1 -b .rgbtxt
+%patch13 -p1 -b .xwdfix
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -174,6 +176,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Tue Feb 14 2006 Jindrich Novy <jnovy@redhat.com> 10.31-4
+- make xwdtopnm work on x86_64 (#181001)
+
 * Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 10.31-3.1
 - bump again for double-long bug on ppc(64)
 
