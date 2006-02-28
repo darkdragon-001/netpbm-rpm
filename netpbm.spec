@@ -178,7 +178,7 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %changelog
 * Tue Feb 28 2006 Jindrich Novy <jnovy@redhat.com> 10.32-1
 - update to 10.32
-- drop .msbmp patch, aplied upstream
+- drop .msbmp patch, applied upstream
 - sync the rest of the patches
 - regenerate man pages
 
