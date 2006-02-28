@@ -1,5 +1,5 @@
---- /dev/null	2005-12-28 07:55:55.980549750 +0100
-+++ netpbm-10.31/OPENLICENSE	2005-12-30 10:44:51.000000000 +0100
+--- /dev/null	2006-02-27 10:00:27.892419250 +0100
++++ netpbm-10.32/OPENLICENSE	2006-02-27 14:48:10.000000000 +0100
 @@ -0,0 +1,163 @@
 +			The Open Software License
 +			v. 1.1
@@ -164,8 +164,8 @@
 +Permission is hereby granted to copy and distribute this license without 
 +modification. This license may not be modified without the express written 
 +permission of its copyright owner.
---- netpbm-10.31/generator/pbmtext.c.security	2005-07-18 03:14:10.000000000 +0200
-+++ netpbm-10.31/generator/pbmtext.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/generator/pbmtext.c.security	2005-07-18 03:14:10.000000000 +0200
++++ netpbm-10.32/generator/pbmtext.c	2006-02-27 14:48:10.000000000 +0100
 @@ -89,12 +89,14 @@ parse_command_line(int argc, char ** arg
          
          for (i = 1; i < argc; i++) {
@@ -230,8 +230,8 @@
      cols = 2 * hmargin + maxwidth;
      bits = pbm_allocarray(cols, rows);
  
---- netpbm-10.31/generator/pgmkernel.c.security	2003-07-06 22:03:29.000000000 +0200
-+++ netpbm-10.31/generator/pgmkernel.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/generator/pgmkernel.c.security	2003-07-06 22:03:29.000000000 +0200
++++ netpbm-10.32/generator/pgmkernel.c	2006-02-27 14:48:10.000000000 +0100
 @@ -68,7 +68,7 @@ main ( argc, argv )
      kycenter = (fysize - 1) / 2.0;
      ixsize = fxsize + 0.999;
@@ -241,8 +241,8 @@
      for (i = 0; i < iysize; i++) 
          for (j = 0; j < ixsize; j++) {
              fkernel[i*ixsize+j] = 1.0 / (1.0 + w * sqrt((double)
---- netpbm-10.31/generator/pgmcrater.c.security	2005-12-22 10:28:49.000000000 +0100
-+++ netpbm-10.31/generator/pgmcrater.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/generator/pgmcrater.c.security	2005-12-22 10:28:49.000000000 +0100
++++ netpbm-10.32/generator/pgmcrater.c	2006-02-27 14:48:10.000000000 +0100
 @@ -131,7 +131,7 @@ static void gencraters()
      /* Acquire the elevation array and initialize it to mean
         surface elevation. */
@@ -252,8 +252,8 @@
      if (aux == NULL) 
          pm_error("out of memory allocating elevation array");
  
---- netpbm-10.31/generator/pbmpage.c.security	2005-08-27 19:27:19.000000000 +0200
-+++ netpbm-10.31/generator/pbmpage.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/generator/pbmpage.c.security	2005-08-27 19:27:19.000000000 +0200
++++ netpbm-10.32/generator/pbmpage.c	2006-02-27 14:48:10.000000000 +0100
 @@ -170,6 +170,9 @@ outputPbm(FILE *        const file,
      /* We round the allocated row space up to a multiple of 8 so the ugly
         fast code below can work.
@@ -264,8 +264,8 @@
      pbmrow = pbm_allocrow(((bitmap.Width+7)/8)*8);
      
      bitmap_cursor = 0;
---- netpbm-10.31/generator/ppmrainbow.security	2003-01-04 01:40:56.000000000 +0100
-+++ netpbm-10.31/generator/ppmrainbow	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/generator/ppmrainbow.security	2003-01-04 01:40:56.000000000 +0100
++++ netpbm-10.32/generator/ppmrainbow	2006-02-27 14:48:10.000000000 +0100
 @@ -11,7 +11,7 @@ my ($Twid, $Thgt, $tmpdir, $norepeat, $v
  # set defaults
  $Twid = 600;
@@ -275,8 +275,8 @@
  $norepeat = $FALSE;
  $verbose = $FALSE;
  
---- netpbm-10.31/other/pnmcolormap.c.security	2005-12-21 05:35:06.000000000 +0100
-+++ netpbm-10.31/other/pnmcolormap.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/other/pnmcolormap.c.security	2005-12-21 05:35:06.000000000 +0100
++++ netpbm-10.32/other/pnmcolormap.c	2006-02-27 14:48:10.000000000 +0100
 @@ -836,6 +836,7 @@ colormapToSquare(struct pam * const pamP
              pamP->width = intsqrt;
          else 
@@ -285,8 +285,8 @@
      }
      {
          unsigned int const intQuotient = colormap.size / pamP->width;
---- netpbm-10.31/doc/COPYRIGHT.PATENT.security	2004-05-01 01:54:22.000000000 +0200
-+++ netpbm-10.31/doc/COPYRIGHT.PATENT	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/doc/COPYRIGHT.PATENT.security	2004-05-01 01:54:22.000000000 +0200
++++ netpbm-10.32/doc/COPYRIGHT.PATENT	2006-02-27 14:48:10.000000000 +0100
 @@ -33,6 +33,11 @@ no warranties regarding any of the code 
  all the above to be modified by "to the best of the Netpbm
  maintainer's knowledge."
@@ -299,8 +299,8 @@
  
  
  PATENTS
---- netpbm-10.31/converter/pgm/psidtopgm.c.security	2005-08-27 20:38:40.000000000 +0200
-+++ netpbm-10.31/converter/pgm/psidtopgm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pgm/psidtopgm.c.security	2005-08-27 20:38:40.000000000 +0200
++++ netpbm-10.32/converter/pgm/psidtopgm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -78,6 +78,7 @@ main(int     argc,
          pm_error("bits/sample (%d) is too large.", bitspersample);
  
@@ -309,8 +309,8 @@
      grayrow = pgm_allocrow((cols + 7) / 8 * 8);
      for (row = 0; row < rows; ++row) {
          unsigned int col;
---- netpbm-10.31/converter/pgm/lispmtopgm.c.security	2005-10-07 09:03:29.000000000 +0200
-+++ netpbm-10.31/converter/pgm/lispmtopgm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pgm/lispmtopgm.c.security	2005-10-07 09:03:29.000000000 +0200
++++ netpbm-10.32/converter/pgm/lispmtopgm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -58,6 +58,7 @@ main( argc, argv )
          pm_error( "depth (%d bits) is too large", depth);
  
@@ -330,8 +330,8 @@
      *padrightP = ( ( *colsP + 31 ) / 32 ) * 32 - *colsP;
      
      if ( *colsP != (cols_32 - *padrightP) ) {
---- netpbm-10.31/converter/ppm/pjtoppm.c.security	2003-07-06 23:45:36.000000000 +0200
-+++ netpbm-10.31/converter/ppm/pjtoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/pjtoppm.c.security	2003-07-06 23:45:36.000000000 +0200
++++ netpbm-10.32/converter/ppm/pjtoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -127,19 +127,21 @@ main(argc, argv)
                  case 'V':   /* send plane */
                  case 'W':   /* send last plane */
@@ -381,8 +381,8 @@
          cols *= 8;
      }
              
---- netpbm-10.31/converter/ppm/ppmtoicr.c.security	2003-02-22 23:05:03.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtoicr.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtoicr.c.security	2003-02-22 23:05:03.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtoicr.c	2006-02-27 14:48:10.000000000 +0100
 @@ -169,7 +169,7 @@ char* argv[];
  
  	if (rleflag) {	
@@ -392,8 +392,8 @@
  		p = testimage;
  		for (i=0; i<rows; i++)
  			for (j=0; j<cols; j++) 
---- netpbm-10.31/converter/ppm/qrttoppm.c.security	1993-10-04 10:12:56.000000000 +0100
-+++ netpbm-10.31/converter/ppm/qrttoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/qrttoppm.c.security	1993-10-04 10:12:56.000000000 +0100
++++ netpbm-10.32/converter/ppm/qrttoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -46,7 +46,7 @@ main( argc, argv )
  
      ppm_writeppminit( stdout, cols, rows, maxval, 0 );
@@ -403,8 +403,8 @@
      if ( buf == (unsigned char *) 0 )
  	pm_error( "out of memory" );
  
---- netpbm-10.31/converter/ppm/ppmtompeg/parallel.c.security	2005-07-14 22:11:06.000000000 +0200
-+++ netpbm-10.31/converter/ppm/ppmtompeg/parallel.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtompeg/parallel.c.security	2005-07-14 22:11:06.000000000 +0200
++++ netpbm-10.32/converter/ppm/ppmtompeg/parallel.c	2006-02-27 14:48:10.000000000 +0100
 @@ -2097,7 +2097,9 @@ DecodeServer(int          const numInput
      const char * error;
  
@@ -416,8 +416,8 @@
      ready = (boolean *) calloc(numInputFiles, sizeof(boolean));
      waitMachine = (int *) calloc(numInputFiles, sizeof(int));
      waitPort = (int *) malloc(numMachines*sizeof(int));
---- netpbm-10.31/converter/ppm/ppmtompeg/rgbtoycc.c.security	2004-11-13 23:13:03.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtompeg/rgbtoycc.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtompeg/rgbtoycc.c.security	2004-11-13 23:13:03.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtompeg/rgbtoycc.c	2006-02-27 14:48:10.000000000 +0100
 @@ -72,6 +72,8 @@ compute_mult_tables(const pixval maxval)
          } 
          table_maxval = maxval;
@@ -427,9 +427,9 @@
          mult299   = malloc((table_maxval+1)*sizeof(float));
          mult587   = malloc((table_maxval+1)*sizeof(float));
          mult114   = malloc((table_maxval+1)*sizeof(float));
---- netpbm-10.31/converter/ppm/ppmtompeg/psearch.c.security	2005-10-16 19:10:02.000000000 +0200
-+++ netpbm-10.31/converter/ppm/ppmtompeg/psearch.c	2005-12-30 10:44:51.000000000 +0100
-@@ -219,7 +219,14 @@ SetSearchRange(int const pixelsP, int co
+--- netpbm-10.32/converter/ppm/ppmtompeg/psearch.c.security	2006-01-24 05:33:37.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtompeg/psearch.c	2006-02-27 14:48:10.000000000 +0100
+@@ -214,7 +214,14 @@ SetSearchRange(int const pixelsP, int co
          int const max_search = max(searchRangeP, searchRangeB);
  
          int index;
@@ -445,7 +445,7 @@
          pmvHistogram = (int **) malloc((2*searchRangeP+3)*sizeof(int *));
          bbmvHistogram = (int **) malloc((2*searchRangeB+3)*sizeof(int *));
          bfmvHistogram = (int **) malloc((2*searchRangeB+3)*sizeof(int *));
-@@ -845,6 +852,9 @@ ShowPMVHistogram(fpointer)
+@@ -798,6 +805,9 @@ ShowPMVHistogram(fpointer)
      int *columnTotals;
      int rowTotal;
  
@@ -455,7 +455,7 @@
      columnTotals = (int *) calloc(2*searchRangeP+3, sizeof(int));
  
  #ifdef COMPLETE_DISPLAY
-@@ -892,6 +902,9 @@ ShowBBMVHistogram(fpointer)
+@@ -845,6 +855,9 @@ ShowBBMVHistogram(fpointer)
  
      fprintf(fpointer, "B-frame Backwards:\n");
  
@@ -465,7 +465,7 @@
      columnTotals = (int *) calloc(2*searchRangeB+3, sizeof(int));
  
  #ifdef COMPLETE_DISPLAY
-@@ -939,6 +952,9 @@ ShowBFMVHistogram(fpointer)
+@@ -892,6 +905,9 @@ ShowBFMVHistogram(fpointer)
  
      fprintf(fpointer, "B-frame Forwards:\n");
  
@@ -475,205 +475,9 @@
      columnTotals = (int *) calloc(2*searchRangeB+3, sizeof(int));
  
  #ifdef COMPLETE_DISPLAY
---- netpbm-10.31/converter/ppm/ppmtompeg/frame.c.security	2005-09-17 23:43:35.000000000 +0200
-+++ netpbm-10.31/converter/ppm/ppmtompeg/frame.c	2005-12-30 10:44:51.000000000 +0100
-@@ -144,24 +144,24 @@ Resize_Width(MpegFrame * const omfrw,
-     Fsize_x = out_x;
- 
-     /* Allocate new frame memory */
--    omfrw->orig_y = (uint8 **) malloc(sizeof(uint8 *) * Fsize_y);
-+    omfrw->orig_y = (uint8 **) malloc2(sizeof(uint8 *), Fsize_y);
-     ERRCHK(omfrw->orig_y, "malloc");
-     for (y = 0; y < Fsize_y; ++y) {
--        omfrw->orig_y[y] = (uint8 *) malloc(sizeof(uint8) * out_x);
-+        omfrw->orig_y[y] = (uint8 *) malloc2(sizeof(uint8), out_x);
-         ERRCHK(omfrw->orig_y[y], "malloc");
-     }
- 
--    omfrw->orig_cr = (uint8 **) malloc(sizeof(int8 *) * Fsize_y / 2);
-+    omfrw->orig_cr = (uint8 **) malloc2(sizeof(int8 *), Fsize_y / 2);
-     ERRCHK(omfrw->orig_cr, "malloc");
-     for (y = 0; y < Fsize_y / 2; ++y) {
--        omfrw->orig_cr[y] = (uint8 *) malloc(sizeof(int8) * out_x / 2);
-+        omfrw->orig_cr[y] = (uint8 *) malloc2(sizeof(int8), out_x / 2);
-         ERRCHK(omfrw->orig_cr[y], "malloc");
-     }
- 
--    omfrw->orig_cb = (uint8 **) malloc(sizeof(int8 *) * Fsize_y / 2);
-+    omfrw->orig_cb = (uint8 **) malloc2(sizeof(int8 *), Fsize_y / 2);
-     ERRCHK(omfrw->orig_cb, "malloc");
-     for (y = 0; y < Fsize_y / 2; ++y) {
--        omfrw->orig_cb[y] = (uint8 *) malloc(sizeof(int8) * out_x / 2);
-+        omfrw->orig_cb[y] = (uint8 *) malloc2(sizeof(int8), out_x / 2);
-         ERRCHK(omfrw->orig_cb[y], "malloc");
-     }
- 
-@@ -217,24 +217,24 @@ Resize_Height(MpegFrame * const omfrh,
-     Fsize_y = out_y;
- 
-     /* Allocate new frame memory */
--    omfrh->orig_y = (uint8 **) malloc(sizeof(uint8 *) * out_y);
-+    omfrh->orig_y = (uint8 **) malloc2(sizeof(uint8 *), out_y);
-     ERRCHK(omfrh->orig_y, "malloc");
-     for (y = 0; y < out_y; ++y) {
--        omfrh->orig_y[y] = (uint8 *) malloc(sizeof(uint8) * Fsize_x);
-+        omfrh->orig_y[y] = (uint8 *) malloc2(sizeof(uint8), Fsize_x);
-         ERRCHK(omfrh->orig_y[y], "malloc");
-     }
- 
--    omfrh->orig_cr = (uint8 **) malloc(sizeof(int8 *) * out_y / 2);
-+    omfrh->orig_cr = (uint8 **) malloc2(sizeof(int8 *), out_y / 2);
-     ERRCHK(omfrh->orig_cr, "malloc");
-     for (y = 0; y < out_y / 2; ++y) {
--        omfrh->orig_cr[y] = (uint8 *) malloc(sizeof(int8) * Fsize_x / 2);
-+        omfrh->orig_cr[y] = (uint8 *) malloc2(sizeof(int8), Fsize_x / 2);
-         ERRCHK(omfrh->orig_cr[y], "malloc");
-     }
- 
--    omfrh->orig_cb = (uint8 **) malloc(sizeof(int8 *) * out_y / 2);
-+    omfrh->orig_cb = (uint8 **) malloc2(sizeof(int8 *), out_y / 2);
-     ERRCHK(omfrh->orig_cb, "malloc");
-     for (y = 0; y < out_y / 2; ++y) {
--        omfrh->orig_cb[y] = (uint8 *) malloc(sizeof(int8) * Fsize_x / 2);
-+        omfrh->orig_cb[y] = (uint8 *) malloc2(sizeof(int8), Fsize_x / 2);
-         ERRCHK(omfrh->orig_cb[y], "malloc");
-     }
- 
-@@ -441,6 +441,7 @@ Frame_Init(unsigned int numOfFramesReque
- 
-     for (idx = 0; idx < numOfFrames; ++idx) {
-         frameMemory[idx] = (MpegFrame *) malloc(sizeof(MpegFrame));
-+	ERRCHK(frameMemory[idx], "malloc");
-         frameMemory[idx]->inUse = FALSE;
-         frameMemory[idx]->orig_y = NULL;    
-         frameMemory[idx]->y_blocks = NULL; 
-@@ -615,22 +616,22 @@ Frame_AllocBlocks(MpegFrame * const fram
- 
-         unsigned int i;
- 
--        frame->y_blocks = (Block **) malloc(sizeof(Block *) * dcty);
-+        frame->y_blocks = (Block **) malloc2(sizeof(Block *), dcty);
-         ERRCHK(frame->y_blocks, "malloc");
-         for (i = 0; i < dcty; ++i) {
--            frame->y_blocks[i] = (Block *) malloc(sizeof(Block) * dctx);
-+            frame->y_blocks[i] = (Block *) malloc2(sizeof(Block), dctx);
-             ERRCHK(frame->y_blocks[i], "malloc");
-         }
-     
--        frame->cr_blocks = (Block **) malloc(sizeof(Block *) * (dcty >> 1));
--        frame->cb_blocks = (Block **) malloc(sizeof(Block *) * (dcty >> 1));
-+        frame->cr_blocks = (Block **) malloc2(sizeof(Block *), (dcty >> 1));
-+        frame->cb_blocks = (Block **) malloc2(sizeof(Block *), (dcty >> 1));
-         ERRCHK(frame->cr_blocks, "malloc");
-         ERRCHK(frame->cb_blocks, "malloc");
-         for (i = 0; i < (dcty >> 1); ++i) {
-             frame->cr_blocks[i] = (Block *)
--                malloc(sizeof(Block) * (dctx >> 1));
-+                malloc2(sizeof(Block), (dctx >> 1));
-             frame->cb_blocks[i] = (Block *)
--                malloc(sizeof(Block) * (dctx >> 1));
-+                malloc2(sizeof(Block), (dctx >> 1));
-             ERRCHK(frame->cr_blocks[i], "malloc");
-             ERRCHK(frame->cb_blocks[i], "malloc");
-         }
-@@ -662,26 +663,26 @@ Frame_AllocYCC(MpegFrame * const frame) 
-         /*
-          * first, allocate tons of memory
-          */
--        frame->orig_y = (uint8 **) malloc(sizeof(uint8 *) * Fsize_y);
-+        frame->orig_y = (uint8 **) malloc2(sizeof(uint8 *), Fsize_y);
-         ERRCHK(frame->orig_y, "malloc");
-         for (y = 0; y < Fsize_y; ++y) {
--            frame->orig_y[y] = (uint8 *) malloc(sizeof(uint8) * Fsize_x);
-+            frame->orig_y[y] = (uint8 *) malloc2(sizeof(uint8), Fsize_x);
-             ERRCHK(frame->orig_y[y], "malloc");
-         }
- 
--        frame->orig_cr = (uint8 **) malloc(sizeof(int8 *) * (Fsize_y >> 1));
-+        frame->orig_cr = (uint8 **) malloc2(sizeof(int8 *), (Fsize_y >> 1));
-         ERRCHK(frame->orig_cr, "malloc");
-         for (y = 0; y < (Fsize_y >> 1); ++y) {
-             frame->orig_cr[y] = (uint8 *)
--                malloc(sizeof(int8) * (Fsize_x >> 1));
-+                malloc2(sizeof(int8), (Fsize_x >> 1));
-             ERRCHK(frame->orig_cr[y], "malloc");
-         }
- 
--        frame->orig_cb = (uint8 **) malloc(sizeof(int8 *) * (Fsize_y >> 1));
-+        frame->orig_cb = (uint8 **) malloc2(sizeof(int8 *), (Fsize_y >> 1));
-         ERRCHK(frame->orig_cb, "malloc");
-         for (y = 0; y < (Fsize_y >> 1); ++y) {
-             frame->orig_cb[y] = (uint8 *)
--                malloc(sizeof(int8) * (Fsize_x >> 1));
-+                malloc2(sizeof(int8), (Fsize_x >> 1));
-             ERRCHK(frame->orig_cb[y], "malloc");
-         }
- 
-@@ -713,22 +714,22 @@ Frame_AllocHalf(MpegFrame * const frame)
-     } else {
-         unsigned int y;
- 
--        frame->halfX = (uint8 **) malloc(Fsize_y*sizeof(uint8 *));
-+        frame->halfX = (uint8 **) malloc2(Fsize_y, sizeof(uint8 *));
-         ERRCHK(frame->halfX, "malloc");
--        frame->halfY = (uint8 **) malloc((Fsize_y-1)*sizeof(uint8 *));
-+        frame->halfY = (uint8 **) malloc2((Fsize_y-1), sizeof(uint8 *));
-         ERRCHK(frame->halfY, "malloc");
--        frame->halfBoth = (uint8 **) malloc((Fsize_y-1)*sizeof(uint8 *));
-+        frame->halfBoth = (uint8 **) malloc2((Fsize_y-1), sizeof(uint8 *));
-         ERRCHK(frame->halfBoth, "malloc");
-         for (y = 0; y < Fsize_y; ++y) {
--            frame->halfX[y] = (uint8 *) malloc((Fsize_x-1)*sizeof(uint8));
-+            frame->halfX[y] = (uint8 *) malloc2((Fsize_x-1), sizeof(uint8));
-             ERRCHK(frame->halfX[y], "malloc");
-         }
-         for (y = 0; y < Fsize_y-1; ++y) {
--            frame->halfY[y] = (uint8 *) malloc(Fsize_x*sizeof(uint8));
-+            frame->halfY[y] = (uint8 *) malloc2(Fsize_x, sizeof(uint8));
-             ERRCHK(frame->halfY[y], "malloc");
-         }
-         for (y = 0; y < Fsize_y-1; ++y) {
--            frame->halfBoth[y] = (uint8 *) malloc((Fsize_x-1)*sizeof(uint8));
-+            frame->halfBoth[y] = (uint8 *) malloc2((Fsize_x-1), sizeof(uint8));
-             ERRCHK(frame->halfBoth[y], "malloc");
-         }
-     }
-@@ -762,26 +763,26 @@ Frame_AllocDecoded(MpegFrame * const fra
-            it for some reason, so do it this way at least for now -- more
-            flexible
-         */
--        frame->decoded_y = (uint8 **) malloc(sizeof(uint8 *) * Fsize_y);
-+        frame->decoded_y = (uint8 **) malloc2(sizeof(uint8 *), Fsize_y);
-         ERRCHK(frame->decoded_y, "malloc");
-         for (y = 0; y < Fsize_y; ++y) {
--            frame->decoded_y[y] = (uint8 *) malloc(sizeof(uint8) * Fsize_x);
-+            frame->decoded_y[y] = (uint8 *) malloc2(sizeof(uint8), Fsize_x);
-             ERRCHK(frame->decoded_y[y], "malloc");
-         }
- 
--        frame->decoded_cr = (uint8 **) malloc(sizeof(int8 *) * (Fsize_y >> 1));
-+        frame->decoded_cr = (uint8 **) malloc2(sizeof(int8 *), (Fsize_y >> 1));
-         ERRCHK(frame->decoded_cr, "malloc");
-         for (y = 0; y < (Fsize_y >> 1); ++y) {
-             frame->decoded_cr[y] = (uint8 *)
--                malloc(sizeof(uint8) * (Fsize_x >> 1));
-+                malloc2(sizeof(uint8), (Fsize_x >> 1));
-             ERRCHK(frame->decoded_cr[y], "malloc");
-         }
- 
--        frame->decoded_cb = (uint8 **) malloc(sizeof(int8 *) * (Fsize_y >> 1));
-+        frame->decoded_cb = (uint8 **) malloc2(sizeof(int8 *), (Fsize_y >> 1));
-         ERRCHK(frame->decoded_cb, "malloc");
-         for (y = 0; y < (Fsize_y >> 1); ++y) {
-             frame->decoded_cb[y] = (uint8 *)
--                malloc(sizeof(uint8) * (Fsize_x >> 1));
-+                malloc2(sizeof(uint8), (Fsize_x >> 1));
-             ERRCHK(frame->decoded_cb[y], "malloc");
-         }
- 
---- netpbm-10.31/converter/ppm/ppmtompeg/iframe.c.security	2005-12-22 09:57:48.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtompeg/iframe.c	2005-12-30 14:32:29.000000000 +0100
-@@ -767,7 +767,8 @@ BlockComputeSNR(MpegFrame * const curren
+--- netpbm-10.32/converter/ppm/ppmtompeg/iframe.c.security	2006-01-22 18:38:01.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtompeg/iframe.c	2006-02-27 14:48:10.000000000 +0100
+@@ -768,7 +768,8 @@ BlockComputeSNR(MpegFrame * const curren
      if (needs_init) {
          int ysz = (Fsize_y>>3) * sizeof(int32 *);
          int xsz = (Fsize_x>>3);
@@ -683,7 +487,7 @@
          needs_init = FALSE;
          for (y=0; y<3; y++) {
              varDiff[y] = ratio[y] = total[y] = 0.0;
-@@ -786,6 +787,7 @@ BlockComputeSNR(MpegFrame * const curren
+@@ -787,6 +788,7 @@ BlockComputeSNR(MpegFrame * const curren
              fprintf(stderr, "Out of memory in BlockComputeSNR\n");
              exit(-1);
          }
@@ -691,7 +495,7 @@
          for (y = 0; y < ySize[0]>>3; y++) {
              SignalY[y]  = (int32 *) calloc(xsz,4);
              SignalCr[y]  = (int32 *) calloc(xsz,4);
-@@ -944,27 +946,27 @@ AllocDctBlocks(void) {
+@@ -945,27 +947,27 @@ AllocDctBlocks(void) {
      dctx = Fsize_x / DCTSIZE;
      dcty = Fsize_y / DCTSIZE;
  
@@ -727,8 +531,8 @@
          ERRCHK(dctr[i], "malloc");
          ERRCHK(dctb[i], "malloc");
      }
---- netpbm-10.31/converter/ppm/ppmtopj.c.security	2005-10-07 09:01:27.000000000 +0200
-+++ netpbm-10.31/converter/ppm/ppmtopj.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtopj.c.security	2005-10-07 09:01:27.000000000 +0200
++++ netpbm-10.32/converter/ppm/ppmtopj.c	2006-02-27 14:48:10.000000000 +0100
 @@ -179,6 +179,7 @@ char *argv[];
  	pixels = ppm_readppm( ifp, &cols, &rows, &maxval );
  
@@ -737,8 +541,8 @@
  	obuf = (unsigned char *) pm_allocrow(cols, sizeof(unsigned char));
  	cbuf = (unsigned char *) pm_allocrow(cols * 2, sizeof(unsigned char));
  
---- netpbm-10.31/converter/ppm/imgtoppm.c.security	2002-09-06 18:30:03.000000000 +0200
-+++ netpbm-10.31/converter/ppm/imgtoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/imgtoppm.c.security	2002-09-06 18:30:03.000000000 +0200
++++ netpbm-10.32/converter/ppm/imgtoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -84,6 +84,7 @@ main(int argc, char ** argv) {
              len = atoi((char*) buf );
              if ( fread( buf, len, 1, ifp ) != 1 )
@@ -755,8 +559,8 @@
              if ( len != cols * rows )
                  pm_message(
                      "pixel data length (%d) does not match image size (%d)",
---- netpbm-10.31/converter/ppm/ximtoppm.c.security	2005-10-07 08:59:40.000000000 +0200
-+++ netpbm-10.31/converter/ppm/ximtoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ximtoppm.c.security	2005-10-07 08:59:40.000000000 +0200
++++ netpbm-10.32/converter/ppm/ximtoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -111,6 +111,7 @@ ReadXimHeader(FILE *     const in_fp,
      header->bits_channel = atoi(a_head.bits_per_channel);
      header->alpha_flag = atoi(a_head.alpha_channel);
@@ -789,8 +593,8 @@
          header->colors = (Color *)calloc((unsigned int)header->ncolors,
                  sizeof(Color));
          if (header->colors == NULL) {
---- netpbm-10.31/converter/ppm/pcxtoppm.c.security	2005-09-17 23:47:04.000000000 +0200
-+++ netpbm-10.31/converter/ppm/pcxtoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/pcxtoppm.c.security	2005-09-17 23:47:04.000000000 +0200
++++ netpbm-10.32/converter/ppm/pcxtoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -407,6 +407,7 @@ pcx_planes_to_pixels(pixels, bitplanes, 
      /*
       * clear the pixel buffer
@@ -815,8 +619,8 @@
      pcxrow = (unsigned char *)
          pm_allocrow(Planes * BytesPerLine, sizeof(unsigned char));
      rawrow = (unsigned char *)pm_allocrow(rawcols, sizeof(unsigned char));
---- netpbm-10.31/converter/ppm/ppmtopict.c.security	2003-02-22 23:04:40.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtopict.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtopict.c.security	2003-02-22 23:04:40.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtopict.c	2006-02-27 14:48:10.000000000 +0100
 @@ -245,6 +245,8 @@ char *argv[];
  	putShort(stdout, 0);			/* mode */
  
@@ -826,8 +630,8 @@
  	packed = (char*) malloc((unsigned)(cols+cols/MAX_COUNT+1));
  	oc = 0;
  	for (row = 0; row < rows; row++)
---- netpbm-10.31/converter/ppm/ppmtomitsu.c.security	2005-12-22 09:54:51.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtomitsu.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtomitsu.c.security	2005-12-22 09:54:51.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtomitsu.c	2006-02-27 14:48:10.000000000 +0100
 @@ -166,6 +166,8 @@ int main( argc, argv )
          medias = MSize_User;
  
@@ -837,9 +641,9 @@
                  medias.maxcols *= 2;
                  medias.maxrows *= 2;
          }
---- netpbm-10.31/converter/ppm/ppmtoilbm.c.security	2005-12-22 09:54:38.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtoilbm.c	2005-12-30 10:44:51.000000000 +0100
-@@ -812,11 +812,15 @@ main(argc, argv)
+--- netpbm-10.32/converter/ppm/ppmtoilbm.c.security	2005-12-26 21:26:11.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtoilbm.c	2006-02-27 14:48:10.000000000 +0100
+@@ -709,11 +709,15 @@ main(argc, argv)
  
      if( mode != MODE_CMAP ) {
          register int i;
@@ -856,7 +660,7 @@
      }
  
      switch( mode ) {
-@@ -1907,6 +1911,7 @@ ppm_to_rgb8(ifp, cols, rows, maxval)
+@@ -1812,6 +1816,7 @@ ppm_to_rgb8(ifp, cols, rows, maxval)
  
      maskmethod = 0;     /* no masking - RGB8 uses genlock bits */
      compmethod = 4;     /* RGB8 files are always compressed */
@@ -864,7 +668,7 @@
      MALLOCARRAY_NOFAIL(compr_row, cols * 4);
  
      if( maxval != 255 ) {
-@@ -1995,6 +2000,7 @@ ppm_to_rgbn(ifp, cols, rows, maxval)
+@@ -1900,6 +1905,7 @@ ppm_to_rgbn(ifp, cols, rows, maxval)
  
      maskmethod = 0;     /* no masking - RGBN uses genlock bits */
      compmethod = 4;     /* RGBN files are always compressed */
@@ -872,7 +676,7 @@
      MALLOCARRAY_NOFAIL(compr_row, cols * 2);
  
      if( maxval != 15 ) {
-@@ -2477,6 +2483,7 @@ make_val_table(oldmaxval, newmaxval)
+@@ -2382,6 +2388,7 @@ make_val_table(oldmaxval, newmaxval)
      int i;
      int *table;
  
@@ -880,8 +684,8 @@
      MALLOCARRAY_NOFAIL(table, oldmaxval + 1);
      for(i = 0; i <= oldmaxval; i++ )
          table[i] = (i * newmaxval + oldmaxval/2) / oldmaxval;
---- netpbm-10.31/converter/ppm/ilbmtoppm.c.security	2005-12-22 09:51:05.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ilbmtoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ilbmtoppm.c.security	2005-12-22 09:51:05.000000000 +0100
++++ netpbm-10.32/converter/ppm/ilbmtoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -595,6 +595,7 @@ decode_row(FILE *          const ifP,
      rawtype *chp;
  
@@ -960,8 +764,8 @@
          MALLOCARRAY_NOFAIL(ilbmrow, RowBytes(bmhdP->w));
          *viewportmodesP |= fakeviewport;      /* -isham/-isehb */
  
---- netpbm-10.31/converter/ppm/sldtoppm.c.security	2005-10-07 09:00:51.000000000 +0200
-+++ netpbm-10.31/converter/ppm/sldtoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/sldtoppm.c.security	2005-10-07 09:00:51.000000000 +0200
++++ netpbm-10.32/converter/ppm/sldtoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -306,7 +306,9 @@ static void slider(slvec, slflood)
      }
  
@@ -973,8 +777,8 @@
      pixels = ppm_allocarray(pixcols = ixdots + 1, pixrows = iydots + 1);
      PPM_ASSIGN(rgbcolor, 0, 0, 0);
      ppmd_filledrectangle(pixels, pixcols, pixrows, pixmaxval, 0, 0,
---- netpbm-10.31/converter/ppm/ppmtolj.c.security	2005-11-27 07:59:21.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtolj.c	2005-12-30 10:54:29.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtolj.c.security	2005-11-27 07:59:21.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtolj.c	2006-02-27 14:48:10.000000000 +0100
 @@ -181,7 +181,8 @@ int main(int argc, char *argv[]) {
  
      ppm_readppminit( ifp, &cols, &rows, &maxval, &format );
@@ -985,8 +789,8 @@
      obuf = (unsigned char *) pm_allocrow(cols * 3, sizeof(unsigned char));
      cbuf = (unsigned char *) pm_allocrow(cols * 6, sizeof(unsigned char));
      if (mode == C_TRANS_MODE_DELTA)
---- netpbm-10.31/converter/ppm/ppmtopcx.c.security	2005-08-27 20:25:49.000000000 +0200
-+++ netpbm-10.31/converter/ppm/ppmtopcx.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtopcx.c.security	2005-08-27 20:25:49.000000000 +0200
++++ netpbm-10.32/converter/ppm/ppmtopcx.c	2006-02-27 14:48:10.000000000 +0100
 @@ -418,6 +418,8 @@ ppmTo16ColorPcx(pixel **            cons
              else                   Planes = 1;
          }
@@ -996,8 +800,8 @@
      BytesPerLine = ((cols * BitsPerPixel) + 7) / 8;
      MALLOCARRAY_NOFAIL(indexRow, cols);
      MALLOCARRAY_NOFAIL(planesrow, BytesPerLine);
---- netpbm-10.31/converter/ppm/Makefile.security	2005-12-30 10:44:51.000000000 +0100
-+++ netpbm-10.31/converter/ppm/Makefile	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/Makefile.security	2006-02-27 14:48:10.000000000 +0100
++++ netpbm-10.32/converter/ppm/Makefile	2006-02-27 14:48:10.000000000 +0100
 @@ -11,7 +11,7 @@ SUBDIRS = ppmtompeg
  
  PORTBINARIES =	411toppm eyuvtoppm gouldtoppm ilbmtoppm imgtoppm \
@@ -1007,8 +811,8 @@
  		ppmtoacad ppmtoarbtxt \
  		ppmtobmp ppmtoeyuv ppmtogif ppmtoicr ppmtoilbm \
  		ppmtoleaf ppmtolj ppmtomitsu ppmtoneo \
---- netpbm-10.31/converter/ppm/ppmtoxpm.c.security	2005-12-21 17:50:01.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtoxpm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtoxpm.c.security	2005-12-21 17:50:01.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtoxpm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -195,6 +195,7 @@ genNumstr(unsigned int const input, int 
      unsigned int i;
  
@@ -1025,8 +829,8 @@
      MALLOCARRAY(cmap, cmapSize);
      if (cmapP == NULL)
          pm_error("Out of memory allocating %u bytes for a color map.",
---- netpbm-10.31/converter/ppm/ppmtopjxl.c.security	2005-12-22 09:54:12.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtopjxl.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtopjxl.c.security	2005-12-22 09:54:12.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtopjxl.c	2006-02-27 14:48:10.000000000 +0100
 @@ -274,6 +274,8 @@ main(argc, argv)
        pm_error("image too large; reduce with ppmscale");
     if (maxval > PCL_MAXVAL)
@@ -1059,8 +863,8 @@
     if ((inrow = (char *)malloc((unsigned)bpp)) == NULL ||
         (outrow = (char *)malloc((unsigned)bpp*2)) == NULL ||
         (runcnt = (signed char *)malloc((unsigned)bpp)) == NULL)
---- netpbm-10.31/converter/ppm/yuvtoppm.c.security	2003-07-06 22:32:09.000000000 +0200
-+++ netpbm-10.31/converter/ppm/yuvtoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/yuvtoppm.c.security	2003-07-06 22:32:09.000000000 +0200
++++ netpbm-10.32/converter/ppm/yuvtoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -72,6 +72,7 @@ main(argc, argv)
  
  	ppm_writeppminit(stdout, cols, rows, (pixval) 255, 0);
@@ -1069,16 +873,16 @@
      MALLOCARRAY(yuvbuf, (cols+1)/2);
      if (yuvbuf == NULL)
          pm_error("Unable to allocate YUV buffer for %d columns.", cols);
---- netpbm-10.31/converter/ppm/picttoppm.c.security	2005-12-22 09:51:46.000000000 +0100
-+++ netpbm-10.31/converter/ppm/picttoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/picttoppm.c.security	2005-12-22 09:51:46.000000000 +0100
++++ netpbm-10.32/converter/ppm/picttoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -1,3 +1,5 @@
 +#error "Unfixable. Don't ship me"
 +
  /*
   * picttoppm.c -- convert a MacIntosh PICT file to PPM format.
   *
---- netpbm-10.31/converter/ppm/ppmtowinicon.c.security	2005-10-07 08:14:24.000000000 +0200
-+++ netpbm-10.31/converter/ppm/ppmtowinicon.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtowinicon.c.security	2005-10-07 08:14:24.000000000 +0200
++++ netpbm-10.32/converter/ppm/ppmtowinicon.c	2006-02-27 14:48:10.000000000 +0100
 @@ -12,6 +12,7 @@
  
  #include <math.h>
@@ -1122,8 +926,8 @@
      entry->size_in_bytes = 
          xorBitmap->size + andBitmap->size + 40 + (4 * entry->color_count);
      if (verbose) 
---- netpbm-10.31/converter/ppm/xpmtoppm.c.security	2005-10-07 08:59:22.000000000 +0200
-+++ netpbm-10.31/converter/ppm/xpmtoppm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/xpmtoppm.c.security	2005-10-07 08:59:22.000000000 +0200
++++ netpbm-10.32/converter/ppm/xpmtoppm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -700,6 +700,7 @@ ReadXPMFile(FILE * const stream, int * c
                         &ncolors, colorsP, &ptab);
          *transparentP = -1;  /* No transparency in version 1 */
@@ -1132,8 +936,8 @@
      totalpixels = *widthP * *heightP;
      MALLOCARRAY(*dataP, totalpixels);
      if (*dataP == NULL)
---- netpbm-10.31/converter/ppm/ppmtoeyuv.c.security	2005-12-22 09:53:14.000000000 +0100
-+++ netpbm-10.31/converter/ppm/ppmtoeyuv.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/ppm/ppmtoeyuv.c.security	2005-12-22 09:53:14.000000000 +0100
++++ netpbm-10.32/converter/ppm/ppmtoeyuv.c	2006-02-27 14:48:10.000000000 +0100
 @@ -114,6 +114,7 @@ create_multiplication_tables(const pixva
  
      int index;
@@ -1142,8 +946,8 @@
      MALLOCARRAY_NOFAIL(mult299   , maxval+1);
      MALLOCARRAY_NOFAIL(mult587   , maxval+1);
      MALLOCARRAY_NOFAIL(mult114   , maxval+1);
---- netpbm-10.31/converter/pbm/mgrtopbm.c.security	2005-02-20 20:58:25.000000000 +0100
-+++ netpbm-10.31/converter/pbm/mgrtopbm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/mgrtopbm.c.security	2005-02-20 20:58:25.000000000 +0100
++++ netpbm-10.32/converter/pbm/mgrtopbm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -68,6 +68,8 @@ getinit(FILE * const file, 
      if (head.h_high < ' ' || head.l_high < ' ')
          pm_error("Invalid width field in MGR header");
@@ -1153,8 +957,8 @@
      *colsP = (((int)head.h_wide - ' ') << 6) + ((int)head.l_wide - ' ');
      *rowsP = (((int)head.h_high - ' ') << 6) + ((int) head.l_high - ' ');
      *padrightP = ( ( *colsP + pad - 1 ) / pad ) * pad - *colsP;
---- netpbm-10.31/converter/pbm/pbmtoascii.c.security	2002-07-30 17:42:53.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtoascii.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtoascii.c.security	2002-07-30 17:42:53.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtoascii.c	2006-02-27 14:48:10.000000000 +0100
 @@ -115,9 +115,11 @@ char* argv[];
          pm_usage( usage );
  
@@ -1167,8 +971,8 @@
      line = (char*) pm_allocrow( ccols + 1, sizeof(char) );
  
      for ( row = 0; row < rows; row += gridy )
---- netpbm-10.31/converter/pbm/pbmtox10bm.c.security	2005-10-07 09:10:10.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtox10bm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtox10bm.c.security	2005-10-07 09:10:10.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtox10bm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -57,6 +57,7 @@ main(int argc, char * argv[]) {
      bitrow = pbm_allocrow( cols );
  
@@ -1177,8 +981,8 @@
      padright = ( ( cols + 15 ) / 16 ) * 16 - cols;
  
      printf( "#define %s_width %d\n", name, cols );
---- netpbm-10.31/converter/pbm/pbmtoppa/pbmtoppa.c.security	2005-04-30 18:45:07.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtoppa/pbmtoppa.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtoppa/pbmtoppa.c.security	2005-04-30 18:45:07.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtoppa/pbmtoppa.c	2006-02-27 14:48:10.000000000 +0100
 @@ -441,6 +441,7 @@ main(int argc, char *argv[]) {
              pm_error("main(): unrecognized parameter '%s'", argv[argn]);
      }
@@ -1187,8 +991,8 @@
      Pwidth=(Width+7)/8;
      printer.fptr=out;
  
---- netpbm-10.31/converter/pbm/pbmtoppa/pbm.c.security	2000-06-01 19:20:30.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtoppa/pbm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtoppa/pbm.c.security	2000-06-01 19:20:30.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtoppa/pbm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -105,6 +105,7 @@ int pbm_readline(pbm_stat* pbm,unsigned 
      return 0;
  
@@ -1207,8 +1011,8 @@
    memcpy (pbm->revdata, data, (pbm->width+7)/8);
    pbm->current_line--;
  }
---- netpbm-10.31/converter/pbm/ybmtopbm.c.security	1993-10-04 10:10:35.000000000 +0100
-+++ netpbm-10.31/converter/pbm/ybmtopbm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/ybmtopbm.c.security	1993-10-04 10:10:35.000000000 +0100
++++ netpbm-10.32/converter/pbm/ybmtopbm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -88,6 +88,7 @@ getinit( file, colsP, rowsP, depthP, pad
  	pm_error( "EOF / read error" );
  
@@ -1217,8 +1021,8 @@
      *padrightP = ( ( *colsP + 15 ) / 16 ) * 16 - *colsP;
      bitsperitem = 0;
      }
---- netpbm-10.31/converter/pbm/pbmtolj.c.security	2005-07-21 18:04:48.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtolj.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtolj.c.security	2005-07-21 18:04:48.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtolj.c	2006-02-27 14:48:10.000000000 +0100
 @@ -119,7 +119,11 @@ parseCommandLine(int argc, char ** argv,
  static void
  allocateBuffers(unsigned int const cols) {
@@ -1231,8 +1035,8 @@
      packBufferSize = rowBufferSize + (rowBufferSize + 127) / 128 + 1;
      deltaBufferSize = rowBufferSize + rowBufferSize / 8 + 10;
  
---- netpbm-10.31/converter/pbm/pbmto4425.c.security	2005-10-07 09:13:08.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmto4425.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmto4425.c.security	2005-10-07 09:13:08.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmto4425.c	2006-02-27 14:48:10.000000000 +0100
 @@ -2,6 +2,7 @@
  
  #include "nstring.h"
@@ -1250,8 +1054,8 @@
      if(vmap == NULL)
  	{
          pm_error( "Cannot allocate memory" );
---- netpbm-10.31/converter/pbm/icontopbm.c.security	2005-10-07 09:14:45.000000000 +0200
-+++ netpbm-10.31/converter/pbm/icontopbm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/icontopbm.c.security	2005-10-07 09:14:45.000000000 +0200
++++ netpbm-10.32/converter/pbm/icontopbm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -11,6 +11,7 @@
  */
  
@@ -1272,8 +1076,8 @@
      data_length = BitmapSize( *widthP, *heightP );
      *dataP = (short unsigned int *) malloc( data_length );
      if ( *dataP == NULL )
---- netpbm-10.31/converter/pbm/pbmtogem.c.security	2000-06-09 09:07:05.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtogem.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtogem.c.security	2000-06-09 09:07:05.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtogem.c	2006-02-27 14:48:10.000000000 +0100
 @@ -123,6 +123,7 @@ putinit (rows, cols)
    bitsperitem = 0;
    bitshift = 7;
@@ -1282,8 +1086,8 @@
    outmax = (cols + 7) / 8;
    outrow = (unsigned char *) pm_allocrow (outmax, sizeof (unsigned char));
    lastrow = (unsigned char *) pm_allocrow (outmax, sizeof (unsigned char));
---- netpbm-10.31/converter/pbm/pbmtogo.c.security	2005-12-22 09:45:07.000000000 +0100
-+++ netpbm-10.31/converter/pbm/pbmtogo.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtogo.c.security	2005-12-22 09:45:07.000000000 +0100
++++ netpbm-10.32/converter/pbm/pbmtogo.c	2006-02-27 14:48:10.000000000 +0100
 @@ -91,6 +91,7 @@ main( argc, argv )
      bitrow = pbm_allocrow(cols);
  
@@ -1292,8 +1096,8 @@
      rucols = ( cols + 7 ) / 8;
      bytesperrow = rucols;       /* GraphOn uses bytes */
      rucols = rucols * 8;
---- netpbm-10.31/converter/pbm/thinkjettopbm.l.security	2005-01-02 23:39:18.000000000 +0100
-+++ netpbm-10.31/converter/pbm/thinkjettopbm.l	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/thinkjettopbm.l.security	2005-01-02 23:39:18.000000000 +0100
++++ netpbm-10.32/converter/pbm/thinkjettopbm.l	2006-02-27 14:48:10.000000000 +0100
 @@ -94,7 +94,9 @@ DIG             [0-9]
  <RASTERMODE>\033\*b{DIG}+W  {
                              int l;
@@ -1313,8 +1117,8 @@
      pbm_writepbminit(stdout, maxRowLength*8, rowCount, 0);
  
      packed_bitrow = malloc(maxRowLength);
---- netpbm-10.31/converter/pbm/pbmtoxbm.c.security	2005-10-07 09:08:17.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtoxbm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtoxbm.c.security	2005-10-07 09:08:17.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtoxbm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -100,6 +100,7 @@ main(int argc, char * argv[]) {
      bitrow = pbm_allocrow(cols);
      
@@ -1323,8 +1127,8 @@
      padright = ((cols + 7)/8) * 8 - cols;
  
      printf("#define %s_width %d\n", name, cols);
---- netpbm-10.31/converter/pbm/mdatopbm.c.security	2005-08-15 09:01:25.000000000 +0200
-+++ netpbm-10.31/converter/pbm/mdatopbm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/mdatopbm.c.security	2005-08-15 09:01:25.000000000 +0200
++++ netpbm-10.32/converter/pbm/mdatopbm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -245,10 +245,13 @@ main(int argc, char **argv) {
          pm_readlittleshort(infile, &yy); nInCols = yy;
      }
@@ -1340,8 +1144,8 @@
  
      data = pbm_allocarray(nOutCols, nOutRows);
      
---- netpbm-10.31/converter/pbm/pbmtocmuwm.c.security	1993-10-04 10:10:46.000000000 +0100
-+++ netpbm-10.31/converter/pbm/pbmtocmuwm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtocmuwm.c.security	1993-10-04 10:10:46.000000000 +0100
++++ netpbm-10.32/converter/pbm/pbmtocmuwm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -43,6 +43,7 @@ main( argc, argv )
      bitrow = pbm_allocrow( cols );
      
@@ -1350,8 +1154,8 @@
      padright = ( ( cols + 7 ) / 8 ) * 8 - cols;
  
      putinit( rows, cols );
---- netpbm-10.31/converter/pbm/pbmtomda.c.security	2005-08-15 09:01:50.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtomda.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtomda.c.security	2005-08-15 09:01:50.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtomda.c	2006-02-27 14:48:10.000000000 +0100
 @@ -179,6 +179,7 @@ int main(int argc, char **argv)
      
      nOutRowsUnrounded = bScale ? nInRows/2 : nInRows;
@@ -1360,8 +1164,8 @@
      nOutRows = ((nOutRowsUnrounded + 3) / 4) * 4;
          /* MDA wants rows a multiple of 4 */   
      nOutCols = nInCols / 8;
---- netpbm-10.31/converter/pbm/pbmtozinc.c.security	2005-10-07 09:08:07.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtozinc.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtozinc.c.security	2005-10-07 09:08:07.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtozinc.c	2006-02-27 14:48:10.000000000 +0100
 @@ -65,6 +65,7 @@ main(int argc, char * argv[]) {
      bitrow = pbm_allocrow( cols );
  
@@ -1370,8 +1174,8 @@
      padright = ( ( cols + 15 ) / 16 ) * 16 - cols;
  
      printf( "USHORT %s[] = {\n",name);
---- netpbm-10.31/converter/pbm/pbmtoicon.c.security	2002-07-30 17:47:48.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtoicon.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtoicon.c.security	2002-07-30 17:47:48.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtoicon.c	2006-02-27 14:48:10.000000000 +0100
 @@ -42,6 +42,7 @@ main( argc, argv )
      bitrow = pbm_allocrow( cols );
      
@@ -1380,8 +1184,8 @@
      pad = ( ( cols + 15 ) / 16 ) * 16 - cols;
      padleft = pad / 2;
      padright = pad - padleft;
---- netpbm-10.31/converter/pbm/pbmtomacp.c.security	2002-09-06 18:04:22.000000000 +0200
-+++ netpbm-10.31/converter/pbm/pbmtomacp.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtomacp.c.security	2002-09-06 18:04:22.000000000 +0200
++++ netpbm-10.32/converter/pbm/pbmtomacp.c	2006-02-27 14:48:10.000000000 +0100
 @@ -104,6 +104,7 @@ char *argv[];
    if( !lflg )
      left = 0;
@@ -1399,8 +1203,8 @@
    if( bflg )
    { if( bottom - top >= MAX_LINES )
        bottom = top + MAX_LINES - 1;
---- netpbm-10.31/converter/pbm/pbmtomgr.c.security	1993-10-04 10:10:50.000000000 +0100
-+++ netpbm-10.31/converter/pbm/pbmtomgr.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtomgr.c.security	1993-10-04 10:10:50.000000000 +0100
++++ netpbm-10.32/converter/pbm/pbmtomgr.c	2006-02-27 14:48:10.000000000 +0100
 @@ -43,6 +43,7 @@ main( argc, argv )
      bitrow = pbm_allocrow( cols );
      
@@ -1409,8 +1213,8 @@
      padright = ( ( cols + 7 ) / 8 ) * 8 - cols;
  
      putinit( rows, cols );
---- netpbm-10.31/converter/pbm/pbmto10x.c.security	2004-03-20 05:23:36.000000000 +0100
-+++ netpbm-10.31/converter/pbm/pbmto10x.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmto10x.c.security	2004-03-20 05:23:36.000000000 +0100
++++ netpbm-10.32/converter/pbm/pbmto10x.c	2006-02-27 14:48:10.000000000 +0100
 @@ -162,7 +162,7 @@ main(int argc, char * argv[]) {
          res_60x72();
  
@@ -1420,8 +1224,8 @@
  }
  
  
---- netpbm-10.31/converter/pbm/pbmtoybm.c.security	1993-10-04 10:10:43.000000000 +0100
-+++ netpbm-10.31/converter/pbm/pbmtoybm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pbmtoybm.c.security	1993-10-04 10:10:43.000000000 +0100
++++ netpbm-10.32/converter/pbm/pbmtoybm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -45,6 +45,7 @@ main( argc, argv )
      bitrow = pbm_allocrow( cols );
      
@@ -1430,8 +1234,8 @@
      padright = ( ( cols + 15 ) / 16 ) * 16 - cols;
  
      putinit( cols, rows );
---- netpbm-10.31/converter/pbm/pktopbm.c.security	2005-12-22 09:48:08.000000000 +0100
-+++ netpbm-10.31/converter/pbm/pktopbm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/pbm/pktopbm.c.security	2005-12-22 09:48:08.000000000 +0100
++++ netpbm-10.32/converter/pbm/pktopbm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -277,6 +277,7 @@ main(int argc, char *argv[]) {
          if (flagbyte == 7) {            /* long form preamble */
              integer packetlength = get32() ;    /* character packet length */
@@ -1440,8 +1244,8 @@
              endofpacket = packetlength + pktopbm_pkloc;
                  /* calculate end of packet */
              if ((car >= MAXPKCHAR) || !filename[car]) {
---- netpbm-10.31/converter/other/pngtopnm.c.security	2005-10-29 19:40:03.000000000 +0200
-+++ netpbm-10.31/converter/other/pngtopnm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/pngtopnm.c.security	2005-10-29 19:40:03.000000000 +0200
++++ netpbm-10.32/converter/other/pngtopnm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -985,19 +985,24 @@ convertpng(FILE *             const ifp,
          pm_error ("couldn't allocate space for image");
      }
@@ -1474,9 +1278,9 @@
  
      for (y = 0 ; y < info_ptr->height ; y++) {
          png_image[y] = malloc (linesize);
---- netpbm-10.31/converter/other/tifftopnm.c.security	2005-10-29 19:59:42.000000000 +0200
-+++ netpbm-10.31/converter/other/tifftopnm.c	2005-12-30 10:44:51.000000000 +0100
-@@ -747,7 +747,8 @@ convertRasterByRows(FILE *         const
+--- netpbm-10.32/converter/other/tifftopnm.c.security	2006-01-05 18:05:31.000000000 +0100
++++ netpbm-10.32/converter/other/tifftopnm.c	2006-02-27 14:48:10.000000000 +0100
+@@ -748,7 +748,8 @@ convertRasterByRows(FILE *         const
      if (scanbuf == NULL)
          pm_error("can't allocate memory for scanline buffer");
  
@@ -1486,8 +1290,8 @@
      if (samplebuf == NULL)
          pm_error ("can't allocate memory for row buffer");
  
---- netpbm-10.31/converter/other/pnmtoddif.c.security	2002-07-30 19:09:13.000000000 +0200
-+++ netpbm-10.31/converter/other/pnmtoddif.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/pnmtoddif.c.security	2002-07-30 19:09:13.000000000 +0200
++++ netpbm-10.32/converter/other/pnmtoddif.c	2006-02-27 14:48:10.000000000 +0100
 @@ -484,6 +484,7 @@ int main(int argc, char *argv[])
      switch (PNM_FORMAT_TYPE(format)) {
      case PBM_TYPE:
@@ -1504,9 +1308,9 @@
          ip.bytes_per_line = 3 * cols;
          ip.bits_per_pixel = 24;
          ip.spectral = 5;
---- netpbm-10.31/converter/other/xwdtopnm.c.security	2005-12-15 04:45:59.000000000 +0100
-+++ netpbm-10.31/converter/other/xwdtopnm.c	2005-12-30 10:44:51.000000000 +0100
-@@ -253,6 +253,9 @@ processX10Header(X10WDFileHeader *  cons
+--- netpbm-10.32/converter/other/xwdtopnm.c.security	2006-02-22 01:28:19.000000000 +0100
++++ netpbm-10.32/converter/other/xwdtopnm.c	2006-02-27 14:48:10.000000000 +0100
+@@ -214,6 +214,9 @@ processX10Header(X10WDFileHeader *  cons
          *colorsP = pnm_allocrow( 2 );
          PNM_ASSIGN1( (*colorsP)[0], 0 );
          PNM_ASSIGN1( (*colorsP)[1], *maxvalP );
@@ -1516,7 +1320,7 @@
          *padrightP =
              ( ( h10P->pixmap_width + 15 ) / 16 ) * 16 - h10P->pixmap_width;
          *bits_per_itemP = 16;
-@@ -262,9 +265,13 @@ processX10Header(X10WDFileHeader *  cons
+@@ -223,9 +226,13 @@ processX10Header(X10WDFileHeader *  cons
          *formatP = PGM_TYPE;
          *visualclassP = StaticGray;
          *maxvalP = ( 1 << h10P->display_planes ) - 1;
@@ -1530,7 +1334,7 @@
          *padrightP =
              ( ( h10P->pixmap_width + 15 ) / 16 ) * 16 - h10P->pixmap_width;
          *bits_per_itemP = 16;
-@@ -583,6 +590,7 @@ processX11Header(X11WDFileHeader *  cons
+@@ -544,6 +551,7 @@ processX11Header(X11WDFileHeader *  cons
  
      *colsP = h11FixedP->pixmap_width;
      *rowsP = h11FixedP->pixmap_height;
@@ -1538,8 +1342,8 @@
      *padrightP =
          h11FixedP->bytes_per_line * 8 / h11FixedP->bits_per_pixel -
          h11FixedP->pixmap_width;
---- netpbm-10.31/converter/other/pnmtorle.c.security	2005-05-22 19:01:43.000000000 +0200
-+++ netpbm-10.31/converter/other/pnmtorle.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/pnmtorle.c.security	2005-05-22 19:01:43.000000000 +0200
++++ netpbm-10.32/converter/other/pnmtorle.c	2006-02-27 14:48:10.000000000 +0100
 @@ -19,6 +19,8 @@
   * If you modify this software, you should include a notice giving the
   * name of the person performing the modification, the date of modification,
@@ -1549,35 +1353,35 @@
   */
  /*
   * pnmtorle - A program which will convert pbmplus (ppm or pgm) images
---- netpbm-10.31/converter/other/pnmtops.c.security	2005-11-10 17:27:14.000000000 +0100
-+++ netpbm-10.31/converter/other/pnmtops.c	2005-12-30 10:44:51.000000000 +0100
-@@ -184,16 +184,21 @@ parseCommandLine(int argc, char ** argv,
+--- netpbm-10.32/converter/other/pnmtops.c.security	2006-02-25 18:37:25.000000000 +0100
++++ netpbm-10.32/converter/other/pnmtops.c	2006-02-27 14:58:11.000000000 +0100
+@@ -184,16 +184,20 @@ parseCommandLine(int argc, char ** argv,
      cmdlineP->canturn =  !noturn;
      cmdlineP->showpage = !noshowpage;
      
 +    overflow2(width, 72);
      cmdlineP->width  = width * 72;
-+    overflow2(width, 72);
++    overflow2(height, 72);
      cmdlineP->height = height * 72;
  
--    if (imagewidth_spec)
-+    if (imagewidth_spec) {
+-    if (imagewidthSpec)
++    if (imagewidthSpec) {
 +        overflow2(imagewidth, 72);
          cmdlineP->imagewidth = imagewidth * 72;
-+    }
-     else
+-    else
++    } else
          cmdlineP->imagewidth = 0;
--    if (imageheight_spec)
-+    if (imageheight_spec) {
-+        overflow2(imagewidth, 72);
+-    if (imageheightSpec)
++    if (imageheightSpec) {
++        overflow2(imageheight, 72);
          cmdlineP->imageheight = imageheight * 72;
 -    else
 +    } else
          cmdlineP->imageheight = 0;
  
      if (!cmdlineP->psfilter &&
---- netpbm-10.31/converter/other/pnmtojpeg.c.security	2005-10-07 08:46:56.000000000 +0200
-+++ netpbm-10.31/converter/other/pnmtojpeg.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/pnmtojpeg.c.security	2005-10-07 08:46:56.000000000 +0200
++++ netpbm-10.32/converter/other/pnmtojpeg.c	2006-02-27 14:48:10.000000000 +0100
 @@ -587,6 +587,8 @@ compute_rescaling_array(JSAMPLE ** const
    const long half_maxval = maxval / 2;
    long val;
@@ -1608,8 +1412,8 @@
              (jpeg_scan_info *)
              (*cinfo->mem->alloc_small) ((j_common_ptr) cinfo, JPOOL_IMAGE,
                                          scan_info_size);
---- netpbm-10.31/converter/other/jpegtopnm.c.security	2005-10-07 08:57:11.000000000 +0200
-+++ netpbm-10.31/converter/other/jpegtopnm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/jpegtopnm.c.security	2005-10-07 08:57:11.000000000 +0200
++++ netpbm-10.32/converter/other/jpegtopnm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -828,6 +828,7 @@ convertImage(FILE *                     
      /* Calculate output image dimensions so we can allocate space */
      jpeg_calc_output_dimensions(cinfoP);
@@ -1618,8 +1422,8 @@
      jpegbuffer = ((*cinfoP->mem->alloc_sarray)
                    ((j_common_ptr) cinfoP, JPOOL_IMAGE,
                     cinfoP->output_width * cinfoP->output_components, 
---- netpbm-10.31/converter/other/pbmtopgm.c.security	2005-12-03 18:42:41.000000000 +0100
-+++ netpbm-10.31/converter/other/pbmtopgm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/pbmtopgm.c.security	2005-12-03 18:42:41.000000000 +0100
++++ netpbm-10.32/converter/other/pbmtopgm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -47,6 +47,7 @@ main(int argc, char *argv[]) {
                   "than the image height (%u rows)", height, rows);
  
@@ -1628,8 +1432,8 @@
      maxval = MIN(PGM_OVERALLMAXVAL, width*height);
      pgm_writepgminit(stdout, cols, rows, maxval, 0) ;
  
---- netpbm-10.31/converter/other/pnmtosgi.c.security	2003-07-10 06:04:07.000000000 +0200
-+++ netpbm-10.31/converter/other/pnmtosgi.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/pnmtosgi.c.security	2003-07-10 06:04:07.000000000 +0200
++++ netpbm-10.32/converter/other/pnmtosgi.c	2006-02-27 14:48:10.000000000 +0100
 @@ -213,6 +213,22 @@ write_channels(cols, rows, channels, put
      }
  }
@@ -1670,8 +1474,8 @@
              len = rle_compress(temp, cols);    /* writes result into rletemp */
              channel[chan_no][row].length = len;
              MALLOCARRAY(p, len);
---- netpbm-10.31/converter/other/rletopnm.c.security	2005-11-13 22:40:02.000000000 +0100
-+++ netpbm-10.31/converter/other/rletopnm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/rletopnm.c.security	2005-11-13 22:40:02.000000000 +0100
++++ netpbm-10.32/converter/other/rletopnm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -19,6 +19,8 @@
   * If you modify this software, you should include a notice giving the
   * name of the person performing the modification, the date of modification,
@@ -1681,8 +1485,8 @@
   */
  /*
   * rletopnm - A conversion program to convert from Utah's "rle" image format
---- netpbm-10.31/converter/other/sirtopnm.c.security	2002-01-04 18:22:45.000000000 +0100
-+++ netpbm-10.31/converter/other/sirtopnm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/sirtopnm.c.security	2002-01-04 18:22:45.000000000 +0100
++++ netpbm-10.32/converter/other/sirtopnm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -69,6 +69,7 @@ char* argv[];
  	    }
  	    break;
@@ -1691,8 +1495,8 @@
  	    picsize = cols * rows * 3;
  	    planesize = cols * rows;
              if ( !( sirarray = (unsigned char*) malloc( picsize ) ) ) 
---- netpbm-10.31/converter/other/gemtopnm.c.security	2005-08-27 19:30:45.000000000 +0200
-+++ netpbm-10.31/converter/other/gemtopnm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/gemtopnm.c.security	2005-08-27 19:30:45.000000000 +0200
++++ netpbm-10.32/converter/other/gemtopnm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -106,6 +106,7 @@ main(argc, argv)
  
  	pnm_writepnminit( stdout, cols, rows, MAXVAL, type, 0 );
@@ -1701,8 +1505,8 @@
      { 
          /* allocate input row data structure */
          int plane;
---- netpbm-10.31/converter/other/sgitopnm.c.security	2005-08-27 19:33:09.000000000 +0200
-+++ netpbm-10.31/converter/other/sgitopnm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/converter/other/sgitopnm.c.security	2005-08-27 19:33:09.000000000 +0200
++++ netpbm-10.32/converter/other/sgitopnm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -252,13 +252,17 @@ read_channels(ifp, head, table, func, oc
  
      if (ochan < 0) {
@@ -1722,8 +1526,8 @@
  
      for( channel = 0; channel < maxchannel;  channel++ ) {
  #ifdef DEBUG
---- netpbm-10.31/analyzer/pgmhist.c.security	2003-07-06 21:23:19.000000000 +0200
-+++ netpbm-10.31/analyzer/pgmhist.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/analyzer/pgmhist.c.security	2003-07-06 21:23:19.000000000 +0200
++++ netpbm-10.32/analyzer/pgmhist.c	2006-02-27 14:48:10.000000000 +0100
 @@ -45,6 +45,7 @@ main( argc, argv )
      grayrow = pgm_allocrow( cols );
  
@@ -1732,8 +1536,8 @@
      MALLOCARRAY(hist, maxval + 1);
      MALLOCARRAY(rcount, maxval + 1);
      if ( hist == NULL || rcount == NULL )
---- netpbm-10.31/analyzer/pgmtexture.c.security	2005-12-22 10:17:08.000000000 +0100
-+++ netpbm-10.31/analyzer/pgmtexture.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/analyzer/pgmtexture.c.security	2005-12-22 10:17:08.000000000 +0100
++++ netpbm-10.32/analyzer/pgmtexture.c	2006-02-27 14:48:10.000000000 +0100
 @@ -79,6 +79,9 @@ vector (int nl, int nh)
  {
      float *v;
@@ -1764,8 +1568,8 @@
      for (i = nrl; i <= nrh; i++)
      {
          MALLOCARRAY(m[i], (unsigned) (nch - ncl + 1));
---- netpbm-10.31/lib/libpbm1.c.security	2005-02-05 19:41:54.000000000 +0100
-+++ netpbm-10.31/lib/libpbm1.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/lib/libpbm1.c.security	2005-02-05 19:41:54.000000000 +0100
++++ netpbm-10.32/lib/libpbm1.c	2006-02-27 14:48:10.000000000 +0100
 @@ -56,6 +56,7 @@ pbm_check(FILE * file, const enum pm_che
          pm_message("pm_filepos passed to pm_check() is %u bytes",
                     sizeof(pm_filepos));
@@ -1774,9 +1578,9 @@
          pm_check(file, check_type, need_raster_size, retval_p);
      }
  }
---- netpbm-10.31/lib/pm.h.security	2005-12-03 17:20:19.000000000 +0100
-+++ netpbm-10.31/lib/pm.h	2005-12-30 10:44:51.000000000 +0100
-@@ -325,4 +325,10 @@ pm_arg0toprogname(const char arg0[]);
+--- netpbm-10.32/lib/pm.h.security	2006-01-08 03:49:08.000000000 +0100
++++ netpbm-10.32/lib/pm.h	2006-02-27 14:48:10.000000000 +0100
+@@ -331,4 +331,10 @@ pm_arg0toprogname(const char arg0[]);
  #endif
  
  
@@ -1787,8 +1591,8 @@
 +void overflow_add(int, int);
 +
  #endif
---- netpbm-10.31/lib/libpammap.c.security	2005-12-03 18:01:03.000000000 +0100
-+++ netpbm-10.31/lib/libpammap.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/lib/libpammap.c.security	2005-12-03 18:01:03.000000000 +0100
++++ netpbm-10.32/lib/libpammap.c	2006-02-27 14:48:10.000000000 +0100
 @@ -102,6 +102,8 @@ allocTupleIntListItem(struct pam * const
      */
      struct tupleint_list_item * retval;
@@ -1798,9 +1602,9 @@
      unsigned int const size = 
          sizeof(*retval) - sizeof(retval->tupleint.tuple) 
          + pamP->depth * sizeof(sample);
---- netpbm-10.31/lib/libpam.c.security	2005-12-03 17:59:50.000000000 +0100
-+++ netpbm-10.31/lib/libpam.c	2005-12-30 10:44:51.000000000 +0100
-@@ -274,7 +274,8 @@ allocPamRow(const struct pam * const pam
+--- netpbm-10.32/lib/libpam.c.security	2006-01-25 17:50:14.000000000 +0100
++++ netpbm-10.32/lib/libpam.c	2006-02-27 14:48:10.000000000 +0100
+@@ -221,7 +221,8 @@ allocPamRow(const struct pam * const pam
      int const bytesPerTuple = allocationDepth(pamP) * sizeof(sample);
      tuple * tuplerow;
  
@@ -1810,8 +1614,8 @@
                        
      if (tuplerow != NULL) {
          /* Now we initialize the pointers to the individual tuples
---- netpbm-10.31/lib/libpm.c.security	2005-12-03 17:52:40.000000000 +0100
-+++ netpbm-10.31/lib/libpm.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/lib/libpm.c.security	2006-01-25 01:31:23.000000000 +0100
++++ netpbm-10.32/lib/libpm.c	2006-02-27 14:48:10.000000000 +0100
 @@ -36,6 +36,7 @@
      /* This makes the the x64() functions available on AIX */
  
@@ -1838,7 +1642,7 @@
      if (rowheap == NULL) {
          /* We couldn't get the whole heap in one block, so try fragmented
             format.
-@@ -1342,4 +1343,53 @@ pm_check(FILE *               const file
+@@ -1400,4 +1401,53 @@ pm_check(FILE *               const file
  }
  
  
@@ -1892,16 +1696,16 @@
 +	return realloc(a, b*c);
 +}
  
---- netpbm-10.31/lib/libpbmvms.c.security	2005-08-27 19:24:54.000000000 +0200
-+++ netpbm-10.31/lib/libpbmvms.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/lib/libpbmvms.c.security	2005-08-27 19:24:54.000000000 +0200
++++ netpbm-10.32/lib/libpbmvms.c	2006-02-27 14:48:10.000000000 +0100
 @@ -1,3 +1,5 @@
 +#warning "NOT AUDITED"
 +
  /***************************************************************************
    This file contains library routines needed to build Netpbm for VMS.
    However, as of 2000.05.26, when these were split out of libpbm1.c
---- netpbm-10.31/editor/pbmreduce.c.security	2003-07-06 21:41:49.000000000 +0200
-+++ netpbm-10.31/editor/pbmreduce.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pbmreduce.c.security	2003-07-06 21:41:49.000000000 +0200
++++ netpbm-10.32/editor/pbmreduce.c	2006-02-27 14:48:10.000000000 +0100
 @@ -93,6 +93,7 @@ main( argc, argv )
  
      if ( halftone == QT_FS ) {
@@ -1910,8 +1714,8 @@
          MALLOCARRAY(thiserr, newcols + 2);
          MALLOCARRAY(nexterr, newcols + 2);
          if ( thiserr == NULL || nexterr == NULL )
---- netpbm-10.31/editor/pnmindex.csh.security	2000-09-14 07:37:35.000000000 +0200
-+++ netpbm-10.31/editor/pnmindex.csh	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pnmindex.csh.security	2000-09-14 07:37:35.000000000 +0200
++++ netpbm-10.32/editor/pnmindex.csh	2006-02-27 14:48:10.000000000 +0100
 @@ -1,5 +1,8 @@
  #!/bin/csh -f
  #
@@ -1921,8 +1725,8 @@
  # pnmindex - build a visual index of a bunch of anymaps
  #
  # Copyright (C) 1991 by Jef Poskanzer.
---- netpbm-10.31/editor/pnmscalefixed.c.security	2002-07-30 19:52:49.000000000 +0200
-+++ netpbm-10.31/editor/pnmscalefixed.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pnmscalefixed.c.security	2002-07-30 19:52:49.000000000 +0200
++++ netpbm-10.32/editor/pnmscalefixed.c	2006-02-27 14:48:10.000000000 +0100
 @@ -209,6 +209,8 @@ compute_output_dimensions(const struct c
                            const int rows, const int cols,
                            int * newrowsP, int * newcolsP) {
@@ -1951,8 +1755,8 @@
      sxscale = SCALE * newcols / cols;
      syscale = SCALE * newrows / rows;
  
---- netpbm-10.31/editor/pnmcut.c.security	2002-07-30 19:47:37.000000000 +0200
-+++ netpbm-10.31/editor/pnmcut.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pnmcut.c.security	2002-07-30 19:47:37.000000000 +0200
++++ netpbm-10.32/editor/pnmcut.c	2006-02-27 14:48:10.000000000 +0100
 @@ -373,6 +373,7 @@ main(int argc, char *argv[]) {
                     toprow, leftcol, bottomrow, rightcol);
      }
@@ -1961,8 +1765,8 @@
      output_cols = rightcol-leftcol+1;
      output_row = pnm_allocrow(output_cols);
      
---- netpbm-10.31/editor/pamoil.c.security	2005-08-15 09:05:44.000000000 +0200
-+++ netpbm-10.31/editor/pamoil.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pamoil.c.security	2005-08-15 09:05:44.000000000 +0200
++++ netpbm-10.32/editor/pamoil.c	2006-02-27 14:48:10.000000000 +0100
 @@ -112,6 +112,7 @@ main(int argc, char *argv[] ) {
      tuples = pnm_readpam(ifp, &inpam, PAM_STRUCT_SIZE(tuple_type));
      pm_close(ifp);
@@ -1971,9 +1775,9 @@
      MALLOCARRAY(hist, inpam.maxval + 1);
      if (hist == NULL)
          pm_error("Unable to allocate memory for histogram.");
---- netpbm-10.31/editor/pnmremap.c.security	2005-11-19 18:46:29.000000000 +0100
-+++ netpbm-10.31/editor/pnmremap.c	2005-12-30 10:44:51.000000000 +0100
-@@ -281,6 +281,7 @@ initFserr(struct pam *   const pamP,
+--- netpbm-10.32/editor/pnmremap.c.security	2006-02-25 19:18:47.000000000 +0100
++++ netpbm-10.32/editor/pnmremap.c	2006-02-27 14:48:10.000000000 +0100
+@@ -284,6 +284,7 @@ initFserr(struct pam *   const pamP,
  
      unsigned int const fserrSize = pamP->width + 2;
  
@@ -1981,7 +1785,7 @@
      MALLOCARRAY(fserrP->thiserr, pamP->depth);
      if (fserrP->thiserr == NULL)
          pm_error("Out of memory allocating Floyd-Steinberg structures "
-@@ -324,6 +325,7 @@ floydInitRow(struct pam * const pamP, st
+@@ -327,6 +328,7 @@ floydInitRow(struct pam * const pamP, st
  
      int col;
      
@@ -1989,8 +1793,8 @@
      for (col = 0; col < pamP->width + 2; ++col) {
          unsigned int plane;
          for (plane = 0; plane < pamP->depth; ++plane) 
---- netpbm-10.31/editor/pnmpad.c.security	2005-05-22 20:30:30.000000000 +0200
-+++ netpbm-10.31/editor/pnmpad.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pnmpad.c.security	2005-05-22 20:30:30.000000000 +0200
++++ netpbm-10.32/editor/pnmpad.c	2006-02-27 14:48:10.000000000 +0100
 @@ -358,6 +358,8 @@ main(int argc, char ** argv) {
  
      computePadSizes(cmdline, cols, rows, &lpad, &rpad, &tpad, &bpad);
@@ -2000,9 +1804,9 @@
      newcols = cols + lpad + rpad;
      xelrow = pnm_allocrow(newcols);
      bgrow = pnm_allocrow(newcols);
---- netpbm-10.31/editor/pamcut.c.security	2005-08-15 00:35:26.000000000 +0200
-+++ netpbm-10.31/editor/pamcut.c	2005-12-30 10:44:51.000000000 +0100
-@@ -510,6 +510,8 @@ main(int argc, char *argv[]) {
+--- netpbm-10.32/editor/pamcut.c.security	2006-01-30 18:22:43.000000000 +0100
++++ netpbm-10.32/editor/pamcut.c	2006-02-27 14:48:10.000000000 +0100
+@@ -514,6 +514,8 @@ cutOneImage(FILE *             const ifP
      outpam.width  = rightcol-leftcol+1;
      outpam.height = bottomrow-toprow+1;
  
@@ -2011,8 +1815,8 @@
      pnm_writepaminit(&outpam);
  
      /* Write out top padding */
---- netpbm-10.31/editor/pbmlife.c.security	1993-10-04 10:10:37.000000000 +0100
-+++ netpbm-10.31/editor/pbmlife.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pbmlife.c.security	1993-10-04 10:10:37.000000000 +0100
++++ netpbm-10.32/editor/pbmlife.c	2006-02-27 14:48:10.000000000 +0100
 @@ -54,7 +54,7 @@ char* argv[];
  	prevrow = thisrow;
  	thisrow = nextrow;
@@ -2022,37 +1826,8 @@
  	    pbm_readpbmrow( ifp, nextrow, cols, format );
  
          for ( col = 0; col < cols; ++col )
---- netpbm-10.31/editor/pnmrotate.c.security	2005-12-20 00:14:33.000000000 +0100
-+++ netpbm-10.31/editor/pnmrotate.c	2005-12-30 10:44:51.000000000 +0100
-@@ -13,6 +13,7 @@
- #define _XOPEN_SOURCE   /* get M_PI in math.h */
- 
- #include <math.h>
-+#include <limits.h>
- 
- #include "pnm.h"
- #include "shhopt.h"
-@@ -570,11 +571,18 @@ main(int argc, char *argv[]) { 
-     yshearfac = sin(cmdline.angle);
-     if (yshearfac < 0.0)
-         yshearfac = -yshearfac;
-+    overflow2(rows, xshearfac);
-+    overflow_add(cols, 1);
-+    overflow_add(rows * xshearfac, cols);
-     tempcols = rows * xshearfac + cols + 0.999999;
-     yshearjunk = (tempcols - cols) * yshearfac;
-     newrows = tempcols * yshearfac + rows + 0.999999;
-     x2shearjunk = (newrows - rows - yshearjunk) * xshearfac;
-     newrows -= 2 * yshearjunk;
-+
-+    if(newrows * xshearfac + tempcols + 0.999999 - 2 * x2shearjunk > INT_MAX)
-+        pm_error("image too large");
-+
-     newcols = newrows * xshearfac + tempcols + 0.999999 - 2 * x2shearjunk;
-     direction = cmdline.angle > 0 ? COUNTERCLOCKWISE : CLOCKWISE;
- 
---- netpbm-10.31/editor/pnmpaste.c.security	2005-12-22 10:24:24.000000000 +0100
-+++ netpbm-10.31/editor/pnmpaste.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pnmpaste.c.security	2005-12-22 10:24:24.000000000 +0100
++++ netpbm-10.32/editor/pnmpaste.c	2006-02-27 14:48:10.000000000 +0100
 @@ -101,11 +101,16 @@ main( argc, argv )
  	    "y is too large -- the second anymap has only %d rows",
  	    rows2 );
@@ -2070,19 +1845,19 @@
      if ( x + cols1 > cols2 )
  	pm_error( "x + width is too large by %d pixels", x + cols1 - cols2 );
      if ( y + rows1 > rows2 )
---- netpbm-10.31/editor/pbmclean.c.security	2005-02-27 17:33:57.000000000 +0100
-+++ netpbm-10.31/editor/pbmclean.c	2005-12-30 10:44:51.000000000 +0100
-@@ -147,7 +147,7 @@ nextrow(FILE * const ifd, int const row,
+--- netpbm-10.32/editor/pbmclean.c.security	2006-02-02 01:13:33.000000000 +0100
++++ netpbm-10.32/editor/pbmclean.c	2006-02-27 14:54:46.000000000 +0100
+@@ -150,7 +150,7 @@ nextrow(FILE * const ifd,
      inrow[0] = inrow[1];
      inrow[1] = inrow[2];
      inrow[2] = shuffle ;
 -    if (row+1 < rows) {
 +    if (row <= rows) {
-         /* Read the "next" row in from the file.  Allocate buffer if neeeded */
+         /* Read the "next" row in from the file.  Allocate buffer if needed */
          if (inrow[2] == NULL)
              inrow[2] = pbm_allocrow(cols);
---- netpbm-10.31/editor/ppmdither.c.security	2003-07-06 21:54:02.000000000 +0200
-+++ netpbm-10.31/editor/ppmdither.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/ppmdither.c.security	2003-07-06 21:54:02.000000000 +0200
++++ netpbm-10.32/editor/ppmdither.c	2006-02-27 14:48:10.000000000 +0100
 @@ -111,6 +111,9 @@ dith_matrix(unsigned int const dith_dim)
              (dith_dim * sizeof(int *)) + /* pointers */
              (dith_dim * dith_dim * sizeof(int)); /* data */
@@ -2103,18 +1878,18 @@
      if (*colormapP == NULL) 
          pm_error("Unable to allocate space for the color lookup table "
                   "(%d by %d by %d pixels).", dith_nr, dith_ng, dith_nb);
---- netpbm-10.31/editor/pnmgamma.c.security	2005-04-25 01:05:48.000000000 +0200
-+++ netpbm-10.31/editor/pnmgamma.c	2005-12-30 10:44:51.000000000 +0100
-@@ -282,6 +282,7 @@ createGammaTables(bool const ungamma, 
-                   xelval **rtableP, xelval **gtableP, xelval **btableP) {
+--- netpbm-10.32/editor/pnmgamma.c.security	2006-02-18 23:34:16.000000000 +0100
++++ netpbm-10.32/editor/pnmgamma.c	2006-02-27 14:48:10.000000000 +0100
+@@ -586,6 +586,7 @@ createGammaTables(enum transferFunction 
+                   xelval **             const btableP) {
  
      /* Allocate space for the tables. */
 +    overflow_add(maxval, 1);
      MALLOCARRAY(*rtableP, maxval+1);
      MALLOCARRAY(*gtableP, maxval+1);
      MALLOCARRAY(*btableP, maxval+1);
---- netpbm-10.31/editor/pnmhisteq.c.security	2005-09-11 00:59:13.000000000 +0200
-+++ netpbm-10.31/editor/pnmhisteq.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pnmhisteq.c.security	2005-09-11 00:59:13.000000000 +0200
++++ netpbm-10.32/editor/pnmhisteq.c	2006-02-27 14:48:10.000000000 +0100
 @@ -102,6 +102,7 @@ computeLuminosityHistogram(xel * const *
      unsigned int pixelCount;
      unsigned int * lumahist;
@@ -2123,8 +1898,8 @@
      MALLOCARRAY(lumahist, maxval + 1);
      if (lumahist == NULL)
          pm_error("Out of storage allocating array for %u histogram elements",
---- netpbm-10.31/editor/pnmshear.c.security	2005-08-15 08:17:16.000000000 +0200
-+++ netpbm-10.31/editor/pnmshear.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pnmshear.c.security	2005-08-15 08:17:16.000000000 +0200
++++ netpbm-10.32/editor/pnmshear.c	2006-02-27 14:48:10.000000000 +0100
 @@ -14,6 +14,7 @@
  
  #include <math.h>
@@ -2145,8 +1920,8 @@
      newcols = rows * shearfac + cols + 0.999999;
  
      pnm_writepnminit( stdout, newcols, rows, newmaxval, newformat, 0 );
---- netpbm-10.31/editor/pbmpscale.c.security	2005-08-15 09:06:55.000000000 +0200
-+++ netpbm-10.31/editor/pbmpscale.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/editor/pbmpscale.c.security	2005-08-15 09:06:55.000000000 +0200
++++ netpbm-10.32/editor/pbmpscale.c	2006-02-27 14:48:10.000000000 +0100
 @@ -109,6 +109,7 @@ main(argc, argv)
     inrow[0] = inrow[1] = inrow[2] = NULL;
     pbm_readpbminit(ifd, &columns, &rows, &format) ;
@@ -2155,8 +1930,8 @@
     outrow = pbm_allocrow(columns*scale) ;
     MALLOCARRAY(flags, columns);
     if (flags == NULL) 
---- netpbm-10.31/urt/scanargs.c.security	2003-01-08 20:38:25.000000000 +0100
-+++ netpbm-10.31/urt/scanargs.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/scanargs.c.security	2003-01-08 20:38:25.000000000 +0100
++++ netpbm-10.32/urt/scanargs.c	2006-02-27 14:48:10.000000000 +0100
 @@ -38,6 +38,8 @@
   *
   *  Modified at BRL 16-May-88 by Mike Muuss to avoid Alliant STDC desire
@@ -2177,8 +1952,8 @@
  
  #if defined(c_plusplus) && !defined(USE_PROTOTYPES)
  #define USE_PROTOTYPES
---- netpbm-10.31/urt/rle.h.security	2005-10-16 23:44:55.000000000 +0200
-+++ netpbm-10.31/urt/rle.h	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/rle.h.security	2005-12-24 05:46:05.000000000 +0100
++++ netpbm-10.32/urt/rle.h	2006-02-27 14:48:10.000000000 +0100
 @@ -14,6 +14,9 @@
   * If you modify this software, you should include a notice giving the
   * name of the person performing the modification, the date of modification,
@@ -2206,8 +1981,8 @@
  
  /* Declare RLE library routines. */
  
---- netpbm-10.31/urt/rle_open_f.c.security	2005-10-17 00:16:48.000000000 +0200
-+++ netpbm-10.31/urt/rle_open_f.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/rle_open_f.c.security	2005-10-17 00:16:48.000000000 +0200
++++ netpbm-10.32/urt/rle_open_f.c	2006-02-27 14:48:10.000000000 +0100
 @@ -6,6 +6,9 @@
   * 		University of Michigan
   * Date:	11/14/89
@@ -2239,8 +2014,8 @@
              combuf = (char *)malloc( 20 + strlen( file_name ) );
              if ( combuf == NULL )
              {
---- netpbm-10.31/urt/rle_addhist.c.security	2005-10-17 00:15:58.000000000 +0200
-+++ netpbm-10.31/urt/rle_addhist.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/rle_addhist.c.security	2005-10-17 00:15:58.000000000 +0200
++++ netpbm-10.32/urt/rle_addhist.c	2006-02-27 14:48:10.000000000 +0100
 @@ -14,6 +14,8 @@
   * If you modify this software, you should include a notice giving the
   * name of the person performing the modification, the date of modification,
@@ -2285,8 +2060,8 @@
      ++length;                               /*Cater for the null. */
  
      MALLOCARRAY(newc, length);
---- netpbm-10.31/urt/rle_hdr.c.security	2005-10-17 00:16:33.000000000 +0200
-+++ netpbm-10.31/urt/rle_hdr.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/rle_hdr.c.security	2005-10-17 00:16:33.000000000 +0200
++++ netpbm-10.32/urt/rle_hdr.c	2006-02-27 14:48:10.000000000 +0100
 @@ -14,6 +14,8 @@
   * If you modify this software, you should include a notice giving the
   * name of the person performing the modification, the date of modification,
@@ -2353,8 +2128,8 @@
  	    size *= sizeof(char *);
  	    to_hdr->comments = (CONST_DECL char **)malloc( size );
  	    RLE_CHECK_ALLOC( to_hdr->cmd, to_hdr->comments, "comments" );
---- netpbm-10.31/urt/README.security	2000-06-02 22:53:04.000000000 +0200
-+++ netpbm-10.31/urt/README	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/README.security	2000-06-02 22:53:04.000000000 +0200
++++ netpbm-10.32/urt/README	2006-02-27 14:48:10.000000000 +0100
 @@ -18,3 +18,8 @@ in its initializer in the original.  But
  defines stdout as a variable, so that wouldn't compile.  So I changed
  it to NULL and added a line to rle_hdr_init to set that field to
@@ -2364,8 +2139,8 @@
 +Removed pipe through and compress support (unsafe)
 +
 +Alan Cox <alan@redhat.com>
---- netpbm-10.31/urt/Runput.c.security	2005-10-16 23:36:29.000000000 +0200
-+++ netpbm-10.31/urt/Runput.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/Runput.c.security	2005-10-16 23:36:29.000000000 +0200
++++ netpbm-10.32/urt/Runput.c	2006-02-27 14:48:10.000000000 +0100
 @@ -17,6 +17,8 @@
   *
   *  Modified at BRL 16-May-88 by Mike Muuss to avoid Alliant STDC desire
@@ -2398,8 +2173,8 @@
  	if ( h_cmap == NULL )
  	{
  	    fprintf( stderr,
---- netpbm-10.31/urt/rle_getrow.c.security	2005-10-16 23:47:53.000000000 +0200
-+++ netpbm-10.31/urt/rle_getrow.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/rle_getrow.c.security	2005-10-16 23:47:53.000000000 +0200
++++ netpbm-10.32/urt/rle_getrow.c	2006-02-27 14:48:10.000000000 +0100
 @@ -17,6 +17,8 @@
   *
   *  Modified at BRL 16-May-88 by Mike Muuss to avoid Alliant STDC desire
@@ -2417,8 +2192,8 @@
          evenlen = (comlen + 1) & ~1;    /* make it even */
          if ( evenlen )
          {
---- netpbm-10.31/urt/rle_putcom.c.security	2005-10-07 18:01:42.000000000 +0200
-+++ netpbm-10.31/urt/rle_putcom.c	2005-12-30 10:44:51.000000000 +0100
+--- netpbm-10.32/urt/rle_putcom.c.security	2005-10-07 18:01:42.000000000 +0200
++++ netpbm-10.32/urt/rle_putcom.c	2006-02-27 14:48:10.000000000 +0100
 @@ -14,6 +14,8 @@
   * If you modify this software, you should include a notice giving the
   * name of the person performing the modification, the date of modification,
