@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.32
-Release: 2
+Version: 10.33
+Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -21,7 +21,7 @@ Patch10: netpbm-10.28-CAN-2005-2471.patch
 Patch11: netpbm-10.29-pnmtopng.patch
 Patch12: netpbm-10.30-rgbtxt.patch
 Patch13: netpbm-10.31-xwdfix.patch
-Patch14: netpbm-10.32-pnmdepth.patch
+Patch14: netpbm-10.33-ppmtompeg.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
 Obsoletes: libgr
@@ -79,7 +79,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch11 -p1 -b .pnmtopng
 %patch12 -p1 -b .rgbtxt
 %patch13 -p1 -b .xwdfix
-%patch14 -p1 -b .pnmdepth
+%patch14 -p1 -b .ppmtompeg
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -178,6 +178,11 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Wed Apr  5 2006 Jindrich Novy <jnovy@redhat.com> 10.33-3
+- update to 10.33
+- drop upstreamed .ppmdepth patch
+- fix segfault in ppmtompeg when encoding jpeg images (#185970)
+
 * Mon Apr  3 2006 Jindrich Novy <jnovy@redhat.com> 10.32-2
 - fix broken symlink in upstream: pnmsdepth -> pamdepth  (#187667)
 
