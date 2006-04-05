@@ -1,0 +1,13 @@
+--- netpbm-10.33/converter/ppm/ppmtompeg/fsize.c.ppmtompeg	1995-07-03 23:57:05.000000000 +0200
++++ netpbm-10.33/converter/ppm/ppmtompeg/fsize.c	2006-04-05 12:44:04.000000000 +0200
+@@ -117,8 +117,8 @@
+     Fsize_Validate(&Fsize_x, &Fsize_y);
+ 
+     if ((Fsize_x==0) || (Fsize_y==0)) {
+-      fprintf(stderr,"Frame %d:  size is zero!\n",id);
+-/*      exit(1); */
++      fprintf(stderr,"Frame %d: image dimensions need to be integer multiples of 16 for ppmtompeg!\n",id);
++      exit(1);
+     }
+ 
+ #ifdef BLEAH
