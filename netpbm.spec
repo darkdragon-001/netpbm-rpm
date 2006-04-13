@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.33
-Release: 1
+Release: 2
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -22,6 +22,8 @@ Patch11: netpbm-10.29-pnmtopng.patch
 Patch12: netpbm-10.30-rgbtxt.patch
 Patch13: netpbm-10.31-xwdfix.patch
 Patch14: netpbm-10.33-ppmtompeg.patch
+Patch15: netpbm-10.33-ppmtogif.patch
+Patch16: netpbm-10.33-nstring.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
 Obsoletes: libgr
@@ -80,6 +82,8 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch12 -p1 -b .rgbtxt
 %patch13 -p1 -b .xwdfix
 %patch14 -p1 -b .ppmtompeg
+%patch15 -p1 -b .ppmtogif
+%patch16 -p1 -b .nstring
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -178,7 +182,12 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
-* Wed Apr  5 2006 Jindrich Novy <jnovy@redhat.com> 10.33-3
+* Thu Apr 14 2006 Jindrich Novy <jnovy@redhat.com> 10.33-2
+- fix image corruption in ppmtogif, thanks to Gilles Detillieux (#188597)
+- fix nsting.h to let pnmtopng and other utilities using seekable opening
+  mode work on x86_64 (#188594)
+
+* Wed Apr  5 2006 Jindrich Novy <jnovy@redhat.com> 10.33-1
 - update to 10.33
 - drop upstreamed .ppmdepth patch
 - fix segfault in ppmtompeg when encoding jpeg images (#185970)
