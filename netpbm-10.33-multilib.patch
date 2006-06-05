@@ -1,0 +1,10 @@
+--- netpbm-10.33/buildtools/endiangen.c.multilib	2005-04-30 18:36:33.000000000 +0200
++++ netpbm-10.33/buildtools/endiangen.c	2006-06-05 22:21:43.000000000 +0200
+@@ -87,7 +87,6 @@
+            byteOrder() == ENDIAN_LITTLE ? "LITTLE_ENDIAN" : "BIG_ENDIAN");
+     printf("#endif\n");
+     printf("\n");
+-    printf("#define BITS_PER_WORD %u\n", bitsPerWord());
+ 
+     return 0;
+ }

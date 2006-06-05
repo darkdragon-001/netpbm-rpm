@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.33
-Release: 2
+Release: 3
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -24,6 +24,7 @@ Patch13: netpbm-10.31-xwdfix.patch
 Patch14: netpbm-10.33-ppmtompeg.patch
 Patch15: netpbm-10.33-ppmtogif.patch
 Patch16: netpbm-10.33-nstring.patch
+Patch17: netpbm-10.33-multilib.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
 Obsoletes: libgr
@@ -84,6 +85,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch14 -p1 -b .ppmtompeg
 %patch15 -p1 -b .ppmtogif
 %patch16 -p1 -b .nstring
+%patch17 -p1 -b .multilib
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -141,7 +143,7 @@ tar jxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_mandir}
 
 # Don't ship man packages for non-existent binaries
 for i in hpcdtoppm.1 pcdovtoppm.1 pnmtojbig.1 \
-	 ppmsvgalib.1 vidtoppm.1 picttoppm.1; do
+	 ppmsvgalib.1 vidtoppm.1 picttoppm.1 jbigtopnm.1; do
 	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/${i}
 done
 
@@ -182,6 +184,10 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Mon Jun  5 2006 Jindrich Novy <jnovy@redhat.com> 10.33-3
+- fix multilib conflict (#192735)
+- remove jbigtopnm man page
+
 * Thu Apr 14 2006 Jindrich Novy <jnovy@redhat.com> 10.33-2
 - fix image corruption in ppmtogif, thanks to Gilles Detillieux (#188597)
 - fix nsting.h to let pnmtopng and other utilities using seekable opening
