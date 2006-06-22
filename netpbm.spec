@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.33
-Release: 3
+Version: 10.34
+Release: 1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -22,8 +22,6 @@ Patch11: netpbm-10.29-pnmtopng.patch
 Patch12: netpbm-10.30-rgbtxt.patch
 Patch13: netpbm-10.31-xwdfix.patch
 Patch14: netpbm-10.33-ppmtompeg.patch
-Patch15: netpbm-10.33-ppmtogif.patch
-Patch16: netpbm-10.33-nstring.patch
 Patch17: netpbm-10.33-multilib.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
@@ -83,8 +81,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch12 -p1 -b .rgbtxt
 %patch13 -p1 -b .xwdfix
 %patch14 -p1 -b .ppmtompeg
-%patch15 -p1 -b .ppmtogif
-%patch16 -p1 -b .nstring
 %patch17 -p1 -b .multilib
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
@@ -108,6 +104,9 @@ netpbm-progs.  You'll also need to install the netpbm package.
 
 
 
+
+
+
 EOF
 
 TOP=`pwd`
@@ -115,19 +114,20 @@ make \
 	CC=%{__cc} \
 	CFLAGS="$RPM_OPT_FLAGS -fPIC" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
-	LADD="-lm"
+	LADD="-lm" \
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
 	TIFFINC_DIR=%{_includedir} \
 	JPEGLIB_DIR=%{_libdir} \
 	PNGLIB_DIR=%{_libdir} \
-	TIFFLIB_DIR=%{_libdir}
+	TIFFLIB_DIR=%{_libdir} \
+	LINUXSVGALIB="NONE"
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT
-make package pkgdir=$RPM_BUILD_ROOT/usr
+make package pkgdir=$RPM_BUILD_ROOT/usr LINUXSVGALIB="NONE"
 
 # Ugly hack to have libs in correct dir on 64bit archs.
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
@@ -184,6 +184,13 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Thu Jun 22 2006 Jindrich Novy <jnovy@redhat.com> 10.34-1
+- update to 10.34
+- drop .ppmtogif, .nstring patches
+- remove some overflow checks from .security patch, it's
+  now resolved in the new upstream version
+- don't use svgalib by default (don't compile/ship ppmsvgalib)
+
 * Mon Jun  5 2006 Jindrich Novy <jnovy@redhat.com> 10.33-3
 - fix multilib conflict (#192735)
 - remove jbigtopnm man page
