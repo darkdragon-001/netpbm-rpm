@@ -121,13 +121,14 @@ make \
 	JPEGLIB_DIR=%{_libdir} \
 	PNGLIB_DIR=%{_libdir} \
 	TIFFLIB_DIR=%{_libdir} \
-	LINUXSVGALIB="NONE"
+	LINUXSVGALIB="NONE" \
+	XML2LIBS="NONE"
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT
-make package pkgdir=$RPM_BUILD_ROOT/usr LINUXSVGALIB="NONE"
+make package pkgdir=$RPM_BUILD_ROOT/usr LINUXSVGALIB="NONE" XML2LIBS="NONE"
 
 # Ugly hack to have libs in correct dir on 64bit archs.
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
@@ -190,6 +191,7 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 - remove some overflow checks from .security patch, it's
   now resolved in the new upstream version
 - don't use svgalib by default (don't compile/ship ppmsvgalib)
+- don't compile svgtopam because of the libxml dependency
 
 * Mon Jun  5 2006 Jindrich Novy <jnovy@redhat.com> 10.33-3
 - fix multilib conflict (#192735)
