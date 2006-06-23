@@ -25,6 +25,7 @@ Patch14: netpbm-10.33-ppmtompeg.patch
 Patch17: netpbm-10.33-multilib.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
+BuildRequires: libX11-devel
 Obsoletes: libgr
 
 %description
@@ -192,6 +193,7 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
   now resolved in the new upstream version
 - don't use svgalib by default (don't compile/ship ppmsvgalib)
 - don't compile svgtopam because of the libxml dependency
+- add BuildRequires libX11-devel
 
 * Mon Jun  5 2006 Jindrich Novy <jnovy@redhat.com> 10.33-3
 - fix multilib conflict (#192735)
