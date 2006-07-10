@@ -123,6 +123,7 @@ make \
 	PNGLIB_DIR=%{_libdir} \
 	TIFFLIB_DIR=%{_libdir} \
 	LINUXSVGALIB="NONE" \
+	X11LIB=%{_libdir}/libX11.so \
 	XML2LIBS="NONE"
 
 %install
@@ -194,6 +195,7 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 - don't use svgalib by default (don't compile/ship ppmsvgalib)
 - don't compile svgtopam because of the libxml dependency
 - add BuildRequires libX11-devel
+- fix build on x86_64 and ppc64
 
 * Mon Jun  5 2006 Jindrich Novy <jnovy@redhat.com> 10.33-3
 - fix multilib conflict (#192735)
