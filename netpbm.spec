@@ -25,7 +25,7 @@ Patch14: netpbm-10.33-ppmtompeg.patch
 Patch17: netpbm-10.33-multilib.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
-BuildRequires: libX11-devel
+BuildRequires: /usr/lib/libX11.so
 Obsoletes: libgr
 
 %description
