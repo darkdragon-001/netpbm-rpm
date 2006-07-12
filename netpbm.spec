@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.34
-Release: 1
+Release: 1.1
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -187,6 +187,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - 10.34-1.1
+- rebuild
+
 * Thu Jun 22 2006 Jindrich Novy <jnovy@redhat.com> 10.34-1
 - update to 10.34
 - drop .ppmtogif, .nstring patches
