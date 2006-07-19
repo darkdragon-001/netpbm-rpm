@@ -11,3 +11,12 @@
      }
  
  #ifdef BLEAH
+--- netpbm-10.34/converter/ppm/ppmtompeg/parallel.c.ppmtompeg   2006-07-19 14:53:27.000000000 +0200
++++ netpbm-10.34/converter/ppm/ppmtompeg/parallel.c     2006-07-19 15:11:42.000000000 +0200
+@@ -1315,8 +1315,6 @@
+   TransmitPortNum(masterHostName, masterPortNum, combinePortNum);
+
+   close(outputServerSocket);
+-
+-  fclose(ofp);
+ }
