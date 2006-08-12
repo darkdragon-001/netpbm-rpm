@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.34
-Release: 2
+Release: 3%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -22,7 +22,8 @@ Patch11: netpbm-10.29-pnmtopng.patch
 Patch12: netpbm-10.30-rgbtxt.patch
 Patch13: netpbm-10.31-xwdfix.patch
 Patch14: netpbm-10.33-ppmtompeg.patch
-Patch17: netpbm-10.33-multilib.patch
+Patch15: netpbm-10.33-multilib.patch
+Patch16: netpbm-10.34-pamscale.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
 BuildRequires: libX11-devel
@@ -82,7 +83,8 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch12 -p1 -b .rgbtxt
 %patch13 -p1 -b .xwdfix
 %patch14 -p1 -b .ppmtompeg
-%patch17 -p1 -b .multilib
+%patch15 -p1 -b .multilib
+%patch16 -p1 -b .pamscale
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -187,6 +189,11 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Sat Aug 12 2006 Jindrich Novy <jnovy@redhat.com> 10.34-3.fc6
+- pamscale won't waste all system resources by usage of uninitialized
+  variables for output image resolution (#199871)
+- use %%{?dist}
+
 * Wed Jul 19 2006 Jindrich Novy <jnovy@redhat.com> 10.34-2
 - fix double free corruption in ppmtompeg (#199409),
   thanks to Milan Zazrivec
