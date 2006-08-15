@@ -1,13 +1,12 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.34
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 Source0: netpbm-%{version}.tar.bz2
 Source1: netpbmdoc-%{version}.tar.bz2
-Patch0: netpbm-10.28-legal.patch
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.19-message.patch
@@ -68,7 +67,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 
 %prep
 %setup -q
-%patch0 -p1 -b .legal
 %patch1 -p1 -b .time
 %patch2 -p1 -b .strip
 %patch3 -p1 -b .message
@@ -189,6 +187,11 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Tue Aug 15 2006 Jindrich Novy <jnovy@redhat.com> 10.34-4.fc6
+- legal fixes (#202519):
+- remove pbmtols, spottopgm, jbig and hpcd stuff from source
+  and doc tarballs
+
 * Sat Aug 12 2006 Jindrich Novy <jnovy@redhat.com> 10.34-3.fc6
 - pamscale won't waste all system resources by usage of uninitialized
   variables for output image resolution (#199871)
