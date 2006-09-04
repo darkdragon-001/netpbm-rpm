@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.34
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -187,6 +187,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Mon Sep  4 2006 Jindrich Novy <jnovy@redhat.com> 10.34-5.fc6
+- readd spottopgm, author claims it's GPL (#202519)
+
 * Tue Aug 15 2006 Jindrich Novy <jnovy@redhat.com> 10.34-4.fc6
 - legal fixes (#202519):
 - remove pbmtols, spottopgm, jbig and hpcd stuff from source
