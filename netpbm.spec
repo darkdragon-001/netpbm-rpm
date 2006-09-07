@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.34
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -187,6 +187,10 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Thu Sep  7 2006 Jindrich Novy <jnovy@redhat.com> 10.34-6.fc6
+- regenerate man pages so that makewhatis isn't confused (#204991)
+  (upstream makeman script was broken -> now fixed)
+
 * Mon Sep  4 2006 Jindrich Novy <jnovy@redhat.com> 10.34-5.fc6
 - readd spottopgm, author claims it's GPL (#202519)
 
