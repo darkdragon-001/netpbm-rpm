@@ -1,12 +1,12 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.34
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
-Source0: netpbm-%{version}.tar.bz2
-Source1: netpbmdoc-%{version}.tar.bz2
+Source0: netpbm-%{version}.l1.tar.bz2
+Source1: netpbmdoc-%{version}.l1.tar.bz2
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.19-message.patch
@@ -187,6 +187,11 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Thu Sep 14 2006 Jindrich Novy <jnovy@redhat.com> 10.34-8
+- readd pbmtols, author claims it's LGPL (#202519)
+- add .l1 suffixes to tarball names to reflect legal fixes
+  in the upstream release with the same NVR
+
 * Wed Sep 13 2006 Jindrich Novy <jnovy@redhat.com> 10.34-7
 - rebuild
 
