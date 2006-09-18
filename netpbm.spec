@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
-Version: 10.34
-Release: 8%{?dist}
+Version: 10.35
+Release: 1%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -17,12 +17,10 @@ Patch7: netpbm-10.24-nodoc.patch
 Patch8: netpbm-10.28-gcc4.patch
 Patch9: netpbm-10.27-bmptopnm.patch
 Patch10: netpbm-10.28-CAN-2005-2471.patch
-Patch11: netpbm-10.29-pnmtopng.patch
-Patch12: netpbm-10.30-rgbtxt.patch
-Patch13: netpbm-10.31-xwdfix.patch
-Patch14: netpbm-10.33-ppmtompeg.patch
-Patch15: netpbm-10.33-multilib.patch
-Patch16: netpbm-10.34-pamscale.patch
+Patch11: netpbm-10.31-xwdfix.patch
+Patch12: netpbm-10.33-ppmtompeg.patch
+Patch13: netpbm-10.33-multilib.patch
+Patch14: netpbm-10.34-pamscale.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
 BuildRequires: libX11-devel
@@ -77,12 +75,10 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch8 -p1 -b .gcc4
 %patch9 -p1 -b .bmptopnm
 %patch10 -p1 -b .CAN-2005-2471
-%patch11 -p1 -b .pnmtopng
-%patch12 -p1 -b .rgbtxt
-%patch13 -p1 -b .xwdfix
-%patch14 -p1 -b .ppmtompeg
-%patch15 -p1 -b .multilib
-%patch16 -p1 -b .pamscale
+%patch11 -p1 -b .xwdfix
+%patch12 -p1 -b .ppmtompeg
+%patch13 -p1 -b .multilib
+%patch14 -p1 -b .pamscale
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -187,6 +183,12 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Mon Sep 18 2006 Jindrich Novy <jnovy@redhat.com> 10.35-1
+- update to 10.35
+- drop .pnmtopng, .rgbtxt patches, fixed upstream
+- sync .xwidfix, .ppmtompeg patches
+- regenerate man pages
+
 * Thu Sep 14 2006 Jindrich Novy <jnovy@redhat.com> 10.34-8
 - readd pbmtols, author claims it's LGPL (#202519)
 - add .l1 suffixes to tarball names to reflect legal fixes
