@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -21,6 +21,7 @@ Patch11: netpbm-10.31-xwdfix.patch
 Patch12: netpbm-10.33-ppmtompeg.patch
 Patch13: netpbm-10.33-multilib.patch
 Patch14: netpbm-10.34-pamscale.patch
+Patch15: netpbm-10.35-ppmquantall.patch
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
 BuildRequires: libX11-devel
@@ -79,6 +80,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch12 -p1 -b .ppmtompeg
 %patch13 -p1 -b .multilib
 %patch14 -p1 -b .pamscale
+%patch15 -p1 -b .pqall
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -183,6 +185,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Sun Sep 24 2006 Jindrich Novy <jnovy@redhat.com> 10.35-2
+- fix ppmquantall (#207799), thanks to Steve Grubb
+
 * Mon Sep 18 2006 Jindrich Novy <jnovy@redhat.com> 10.35-1
 - update to 10.35
 - drop .pnmtopng, .rgbtxt patches, fixed upstream
