@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.35
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -185,6 +185,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Fri Sep 29 2006 Jindrich Novy <jnovy@redhat.com> 10.35-3
+- remove OSI 1.1 from security patch (#208587)
+
 * Sun Sep 24 2006 Jindrich Novy <jnovy@redhat.com> 10.35-2
 - fix ppmquantall (#207799), thanks to Steve Grubb
 
