@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.35
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -185,6 +185,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Mon Oct  2 2006 Jesse Keating <jkeating@redhat.com> 10.35-6
+- rebuild for new libpng, again.
+
 * Mon Oct  2 2006 Jesse Keating <jkeating@redhat.com> 10.35-5
 - rebuild for new libpng
 
