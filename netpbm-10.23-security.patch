@@ -119,20 +119,6 @@
      }
      {
          unsigned int const intQuotient = colormap.size / pamP->width;
---- netpbm-10.34/doc/COPYRIGHT.PATENT.security	2004-05-01 01:54:22.000000000 +0200
-+++ netpbm-10.34/doc/COPYRIGHT.PATENT	2006-06-22 12:45:18.000000000 +0200
-@@ -33,6 +33,11 @@
- all the above to be modified by "to the best of the Netpbm
- maintainer's knowledge."
- 
-+These security fixes for netpbm are (c) Copyright 2002 Red Hat Inc.
-+Red Hat has not fixed those items with patent claims or commercial
-+use restrictions. These changes include NO WARRANTY and are provided
-+under the Open Software License v.1 (see file OPENLICENSE).
-+
- 
- 
- PATENTS
 --- netpbm-10.34/converter/pgm/psidtopgm.c.security	2005-08-27 20:38:40.000000000 +0200
 +++ netpbm-10.34/converter/pgm/psidtopgm.c	2006-06-22 12:45:18.000000000 +0200
 @@ -78,6 +78,7 @@
