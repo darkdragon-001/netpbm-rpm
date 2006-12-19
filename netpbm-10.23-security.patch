@@ -1388,13 +1388,14 @@
  }
 --- netpbm-10.34/lib/pm.h.security	2006-05-19 22:39:07.000000000 +0200
 +++ netpbm-10.34/lib/pm.h	2006-06-22 12:45:18.000000000 +0200
-@@ -340,4 +340,10 @@
+@@ -340,4 +340,11 @@
  #endif
  
  
 +void *malloc2(int, int);
 +void *malloc3(int, int, int);
-+void overflow2(int, int);
++#define overflow2(a,b) __overflow2(a,b)
++void __overflow2(int, int);
 +void overflow3(int, int, int);
 +void overflow_add(int, int);
 +
@@ -1449,7 +1450,7 @@
 + *	Maths wrapping
 + */
 + 
-+void overflow2(int a, int b)
++void __overflow2(int a, int b)
 +{
 +	if(a < 0 || b < 0)
 +		pm_error("object too large");
@@ -1763,7 +1764,7 @@
   */
  /* 
   * rle.h - Global declarations for Utah Raster Toolkit RLE programs.
-@@ -166,6 +169,16 @@
+@@ -166,6 +169,17 @@
   */
  extern rle_hdr rle_dflt_hdr;
  
@@ -1772,7 +1773,8 @@
 + */
 + 
 +extern void overflow_add(int, int);
-+extern void overflow2(int, int);
++#define overflow2(a,b) __overflow2(a,b)
++extern void __overflow2(int, int);
 +extern void overflow3(int, int, int);
 +extern void *malloc2(int, int);
 +extern void *malloc3(int, int, int);

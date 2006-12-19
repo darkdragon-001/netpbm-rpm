@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.35
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -22,7 +22,7 @@ Patch12: netpbm-10.33-ppmtompeg.patch
 Patch13: netpbm-10.33-multilib.patch
 Patch14: netpbm-10.34-pamscale.patch
 Patch15: netpbm-10.35-ppmquantall.patch
-Buildroot: %{_tmppath}/%{name}-root
+Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
 BuildRequires: libX11-devel
 Obsoletes: libgr
@@ -142,11 +142,14 @@ ln -sf libnetpbm.so.10 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 mkdir -p $RPM_BUILD_ROOT%{_mandir}
 tar jxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_mandir}
 
-# Don't ship man packages for non-existent binaries
-for i in hpcdtoppm.1 pcdovtoppm.1 pnmtojbig.1 \
-	 ppmsvgalib.1 vidtoppm.1 picttoppm.1 jbigtopnm.1; do
-	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/${i}
+# Don't ship man pages for non-existent binaries and bogus ones
+for i in hpcdtoppm pcdovtoppm pnmtojbig \
+	 ppmsvgalib vidtoppm picttoppm jbigtopnm \
+	 directory error extendedopacity \
+	 pam pbm pgm pnm ppm; do
+	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/${i}.1
 done
+rm -f $RPM_BUILD_ROOT%{_mandir}/man5/extendedopacity.5
 
 mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_libdir}
 rm -rf $RPM_BUILD_ROOT/usr/README
@@ -156,7 +159,6 @@ rm -rf $RPM_BUILD_ROOT/usr/misc
 rm -rf $RPM_BUILD_ROOT/usr/man
 rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 rm -rf $RPM_BUILD_ROOT/usr/config_template
-
 
 
 %clean
@@ -185,6 +187,11 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Tue Dec 19 2006 Jindrich Novy <jnovy@redhat.com> 10.35-8
+- remove bogus man pages (#220112, #220113)
+- overflow2() no more conflicts with libgd.so (#216116)
+- fix BuildRoot
+
 * Thu Oct 12 2006 Jindrich Novy <jnovy@redhat.com> 10.35-7
 - remove  note about OSL 1 licensing from COPYRIGHT.PATENT file
 
