@@ -1,6 +1,6 @@
---- netpbm-10.32/converter/other/bmptopnm.c.bmptopnm	2006-02-27 15:02:02.000000000 +0100
-+++ netpbm-10.32/converter/other/bmptopnm.c	2006-02-27 15:07:31.000000000 +0100
-@@ -1248,7 +1248,7 @@ readBmp(FILE *               const ifP, 
+--- netpbm-10.35/converter/other/bmptopnm.c.bmptopnm	2007-01-29 13:08:46.000000000 +0100
++++ netpbm-10.35/converter/other/bmptopnm.c	2007-01-29 13:32:21.000000000 +0100
+@@ -1262,7 +1262,7 @@ readBmp(FILE *               const ifP, 
          xel **               const colormapP,
          bool                 const verbose) {
  
@@ -9,12 +9,11 @@
      unsigned int pos;
          /* Current byte position in the BMP file */
  
-@@ -1455,7 +1455,7 @@ main(int argc, char ** argv) {
-         writeRasterGen(BMPraster, cols, rows, outputType, cBitCount,
-                        pixelformat, colormap); 
+@@ -1278,7 +1278,6 @@ readBmp(FILE *               const ifP, 
+         BMPreadfileheader(ifP, &bytesRead, &offBits);
+         pos += bytesRead;
      }
--    free(colormap);
-+    if (colormap) free(colormap);
-     free(BMPraster);
- 
-     return 0;
+-    if(BMPheader.cmapsize != 0)
+     {
+         unsigned int bytesRead;
+         BMPreadinfoheader(ifP, &bytesRead, &BMPheader);

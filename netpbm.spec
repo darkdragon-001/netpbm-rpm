@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.35
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -189,6 +189,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Mon Jan 29 2006 Jindrich Novy <jnovy@redhat.com> 10.35-10
+- bmptopnm won't crash with "BMPlencolormap: internal error!" (#224554)
+
 * Thu Dec 28 2006 Jindrich Novy <jnovy@redhat.com> 10.35-9
 - pbmtog3 won't segfault on 64bit arches (#220739)
 
