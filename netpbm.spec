@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats.
 Name: netpbm
 Version: 10.35
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: freeware
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -23,6 +23,7 @@ Patch13: netpbm-10.33-multilib.patch
 Patch14: netpbm-10.34-pamscale.patch
 Patch15: netpbm-10.35-ppmquantall.patch
 Patch16: netpbm-10.35-pbmtog3segfault.patch
+Patch17: netpbm-10.35-pbmtomacp.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
 BuildRequires: libX11-devel
@@ -83,6 +84,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch14 -p1 -b .pamscale
 %patch15 -p1 -b .pqall
 %patch16 -p1 -b .pbmtog3segfault
+%patch17 -p1 -b .pbmtomacp
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -189,6 +191,9 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 %{_mandir}/man5/*
 
 %changelog
+* Fri Feb  2 2007 Jindrich Novy <jnovy@redhat.com> 10.35-11
+- fix pbmtomacp buffer overflow (#226969)
+
 * Mon Jan 29 2007 Jindrich Novy <jnovy@redhat.com> 10.35-10
 - bmptopnm won't crash with "BMPlencolormap: internal error!" (#224554)
 
