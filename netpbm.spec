@@ -1,8 +1,8 @@
-Summary: A library for handling different graphics file formats.
+Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35
-Release: 11%{?dist}
-License: freeware
+Release: 12%{?dist}
+License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 Source0: netpbm-%{version}.l1.tar.bz2
@@ -25,9 +25,8 @@ Patch15: netpbm-10.35-ppmquantall.patch
 Patch16: netpbm-10.35-pbmtog3segfault.patch
 Patch17: netpbm-10.35-pbmtomacp.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, perl, flex
+BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel
-Obsoletes: libgr
 
 %description
 The netpbm package contains a library of functions which support
@@ -36,10 +35,9 @@ programs for handling various graphics file formats, including .pbm
 .ppm (portable pixmaps) and others.
 
 %package devel
-Summary: Development tools for programs which will use the netpbm libraries.
+Summary: Development tools for programs which will use the netpbm libraries
 Group: Development/Libraries
 Requires: netpbm = %{version}-%{release}
-Obsoletes: libgr-devel
 
 %description devel
 The netpbm-devel package contains the header files and static libraries,
@@ -51,10 +49,9 @@ graphics file formats supported by the netpbm libraries.  You'll also need
 to have the netpbm package installed.
 
 %package progs
-Summary: Tools for manipulating graphics files in netpbm supported formats.
+Summary: Tools for manipulating graphics files in netpbm supported formats
 Group: Applications/Multimedia
 Requires: netpbm = %{version}-%{release}
-Obsoletes: libgr-progs
 
 %description progs
 The netpbm-progs package contains a group of scripts for manipulating the
@@ -129,7 +126,7 @@ make \
 	XML2LIBS="NONE"
 
 %install
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT
 make package pkgdir=$RPM_BUILD_ROOT/usr LINUXSVGALIB="NONE" XML2LIBS="NONE"
@@ -145,6 +142,9 @@ ln -sf libnetpbm.so.10 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 
 mkdir -p $RPM_BUILD_ROOT%{_mandir}
 tar jxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_mandir}
+
+# Get rid of the useless non-ascii character in pgmminkowski.1
+sed -i 's/\xa0//' $RPM_BUILD_ROOT%{_mandir}/man1/pgmminkowski.1
 
 # Don't ship man pages for non-existent binaries and bogus ones
 for i in hpcdtoppm pcdovtoppm pnmtojbig \
@@ -164,9 +164,14 @@ rm -rf $RPM_BUILD_ROOT/usr/man
 rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 rm -rf $RPM_BUILD_ROOT/usr/config_template
 
+# Don't ship the static library
+rm -f $RPM_BUILD_ROOT/%{_libdir}/lib*.a
+
+# Don't ship the map files in %%{_libdir}
+rm -f $RPM_BUILD_ROOT/%{_libdir}/*.map
 
 %clean
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 
@@ -174,23 +179,24 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 
 %files
 %defattr(-,root,root)
-%doc doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README
+%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README
 %{_libdir}/lib*.so.*
 
 %files devel
 %defattr(-,root,root)
 %{_includedir}/*.h
-%{_libdir}/lib*.a
 %{_libdir}/lib*.so
 %{_mandir}/man3/*
 %files progs
 %defattr(-,root,root)
 %{_bindir}/*
-%{_libdir}/*.map
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
 %changelog
+* Thu Mar 29 2007 Jindrich Novy <jnovy@redhat.com> 10.35-12
+- merge review fixes (#226191), thanks to Jason Tibbitts
+
 * Fri Feb  2 2007 Jindrich Novy <jnovy@redhat.com> 10.35-11
 - fix pbmtomacp buffer overflow (#226969)
 
