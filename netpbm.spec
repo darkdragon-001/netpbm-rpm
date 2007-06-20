@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -155,7 +155,8 @@ for i in hpcdtoppm pcdovtoppm pnmtojbig \
 done
 rm -f $RPM_BUILD_ROOT%{_mandir}/man5/extendedopacity.5
 
-mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_libdir}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/netpbm
+mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_datadir}/netpbm/
 rm -rf $RPM_BUILD_ROOT/usr/README
 rm -rf $RPM_BUILD_ROOT/usr/VERSION
 rm -rf $RPM_BUILD_ROOT/usr/link
@@ -166,9 +167,6 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 
 # Don't ship the static library
 rm -f $RPM_BUILD_ROOT/%{_libdir}/lib*.a
-
-# Don't ship the map files in %%{_libdir}
-rm -f $RPM_BUILD_ROOT/%{_libdir}/*.map
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -192,8 +190,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
+%{_datadir}/netpbm/*
 
 %changelog
+* Wed Jun 20 2007 Jindrich Novy <jnovy@redhat.com> 10.35-13
+- package map files needed by pnmtopalm (#244983)
+
 * Thu Mar 29 2007 Jindrich Novy <jnovy@redhat.com> 10.35-12
 - merge review fixes (#226191), thanks to Jason Tibbitts
 
