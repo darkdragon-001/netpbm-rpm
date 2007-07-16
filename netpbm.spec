@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -190,9 +190,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
-%{_datadir}/netpbm/*
+%{_datadir}/netpbm/
 
 %changelog
+* Mon Jul 16 2007 Jindrich Novy <jnovy@redhat.com> 10.35-14
+- /usr/share/netpbm is no more unowned (#248300)
+
 * Wed Jun 20 2007 Jindrich Novy <jnovy@redhat.com> 10.35-13
 - package map files needed by pnmtopalm (#244983)
 
