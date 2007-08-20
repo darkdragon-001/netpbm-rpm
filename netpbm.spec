@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -11,7 +11,6 @@ Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.19-message.patch
 Patch4: netpbm-10.22-security2.patch
-Patch5: netpbm-10.22-cmapsize.patch
 Patch6: netpbm-10.23-security.patch
 Patch7: netpbm-10.24-nodoc.patch
 Patch8: netpbm-10.28-gcc4.patch
@@ -69,7 +68,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch2 -p1 -b .strip
 %patch3 -p1 -b .message
 %patch4 -p1 -b .security2
-%patch5 -p1 -b .cmapsize
 %patch6 -p1 -b .security
 %patch7 -p1 -b .nodoc
 %patch8 -p1 -b .gcc4
@@ -193,6 +191,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Aug 20 2007 Jindrich Novy <jnovy@redhat.com> 10.35-15
+- fix .ppmquantall patch (#207799)
+- merge cmapsize with bmptopnm patch (#224554)
+
 * Mon Jul 16 2007 Jindrich Novy <jnovy@redhat.com> 10.35-14
 - /usr/share/netpbm is no more unowned (#248300)
 

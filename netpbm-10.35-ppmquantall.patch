@@ -7,8 +7,8 @@ diff -ur netpbm-10.35.orig/editor/ppmquantall netpbm-10.35/editor/ppmquantall
  
 -set widths=()
 -set heights=()
-+set widths
-+set heights
++widths=()
++heights=()
  
  for i in ${files[@]}; do
      widths=(${widths[*]} `grep -v '^#' $i | sed '1d; s/ .*//; 2q'`)

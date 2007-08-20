@@ -9,11 +9,3 @@
      unsigned int pos;
          /* Current byte position in the BMP file */
  
-@@ -1278,7 +1278,6 @@ readBmp(FILE *               const ifP, 
-         BMPreadfileheader(ifP, &bytesRead, &offBits);
-         pos += bytesRead;
-     }
--    if(BMPheader.cmapsize != 0)
-     {
-         unsigned int bytesRead;
-         BMPreadinfoheader(ifP, &bytesRead, &BMPheader);
