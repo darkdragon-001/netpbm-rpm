@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -191,6 +191,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Thu Aug 23 2007 Jindrich Novy <jnovy@redhat.com> 10.35-16
+- rebuild for ppc32
+
 * Mon Aug 20 2007 Jindrich Novy <jnovy@redhat.com> 10.35-15
 - fix .ppmquantall patch (#207799)
 - merge cmapsize with bmptopnm patch (#224554)
