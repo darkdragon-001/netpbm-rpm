@@ -23,6 +23,7 @@ Patch14: netpbm-10.34-pamscale.patch
 Patch15: netpbm-10.35-ppmquantall.patch
 Patch16: netpbm-10.35-pbmtog3segfault.patch
 Patch17: netpbm-10.35-pbmtomacp.patch
+Patch18: netpbm-10.35-glibc.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel
@@ -80,6 +81,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch15 -p1 -b .pqall
 %patch16 -p1 -b .pbmtog3segfault
 %patch17 -p1 -b .pbmtomacp
+%patch18 -p1 -b .glibc
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -193,6 +195,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Aug 23 2007 Jindrich Novy <jnovy@redhat.com> 10.35-16
 - rebuild for ppc32
+- fix open() calls so that netpbm builds with new glibc
 
 * Mon Aug 20 2007 Jindrich Novy <jnovy@redhat.com> 10.35-15
 - fix .ppmquantall patch (#207799)
