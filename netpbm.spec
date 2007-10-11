@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -26,7 +26,7 @@ Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires: libX11-devel
+BuildRequires: libX11-devel xorg-x11-server-utils
 
 %description
 The netpbm package contains a library of functions which support
@@ -193,6 +193,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Thu Oct 11 2007 Jindrich Novy <jnovy@redhat.com> 10.35-17
+- add xorg-x11-server-utils BR (#313301)
+
 * Thu Aug 23 2007 Jindrich Novy <jnovy@redhat.com> 10.35-16
 - rebuild for ppc32
 - fix open() calls so that netpbm builds with new glibc
