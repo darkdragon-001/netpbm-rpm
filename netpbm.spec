@@ -1,12 +1,15 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35
-Release: 17%{?dist}
+Version: 10.35.32
+Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
-Source0: netpbm-%{version}.l1.tar.bz2
-Source1: netpbmdoc-%{version}.l1.tar.bz2
+# Source0 is prepared by 
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{nersion}
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{nersion}/userguide
+# and removing the .svn directories
+Source0: netpbm-%{version}.tar.bz2
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.19-message.patch
@@ -26,7 +29,7 @@ Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires: libX11-devel xorg-x11-server-utils
+BuildRequires: libX11-devel xorg-x11-server-utils python
 
 %description
 The netpbm package contains a library of functions which support
@@ -125,6 +128,17 @@ make \
 	X11LIB=%{_libdir}/libX11.so \
 	XML2LIBS="NONE"
 
+# prepare man files
+cd userguide
+for i in *.html ; do
+  ../buildtools/makeman ${i}
+done
+for i in 1 3 5 ; do
+  mkdir -p man/man${i}
+  mv *.${i} man/man${i}
+done
+
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -140,8 +154,8 @@ fi
 cp -af lib/libnetpbm.a $RPM_BUILD_ROOT%{_libdir}/libnetpbm.a
 ln -sf libnetpbm.so.10 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 
-mkdir -p $RPM_BUILD_ROOT%{_mandir}
-tar jxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_mandir}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}
+mv userguide/man $RPM_BUILD_ROOT%{_mandir}
 
 # Get rid of the useless non-ascii character in pgmminkowski.1
 sed -i 's/\xa0//' $RPM_BUILD_ROOT%{_mandir}/man1/pgmminkowski.1
@@ -177,7 +191,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README
+%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README userguide
 %{_libdir}/lib*.so.*
 
 %files devel
@@ -193,6 +207,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Thu Oct 18 2007 Jindrich Novy <jnovy@redhat.com> 10.35.32-1
+- remove .svn directories from tarball to reduce its size
+- update fixes rhbz#337181 and likely others
+
+* Thu Oct 18 2007 MATSUURA Takanori <t.matsuu at gmail.com> 10.35.32-0
+- update to 10.35.32 from svn tree
+- create man pages from userguide HTML files
+
 * Thu Oct 11 2007 Jindrich Novy <jnovy@redhat.com> 10.35-17
 - add xorg-x11-server-utils BR (#313301)
 
