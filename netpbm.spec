@@ -1,17 +1,19 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35
-Release: 12%{?dist}
+Version: 10.35.32
+Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
-Source0: netpbm-%{version}.l1.tar.bz2
-Source1: netpbmdoc-%{version}.l1.tar.bz2
+# Source0 is prepared by 
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{nersion}
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{nersion}/userguide
+# and removing the .svn directories
+Source0: netpbm-%{version}.tar.bz2
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.19-message.patch
 Patch4: netpbm-10.22-security2.patch
-Patch5: netpbm-10.22-cmapsize.patch
 Patch6: netpbm-10.23-security.patch
 Patch7: netpbm-10.24-nodoc.patch
 Patch8: netpbm-10.28-gcc4.patch
@@ -24,9 +26,10 @@ Patch14: netpbm-10.34-pamscale.patch
 Patch15: netpbm-10.35-ppmquantall.patch
 Patch16: netpbm-10.35-pbmtog3segfault.patch
 Patch17: netpbm-10.35-pbmtomacp.patch
+Patch18: netpbm-10.35-glibc.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires: libX11-devel
+BuildRequires: libX11-devel xorg-x11-server-utils python
 
 %description
 The netpbm package contains a library of functions which support
@@ -69,7 +72,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch2 -p1 -b .strip
 %patch3 -p1 -b .message
 %patch4 -p1 -b .security2
-%patch5 -p1 -b .cmapsize
 %patch6 -p1 -b .security
 %patch7 -p1 -b .nodoc
 %patch8 -p1 -b .gcc4
@@ -82,6 +84,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch15 -p1 -b .pqall
 %patch16 -p1 -b .pbmtog3segfault
 %patch17 -p1 -b .pbmtomacp
+%patch18 -p1 -b .glibc
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -125,6 +128,17 @@ make \
 	X11LIB=%{_libdir}/libX11.so \
 	XML2LIBS="NONE"
 
+# prepare man files
+cd userguide
+for i in *.html ; do
+  ../buildtools/makeman ${i}
+done
+for i in 1 3 5 ; do
+  mkdir -p man/man${i}
+  mv *.${i} man/man${i}
+done
+
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -140,8 +154,8 @@ fi
 cp -af lib/libnetpbm.a $RPM_BUILD_ROOT%{_libdir}/libnetpbm.a
 ln -sf libnetpbm.so.10 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 
-mkdir -p $RPM_BUILD_ROOT%{_mandir}
-tar jxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_mandir}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}
+mv userguide/man $RPM_BUILD_ROOT%{_mandir}
 
 # Get rid of the useless non-ascii character in pgmminkowski.1
 sed -i 's/\xa0//' $RPM_BUILD_ROOT%{_mandir}/man1/pgmminkowski.1
@@ -155,7 +169,8 @@ for i in hpcdtoppm pcdovtoppm pnmtojbig \
 done
 rm -f $RPM_BUILD_ROOT%{_mandir}/man5/extendedopacity.5
 
-mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_libdir}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/netpbm
+mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_datadir}/netpbm/
 rm -rf $RPM_BUILD_ROOT/usr/README
 rm -rf $RPM_BUILD_ROOT/usr/VERSION
 rm -rf $RPM_BUILD_ROOT/usr/link
@@ -167,9 +182,6 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 # Don't ship the static library
 rm -f $RPM_BUILD_ROOT/%{_libdir}/lib*.a
 
-# Don't ship the map files in %%{_libdir}
-rm -f $RPM_BUILD_ROOT/%{_libdir}/*.map
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -179,7 +191,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README
+%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README userguide
 %{_libdir}/lib*.so.*
 
 %files devel
@@ -192,8 +204,34 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
+%{_datadir}/netpbm/
 
 %changelog
+* Thu Oct 18 2007 Jindrich Novy <jnovy@redhat.com> 10.35.32-1
+- remove .svn directories from tarball to reduce its size
+- update fixes rhbz#337181 and likely others
+
+* Thu Oct 18 2007 MATSUURA Takanori <t.matsuu at gmail.com> - 10.35.32-0
+- update to 10.35.32 from svn tree
+- create man pages from userguide HTML files
+
+* Thu Oct 11 2007 Jindrich Novy <jnovy@redhat.com> 10.35-17
+- add xorg-x11-server-utils BR (#313301)
+
+* Thu Aug 23 2007 Jindrich Novy <jnovy@redhat.com> 10.35-16
+- rebuild for ppc32
+- fix open() calls so that netpbm builds with new glibc
+
+* Mon Aug 20 2007 Jindrich Novy <jnovy@redhat.com> 10.35-15
+- fix .ppmquantall patch (#207799)
+- merge cmapsize with bmptopnm patch (#224554)
+
+* Mon Jul 16 2007 Jindrich Novy <jnovy@redhat.com> 10.35-14
+- /usr/share/netpbm is no more unowned (#248300)
+
+* Wed Jun 20 2007 Jindrich Novy <jnovy@redhat.com> 10.35-13
+- package map files needed by pnmtopalm (#244983)
+
 * Thu Mar 29 2007 Jindrich Novy <jnovy@redhat.com> 10.35-12
 - merge review fixes (#226191), thanks to Jason Tibbitts
 
