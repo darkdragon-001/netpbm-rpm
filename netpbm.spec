@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35.32
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -164,7 +164,9 @@ sed -i 's/\xa0//' $RPM_BUILD_ROOT%{_mandir}/man1/pgmminkowski.1
 for i in hpcdtoppm pcdovtoppm pnmtojbig \
 	 ppmsvgalib vidtoppm picttoppm jbigtopnm \
 	 directory error extendedopacity \
-	 pam pbm pgm pnm ppm; do
+	 pam pbm pgm pnm ppm index libnetpbm_dir \
+	 liberror pambackground pamfixtrunc \
+	 pamtogif pamtooctaveimg pamundice ppmtotga; do
 	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/${i}.1
 done
 rm -f $RPM_BUILD_ROOT%{_mandir}/man5/extendedopacity.5
@@ -207,6 +209,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Nov  2 2007 Jindrich Novy <jnovy@redhat.com> 10.35.32-2
+- remove man pages that lack corresponding binaries (#220739)
+
 * Thu Oct 18 2007 Jindrich Novy <jnovy@redhat.com> 10.35.32-1
 - remove .svn directories from tarball to reduce its size
 - update fixes rhbz#337181 and likely others
