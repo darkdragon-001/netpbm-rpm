@@ -209,7 +209,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
-* Wed Nov 14 2007 Jindrich Noyv <jnovy@redhat.com> 10.35.33-1
+* Wed Nov 14 2007 Jindrich Novy <jnovy@redhat.com> 10.35.33-1
 - update to 10.35.33
 
 * Wed Nov  2 2007 Jindrich Novy <jnovy@redhat.com> 10.35.32-2
