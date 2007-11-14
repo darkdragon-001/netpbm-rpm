@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.32
-Release: 2%{?dist}
+Version: 10.35.33
+Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -209,6 +209,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Nov 14 2007 Jindrich Noyv <jnovy@redhat.com> 10.35.33-1
+- update to 10.35.33
+
 * Wed Nov  2 2007 Jindrich Novy <jnovy@redhat.com> 10.35.32-2
 - remove man pages that lacks corresponding binaries (#220739)
 
