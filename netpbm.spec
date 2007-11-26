@@ -1,13 +1,13 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.33
+Version: 10.35.34
 Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by 
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{nersion}
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{nersion}/userguide
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{version}
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
 # and removing the .svn directories
 Source0: netpbm-%{version}.tar.bz2
 Patch1: netpbm-10.17-time.patch
@@ -209,6 +209,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Nov 26 2007 Jindrich Novy <jnovy@redhat.com> 10.35.34-1
+- update to 10.35.34
+- sync security patch and fix typos
+
 * Wed Nov 14 2007 Jindrich Novy <jnovy@redhat.com> 10.35.33-1
 - update to 10.35.33
 
