@@ -1128,20 +1128,6 @@
          *padrightP =
              ( ( h10P->pixmap_width + 15 ) / 16 ) * 16 - h10P->pixmap_width;
          *bits_per_itemP = 16;
-@@ -223,9 +226,13 @@
-         *formatP = PGM_TYPE;
-         *visualclassP = StaticGray;
-         *maxvalP = ( 1 << h10P->display_planes ) - 1;
-+        overflow_add(*maxvalP, 1);
-         *colorsP = pnm_allocrow( *maxvalP + 1 );
-         for ( i = 0; i <= *maxvalP; ++i )
-             PNM_ASSIGN1( (*colorsP)[i], i );
-+        overflow_add(h10P->pixmap_width, 15);
-+        if(h10P->pixmap_width < 0)
-+            pm_error("assert: negative width");
-         *padrightP =
-             ( ( h10P->pixmap_width + 15 ) / 16 ) * 16 - h10P->pixmap_width;
-         *bits_per_itemP = 16;
 @@ -544,6 +551,7 @@
  
      *colsP = h11FixedP->pixmap_width;
