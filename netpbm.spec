@@ -27,6 +27,7 @@ Patch15: netpbm-10.35-ppmquantall.patch
 Patch16: netpbm-10.35-pbmtog3segfault.patch
 Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
+Patch19: netpbm-10.35-gcc43.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel xorg-x11-server-utils python
@@ -85,6 +86,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch16 -p1 -b .pbmtog3segfault
 %patch17 -p1 -b .pbmtomacp
 %patch18 -p1 -b .glibc
+%patch19 -p1 -b .gcc43
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -115,7 +117,7 @@ EOF
 TOP=`pwd`
 make \
 	CC=%{__cc} \
-	CFLAGS="$RPM_OPT_FLAGS -fPIC" \
+	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
 	LADD="-lm" \
 	JPEGINC_DIR=%{_includedir} \
@@ -211,6 +213,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Feb 14 2008 Jindrich Novy <jnovy@redhat.com> 10.35.38-1
 - update to 10.35.38 (fixes to pbmtext and ppmtoarbtxt)
+- fix to let it built with gcc 4.3
 
 * Thu Jan 17 2008 Jindrich Novy <jnovy@redhat.com> 10.35.37-1
 - update to 10.35.37
