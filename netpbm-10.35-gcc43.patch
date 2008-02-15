@@ -1,0 +1,12 @@
+diff -up netpbm-10.35.36/lib/libpbm3.c.gcc43 netpbm-10.35.36/lib/libpbm3.c
+--- netpbm-10.35.36/lib/libpbm3.c.gcc43	2007-12-31 07:02:07.000000000 +0100
++++ netpbm-10.35.36/lib/libpbm3.c	2008-01-08 13:08:52.000000000 +0100
+@@ -105,7 +105,7 @@ packBitsWithMmxSse(FILE *          const
+             ) ];
+     */
+ 
+-    typedef int v8qi __attribute__ ((mode(V8QI)));
++    typedef int v8qi __attribute__ ((vector_size(8)));
+     typedef int di __attribute__ ((mode(DI)));
+ 
+     di const zero64 = 0;        /* to clear with PXOR */
