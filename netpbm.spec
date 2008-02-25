@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.38
+Version: 10.35.39
 Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
@@ -211,6 +211,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Feb 25 2008 Jindrich Novy <jnovy@redhat.com> 10.35.39-1
+- update to 10.35.39 (fixes crash in pamtosvg)
+
 * Thu Feb 14 2008 Jindrich Novy <jnovy@redhat.com> 10.35.38-1
 - update to 10.35.38 (fixes to pbmtext and ppmtoarbtxt)
 - fix to let it built with gcc 4.3
