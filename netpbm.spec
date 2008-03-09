@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.39
+Version: 10.35.40
 Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
@@ -117,8 +117,8 @@ EOF
 TOP=`pwd`
 make \
 	CC=%{__cc} \
-	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
+	CFLAGS="$RPM_OPT_FLAGS -fPIC -fPIC -flax-vector-conversions" \
 	LADD="-lm" \
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
@@ -211,6 +211,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Sun Mar  9 2008 Jindrich Novy <jnovy@redhat.com> 10.35.40-1
+- update to 10.35.40 (fixes pgmdeshadow, pgmmedian, pgmbentley and pamtosvg)
+
 * Mon Feb 25 2008 Jindrich Novy <jnovy@redhat.com> 10.35.39-1
 - update to 10.35.39 (fixes crash in pamtosvg)
 
