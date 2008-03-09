@@ -118,7 +118,7 @@ TOP=`pwd`
 make \
 	CC=%{__cc} \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
-	CFLAGS="$RPM_OPT_FLAGS -fPIC -fPIC -flax-vector-conversions" \
+	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
 	LADD="-lm" \
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
