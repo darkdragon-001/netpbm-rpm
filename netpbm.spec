@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.40
-Release: 2%{?dist}
+Version: 10.35.41
+Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
@@ -214,6 +214,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Mar 31 2008 Jindrich Novy <jnovy@redhat.com> 10.35.41-1
+- update to 10.35.41 (fixes pnmnorm and gcc-4.3 build)
+
 * Fri Mar 14 2008 Jindrich Novy <jnovy@redhat.com> 10.35.40-2
 - package rgb.txt for pnmtopng (#313301)
 - drop useless xorg-x11-server-utils BR
