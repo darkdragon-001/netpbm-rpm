@@ -1,13 +1,13 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.32
-Release: 2%{?dist}
+Version: 10.35.41
+Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
-# Source0 is prepared by 
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{nersion}
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{nersion}/userguide
+# Source0 is prepared by
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{version}
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
 # and removing the .svn directories
 Source0: netpbm-%{version}.tar.bz2
 Patch1: netpbm-10.17-time.patch
@@ -27,9 +27,11 @@ Patch15: netpbm-10.35-ppmquantall.patch
 Patch16: netpbm-10.35-pbmtog3segfault.patch
 Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
+Patch19: netpbm-10.35-gcc43.patch
+Patch20: netpbm-10.35-rgbtxt.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires: libX11-devel xorg-x11-server-utils python
+BuildRequires: libX11-devel, python
 
 %description
 The netpbm package contains a library of functions which support
@@ -85,6 +87,8 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch16 -p1 -b .pbmtog3segfault
 %patch17 -p1 -b .pbmtomacp
 %patch18 -p1 -b .glibc
+%patch19 -p1 -b .gcc43
+%patch20 -p1 -b .rgbtxt
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -173,6 +177,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man5/extendedopacity.5
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/netpbm
 mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_datadir}/netpbm/
+mv $RPM_BUILD_ROOT/usr/misc/rgb.txt $RPM_BUILD_ROOT%{_datadir}/netpbm/
 rm -rf $RPM_BUILD_ROOT/usr/README
 rm -rf $RPM_BUILD_ROOT/usr/VERSION
 rm -rf $RPM_BUILD_ROOT/usr/link
@@ -209,6 +214,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Mar 31 2008 Jindrich Novy <jnovy@redhat.com> 10.35.41-1
+- update to 10.35.41 (fixes pnmnorm, pgmdeshadow, pgmmedian,
+  pgmbentley and pamtosvg, pamtosvg, pbmtext, ppmtoarbtxt and
+  gcc-4.3 build)
+- package rgb.txt for pnmtopng (#313301)
+- drop useless xorg-x11-server-utils BR
+- fix to let it built with gcc 4.3
+- sync security patch and fix typos
+
 * Wed Nov  2 2007 Jindrich Novy <jnovy@redhat.com> 10.35.32-2
 - remove man pages that lack corresponding binaries (#220739)
 
