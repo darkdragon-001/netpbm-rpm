@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.41
+Version: 10.35.42
 Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
@@ -214,6 +214,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Apr 14 2008 Jindrich Novy <jnovy@redhat.com> 10.35.42-1
+- update to 10.35.42
+- fixes pnmnorm, resolution of conflicting -wpercent and -wvalue
+
 * Mon Mar 31 2008 Jindrich Novy <jnovy@redhat.com> 10.35.41-1
 - update to 10.35.41 (fixes pnmnorm and gcc-4.3 build)
 
