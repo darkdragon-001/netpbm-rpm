@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.42
+Version: 10.35.43
 Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
@@ -118,7 +118,7 @@ EOF
 
 TOP=`pwd`
 make \
-	CC=%{__cc} \
+	CC="%{__cc}" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
 	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
 	LADD="-lm" \
@@ -214,6 +214,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon May 12 2008 Jindrich Novy <jnovy@redhat.com> 10.35.43-1
+- update to 10.35.43
+- fixes pbmtext and documentation of pamthreshold
+
 * Mon Apr 14 2008 Jindrich Novy <jnovy@redhat.com> 10.35.42-1
 - update to 10.35.42
 - fixes pnmnorm, resolution of conflicting -wpercent and -wvalue
