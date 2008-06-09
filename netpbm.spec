@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.41
+Version: 10.35.45
 Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
@@ -214,6 +214,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Jun  9 2008 Jindrich Novy <jnovy@redhat.com> 10.35.45-1
+- update to 10.35.45
+- fixes anytopnm, pamtohtmltbl, xvminitoppm, pbmtogo, tgatoppm,
+  pamscale PBM input with -nomix, pamtilt crash,
+  pbmtext and documentation of pamthreshold, pnmnorm
+
 * Mon Mar 31 2008 Jindrich Novy <jnovy@redhat.com> 10.35.41-1
 - update to 10.35.41 (fixes pnmnorm, pgmdeshadow, pgmmedian,
   pgmbentley and pamtosvg, pamtosvg, pbmtext, ppmtoarbtxt and
