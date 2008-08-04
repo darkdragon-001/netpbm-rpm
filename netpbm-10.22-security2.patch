@@ -1,6 +1,7 @@
---- netpbm-10.28/converter/other/anytopnm.security2	2005-05-27 00:10:39.000000000 +0200
-+++ netpbm-10.28/converter/other/anytopnm	2005-06-10 09:42:48.609492080 +0200
-@@ -522,11 +522,7 @@ else
+diff -up netpbm-10.35.48/converter/other/anytopnm.security2 netpbm-10.35.48/converter/other/anytopnm
+--- netpbm-10.35.48/converter/other/anytopnm.security2	2008-08-03 22:07:04.000000000 +0200
++++ netpbm-10.35.48/converter/other/anytopnm	2008-08-04 07:11:46.000000000 +0200
+@@ -506,11 +506,7 @@ else
      inputFile="-"
  fi
  
@@ -11,9 +12,9 @@
 -trap 'rm -rf $tempdir' 0
 +tempdir=$(mktemp -d -t anytopnm.XXXXXXXXXX) || exit 1
  
- findAwk;
- 
-@@ -549,9 +545,17 @@ if [ "$filetype" = "unknown" ]; then
+ # Take out all spaces
+ # Find the filename extension for last-ditch efforts later
+@@ -536,9 +532,17 @@ if [ "$filetype" = "unknown" ]; then
      echo "$progname: unknown file type.  " \
          "'file' says mime type is '$mimeType', " 1>&2
      echo "type description is '$typeDescription'" 1>&2
@@ -31,8 +32,97 @@
 +fi
 +
  exit 0
---- netpbm-10.28/editor/ppmfade.security2	2005-03-16 22:10:39.000000000 +0100
-+++ netpbm-10.28/editor/ppmfade	2005-06-10 09:02:04.545046352 +0200
+diff -up netpbm-10.35.48/editor/pamstretch-gen.security2 netpbm-10.35.48/editor/pamstretch-gen
+--- netpbm-10.35.48/editor/pamstretch-gen.security2	2008-08-03 22:06:45.000000000 +0200
++++ netpbm-10.35.48/editor/pamstretch-gen	2008-08-04 07:11:46.000000000 +0200
+@@ -31,10 +31,7 @@ if [ "$1" = "" ]; then
+   exit 1
+ fi
+ 
+-tempdir="${TMPDIR-/tmp}/pamstretch-gen.$$"
+-mkdir $tempdir || { echo "Could not create temporary file. Exiting."; exit 1;}
+-chmod 700 $tempdir
+-tempfile=$tempdir/pnmig
++tempfile=$(mktemp /tmp/pnmig.XXXXXXXXXX) || exit 1
+ 
+ trap 'rm -rf $tempdir' 0 1 3 15
+ 
+diff -up netpbm-10.35.48/editor/pnmmargin.security2 netpbm-10.35.48/editor/pnmmargin
+--- netpbm-10.35.48/editor/pnmmargin.security2	2008-08-03 22:06:45.000000000 +0200
++++ netpbm-10.35.48/editor/pnmmargin	2008-08-04 07:11:46.000000000 +0200
+@@ -11,16 +11,11 @@
+ # documentation.  This software is provided "as is" without express or
+ # implied warranty.
+ 
+-tempdir="${TMPDIR-/tmp}/pnmmargin.$$"
+-mkdir $tempdir || { echo "Could not create temporary file. Exiting."; exit 1;}
+-chmod 700 $tempdir
+-
+-trap 'rm -rf $tempdir' 0 1 3 15
+-
+-tmp1=$tempdir/pnmm1
+-tmp2=$tempdir/pnmm2
+-tmp3=$tempdir/pnmm3
+-tmp4=$tempdir/pnmm4
++tmpdir=$(mktemp -d -t ppmmargin.XXXXXXX) || exit 1
++tmp1="$tmpdir/tmp1"
++tmp2="$tmpdir/tmp2"
++tmp3="$tmpdir/tmp3"
++tmp4="$tmpdir/tmp4"
+ 
+ color="-gofigure"
+ 
+@@ -39,6 +34,9 @@ while true ; do
+ 	shift
+ 	if [ ! ${1-""} ] ; then
+ 	    echo "usage: $0 [-white|-black|-color <colorspec>] <size> [pnmfile]" 1>&2
++            if [ -d "$tmpdir" ]; then
++                rm -rf "$tmpdir"
++            fi
+ 	    exit 1
+ 	fi
+ 	color="$1"
+@@ -46,6 +44,9 @@ while true ; do
+ 	;;
+ 	-* )
+ 	echo "usage: $0 [-white|-black|-color <colorspec>] <size> [pnmfile]" 1>&2
++        if [ -d "$tmpdir" ]; then
++            rm -rf "$tmpdir"
++        fi
+ 	exit 1
+ 	;;
+ 	* )
+@@ -56,6 +57,9 @@ done
+ 
+ if [ ! ${1-""} ] ; then
+     echo "usage: $0 [-white|-black|-color <colorspec>] <size> [pnmfile]" 1>&2
++    if [ -d "$tmpdir" ]; then
++        rm -rf "$tmpdir"
++    fi
+     exit 1
+ fi
+ size="$1"
+@@ -63,6 +67,9 @@ shift
+ 
+ if [ ${2-""} ] ; then
+     echo "usage: $0 [-white|-black|-color <colorspec>] <size> [pnmfile]" 1>&2
++    if [ -d "$tmpdir" ]; then
++        rm -rf "$tmpdir"
++    fi
+     exit 1
+ fi
+ 
+@@ -86,3 +93,7 @@ pamflip -rotate90 $tmp2 > $tmp3
+ # Cat things together.
+ pnmcat -lr $tmp2 $tmp1 $tmp2 > $tmp4
+ pnmcat -tb $tmp3 $tmp4 $tmp3
++
++if [ -d "$tmpdir" ]; then
++    rm -rf "$tmpdir"
++fi
+diff -up netpbm-10.35.48/editor/ppmfade.security2 netpbm-10.35.48/editor/ppmfade
+--- netpbm-10.35.48/editor/ppmfade.security2	2008-08-03 22:06:45.000000000 +0200
++++ netpbm-10.35.48/editor/ppmfade	2008-08-04 07:11:46.000000000 +0200
 @@ -14,6 +14,7 @@
  #
  #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -297,9 +387,10 @@
  
  exit(0);
  
---- netpbm-10.28/editor/ppmquantall.security2	2005-03-17 00:44:03.000000000 +0100
-+++ netpbm-10.28/editor/ppmquantall	2005-06-10 09:02:04.547046048 +0200
-@@ -63,13 +63,8 @@ for i in ${files[@]}; do
+diff -up netpbm-10.35.48/editor/ppmquantall.security2 netpbm-10.35.48/editor/ppmquantall
+--- netpbm-10.35.48/editor/ppmquantall.security2	2008-08-03 22:06:45.000000000 +0200
++++ netpbm-10.35.48/editor/ppmquantall	2008-08-04 07:11:46.000000000 +0200
+@@ -70,13 +70,8 @@ for i in ${files[@]}; do
      heights=(${heights[*]} `grep -v '^#' $i | sed '1d; s/.* //; 2q'`)
  done
  
@@ -315,94 +406,9 @@
  
  pnmcat -topbottom -jleft -white ${files[@]} | pnmquant $newcolors > $all
  if [ $? != 0 ]; then
---- netpbm-10.28/editor/pnmmargin.security2	2003-12-31 05:01:26.000000000 +0100
-+++ netpbm-10.28/editor/pnmmargin	2005-06-10 09:02:04.549045744 +0200
-@@ -11,16 +11,11 @@
- # documentation.  This software is provided "as is" without express or
- # implied warranty.
- 
--tempdir="${TMPDIR-/tmp}/pnmmargin.$$"
--mkdir $tempdir || { echo "Could not create temporary file. Exiting."; exit 1;}
--chmod 700 $tempdir
--
--trap 'rm -rf $tempdir' 0 1 3 15
--
--tmp1=$tempdir/pnmm1
--tmp2=$tempdir/pnmm2
--tmp3=$tempdir/pnmm3
--tmp4=$tempdir/pnmm4
-+tmpdir=$(mktemp -d -t ppmmargin.XXXXXXX) || exit 1
-+tmp1="$tmpdir/tmp1"
-+tmp2="$tmpdir/tmp2"
-+tmp3="$tmpdir/tmp3"
-+tmp4="$tmpdir/tmp4"
- 
- color="-gofigure"
- 
-@@ -39,6 +34,9 @@ while true ; do
- 	shift
- 	if [ ! ${1-""} ] ; then
- 	    echo "usage: $0 [-white|-black|-color <colorspec>] <size> [pnmfile]" 1>&2
-+            if [ -d "$tmpdir" ]; then
-+                rm -rf "$tmpdir"
-+            fi
- 	    exit 1
- 	fi
- 	color="$1"
-@@ -46,6 +44,9 @@ while true ; do
- 	;;
- 	-* )
- 	echo "usage: $0 [-white|-black|-color <colorspec>] <size> [pnmfile]" 1>&2
-+        if [ -d "$tmpdir" ]; then
-+            rm -rf "$tmpdir"
-+        fi
- 	exit 1
- 	;;
- 	* )
-@@ -56,6 +57,9 @@ done
- 
- if [ ! ${1-""} ] ; then
-     echo "usage: $0 [-white|-black|-color <colorspec>] <size> [pnmfile]" 1>&2
-+    if [ -d "$tmpdir" ]; then
-+        rm -rf "$tmpdir"
-+    fi
-     exit 1
- fi
- size="$1"
-@@ -63,6 +67,9 @@ shift
- 
- if [ ${2-""} ] ; then
-     echo "usage: $0 [-white|-black|-color <colorspec>] <size> [pnmfile]" 1>&2
-+    if [ -d "$tmpdir" ]; then
-+        rm -rf "$tmpdir"
-+    fi
-     exit 1
- fi
- 
-@@ -86,3 +93,7 @@ pamflip -rotate90 $tmp2 > $tmp3
- # Cat things together.
- pnmcat -lr $tmp2 $tmp1 $tmp2 > $tmp4
- pnmcat -tb $tmp3 $tmp4 $tmp3
-+
-+if [ -d "$tmpdir" ]; then
-+    rm -rf "$tmpdir"
-+fi
---- netpbm-10.28/editor/pamstretch-gen.security2	2004-07-25 02:01:24.000000000 +0200
-+++ netpbm-10.28/editor/pamstretch-gen	2005-06-10 09:02:04.550045592 +0200
-@@ -31,10 +31,7 @@ if [ "$1" = "" ]; then
-   exit 1
- fi
- 
--tempdir="${TMPDIR-/tmp}/pamstretch-gen.$$"
--mkdir $tempdir || { echo "Could not create temporary file. Exiting."; exit 1;}
--chmod 700 $tempdir
--tempfile=$tempdir/pnmig
-+tempfile=$(mktemp /tmp/pnmig.XXXXXXXXXX) || exit 1
- 
- trap 'rm -rf $tempdir' 0 1 3 15
- 
---- netpbm-10.28/editor/ppmshadow.security2	2005-04-23 23:16:16.000000000 +0200
-+++ netpbm-10.28/editor/ppmshadow	2005-06-10 09:37:19.253561792 +0200
+diff -up netpbm-10.35.48/editor/ppmshadow.security2 netpbm-10.35.48/editor/ppmshadow
+--- netpbm-10.35.48/editor/ppmshadow.security2	2008-08-03 22:06:45.000000000 +0200
++++ netpbm-10.35.48/editor/ppmshadow	2008-08-04 07:11:46.000000000 +0200
 @@ -72,9 +72,10 @@ sub makeConvolutionKernel($$) {
  
  

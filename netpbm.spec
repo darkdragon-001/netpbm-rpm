@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.45
+Version: 10.35.48
 Release: 1%{?dist}
 License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
 Group: System Environment/Libraries
@@ -214,6 +214,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Aug  4 2008 Jindrich Novy <jnovy@redhat.com> 10.35.48-1
+- update to 10.35.48
+- fixes buffer overrun in pamperspective and pngtopnm output format
+- fixes pbmtext, pamtotga, pamtouil and pnmtopclxl
+- update .security2 patch so that it applies with fuzz==0
+
 * Mon Jun  9 2008 Jindrich Novy <jnovy@redhat.com> 10.35.45-1
 - update to 10.35.45
 - fixes anytopnm, pamtohtmltbl, xvminitoppm, pbmtogo, tgatoppm,
