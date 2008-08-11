@@ -1,8 +1,9 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35.48
-Release: 1%{?dist}
-License: Assorted licenses, see %{_docdir}/%{name}-%{version}/copyright_summary
+Release: 2%{?dist}
+# See copyright_summary for details
+License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
@@ -214,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Aug 11 2008 Tom "spot" Callaway <tcallawa@redhat.com> 10.35.48-2
+- fix license tag
+
 * Mon Aug  4 2008 Jindrich Novy <jnovy@rehdat.com> 10.35.48-1
 - update to 10.35.48
 - fixes buffer overrun in pamperspective and pngtopnm output format
