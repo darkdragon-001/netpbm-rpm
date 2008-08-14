@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.48
-Release: 2%{?dist}
+Version: 10.35.49
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -215,6 +215,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Aug 14 2008 Jindrich Novy <jnovy@rehdat.com> 10.35.49-1
+- update to 10.35.49
+- fixes crash in pamcut when cutting a region entirely to the
+  left or right of the input image, with -pad
+
 * Mon Aug 11 2008 Tom "spot" Callaway <tcallawa@redhat.com> 10.35.48-2
 - fix license tag
 
