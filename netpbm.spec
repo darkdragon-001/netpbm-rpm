@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35.49
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -32,7 +32,7 @@ Patch19: netpbm-10.35-gcc43.patch
 Patch20: netpbm-10.35-rgbtxt.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires: libX11-devel, python
+BuildRequires: libX11-devel, python, jasper-devel
 
 %description
 The netpbm package contains a library of functions which support
@@ -131,7 +131,9 @@ make \
 	TIFFLIB_DIR=%{_libdir} \
 	LINUXSVGALIB="NONE" \
 	X11LIB=%{_libdir}/libX11.so \
-	XML2LIBS="NONE"
+	XML2LIBS="NONE" \
+	JASPERLIB="" \
+	JASPERDEPLIBS="-ljasper"
 
 # prepare man files
 cd userguide
@@ -215,6 +217,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Aug 27 2008 Jindrich Novy <jnovy@redhat.com> 10.35.49-2
+- link against system jasper instead of embedded one (#460300)
+
 * Mon Aug 14 2008 Jindrich Novy <jnovy@rehdat.com> 10.35.49-1
 - update to 10.35.49
 - fixes crash in pamcut when cutting a region entirely to the
@@ -223,7 +228,7 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Aug 11 2008 Tom "spot" Callaway <tcallawa@redhat.com> 10.35.48-2
 - fix license tag
 
-* Mon Aug  4 2008 Jindrich Novy <jnovy@rehdat.com> 10.35.48-1
+* Mon Aug  4 2008 Jindrich Novy <jnovy@redhat.com> 10.35.48-1
 - update to 10.35.48
 - fixes buffer overrun in pamperspective and pngtopnm output format
 - update .security2 patch so that it applies with fuzz==0
