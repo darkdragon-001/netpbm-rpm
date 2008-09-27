@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.51
+Version: 10.35.52
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -219,6 +219,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Sat Sep 27 2008 Jindrich Novy <jnovy@redhat.com> 10.35.52-1
+- update to 10.35.52
+- fixes crash of libppmd/ppmdraw when line is completely out of frame
+
 * Thu Sep 18 2008 Jindrich Novy <jnovy@redhat.com> 10.35.51-1
 - update to netpbm-10.35.51
 - make it actually compilable by removing duplicated function
