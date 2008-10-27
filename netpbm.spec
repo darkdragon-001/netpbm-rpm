@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.53
+Version: 10.35.54
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -219,6 +219,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Oct 27 2008 Jindrich Novy <jnovy@rehdat.com> 10.35.54-1
+- update to 10.35.54
+- adds better randomization for ppmforge, pgmnoise, pgmcrater
+- fixes array bounds violation in pnm_createBlackTuple() with PBM, PGM
+- fixes crash in pnmtoddif with any PGM input
+
 * Tue Oct 14 2008 Jindrich Novy <jnovy@redhat.com> 10.35.53-1
 - update to 10.35.53
 - fixes pamditherbw (-value parameter other than .5 with -fs)
