@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.55
+Version: 10.35.57
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -30,7 +30,6 @@ Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
 Patch19: netpbm-10.35-gcc43.patch
 Patch20: netpbm-10.35-rgbtxt.patch
-Patch21: netpbm-10.35-pamcomp.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -91,7 +90,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch18 -p1 -b .glibc
 %patch19 -p1 -b .gcc43
 %patch20 -p1 -b .rgbtxt
-%patch21 -p1 -b .pamcomp
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -219,6 +217,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Dec 15 2008 Jindrich Novy <jnovy@redhat.com> 10.35.57-1
+- update to 10.35.57
+
 * Thu Nov  6 2008 Jindrich Novy <jnovy@redhat.com> 10.35.55-1
 - update to 10.35.55
 
