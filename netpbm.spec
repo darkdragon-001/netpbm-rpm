@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35.57
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -30,6 +30,7 @@ Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
 Patch19: netpbm-10.35-gcc43.patch
 Patch20: netpbm-10.35-rgbtxt.patch
+Patch21: netpbm-10.35-pamtosvgsegfault.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -90,6 +91,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch18 -p1 -b .glibc
 %patch19 -p1 -b .gcc43
 %patch20 -p1 -b .rgbtxt
+%patch21 -p1 -b .pamtosvgsegfault
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -217,6 +219,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Fri Dec 19 2008 Jindrich Novy <jnovy@redhat.com> 10.35.57-2
+- fix segfault in pamtosvg caused by not reverting "sentinel value" (#476989)
+
 * Mon Dec 15 2008 Jindrich Novy <jnovy@redhat.com> 10.35.57-1
 - update to 10.35.57
 
