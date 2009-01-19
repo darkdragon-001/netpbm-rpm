@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.57
-Release: 3%{?dist}
+Version: 10.35.58
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -221,6 +221,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Jan 19 2009 Jindrich Novy <jnovy@redhat.com> 10.35.58-1
+- update to 10.35.38
+- fixes crashes in picttoppm, pbmtomrf, mrftopbm
+- fixes bugs in leaftoppm, ilbmtoppm
+
 * Tue Dec 23 2008 Jindrich Novy <jnovy@redhat.com> 10.35.57-3
 - unbreak ppmshadow and ppmrainbow (#476989)
 - pnmmontage won't crash because of uninitialized memory usage
