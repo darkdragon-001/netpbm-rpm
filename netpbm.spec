@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35.58
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -33,6 +33,7 @@ Patch20: netpbm-10.35-rgbtxt.patch
 Patch21: netpbm-10.35-pamtosvgsegfault.patch
 Patch22: netpbm-10.35-pnmmontagefix.patch
 Patch23: netpbm-10.35-pnmtofiasco-stdin.patch
+Patch24: netpbm-10.35-64bitfix.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -96,6 +97,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch21 -p1 -b .pamtosvgsegfault
 %patch22 -p1 -b .pnmmontagefix
 %patch23 -p1 -b .pnmtofiasco-stdin
+%patch24 -p1 -b .64bitfix
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -223,6 +225,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Thu Jan 22 2009 Jindrich Novy <jnovy@redhat.com> 10.35.58-3
+- fix cmuwmtopbm and other utilities by making endianess
+  functions work correctly on 64bit systems (#476863)
+
 * Wed Jan 21 2009 Jindrich Novy <jnovy@redhat.com> 10.35.58-2
 - fix pnmtofiasco to accept image from stdin (#476989, #227283)
 
