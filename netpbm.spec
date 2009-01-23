@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.55
+Version: 10.35.58
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -30,7 +30,10 @@ Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
 Patch19: netpbm-10.35-gcc43.patch
 Patch20: netpbm-10.35-rgbtxt.patch
-Patch21: netpbm-10.35-pamcomp.patch
+Patch21: netpbm-10.35-pamtosvgsegfault.patch
+Patch22: netpbm-10.35-pnmmontagefix.patch
+Patch23: netpbm-10.35-pnmtofiasco-stdin.patch
+Patch24: netpbm-10.35-64bitfix.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -91,7 +94,10 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch18 -p1 -b .glibc
 %patch19 -p1 -b .gcc43
 %patch20 -p1 -b .rgbtxt
-%patch21 -p1 -b .pamcomp
+%patch21 -p1 -b .pamtosvgsegfault
+%patch22 -p1 -b .pnmmontagefix
+%patch23 -p1 -b .pnmtofiasco-stdin
+%patch24 -p1 -b .64bitfix
 
 ##mv shhopt/shhopt.h shhopt/pbmshhopt.h
 ##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
@@ -219,6 +225,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Fri Jan 23 2009 Jindrich Novy <jnovy@redhat.com> 10.35.58-1
+- update to 10.35.38
+- fixes crashes in picttoppm, pbmtomrf, mrftopbm
+- fixes bugs in leaftoppm, ilbmtoppm
+- unbreak ppmshadow and ppmrainbow (#476989)
+- pnmmontage won't crash because of uninitialized memory usage
+- fix segfault in pamtosvg caused by not reverting "sentinel value" (#476989)
+- fix pnmtofiasco to accept image from stdin (#476989, #227283)
+- fix cmuwmtopbm and other utilities by making endianess
+  functions work correctly on 64bit systems (#476863)
+
 * Thu Nov  6 2008 Jindrich Novy <jnovy@redhat.com> 10.35.55-1
 - update to 10.35.55
 

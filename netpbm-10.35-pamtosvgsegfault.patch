@@ -1,0 +1,11 @@
+diff -up netpbm-10.35.57/converter/other/pamtosvg/fit.c.pamtosvgsegfault netpbm-10.35.57/converter/other/pamtosvg/fit.c
+--- netpbm-10.35.57/converter/other/pamtosvg/fit.c.pamtosvgsegfault	2008-12-15 10:04:49.000000000 +0100
++++ netpbm-10.35.57/converter/other/pamtosvg/fit.c	2008-12-19 09:10:01.000000000 +0100
+@@ -1852,6 +1852,7 @@ find_error (curve_type curve, spline_typ
+ 
+   if (*worst_point == CURVE_LENGTH (curve) + 1)
+     { /* Didn't have any ``worst point''; the error should be zero.  */
++      *worst_point = 0;
+       if (epsilon_equal (total_error, 0.0))
+         LOG ("  Every point fit perfectly.\n");
+       else
