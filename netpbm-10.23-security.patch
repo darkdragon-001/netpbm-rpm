@@ -1654,18 +1654,6 @@ diff -up netpbm-10.35.46/generator/pgmkernel.c.security netpbm-10.35.46/generato
      for (i = 0; i < iysize; i++) 
          for (j = 0; j < ixsize; j++) {
              fkernel[i*ixsize+j] = 1.0 / (1.0 + w * sqrt((double)
-diff -up netpbm-10.35.46/generator/ppmrainbow.security netpbm-10.35.46/generator/ppmrainbow
---- netpbm-10.35.46/generator/ppmrainbow.security	2008-06-24 08:58:57.000000000 +0200
-+++ netpbm-10.35.46/generator/ppmrainbow	2008-06-24 09:04:21.000000000 +0200
-@@ -11,7 +11,7 @@ my ($Twid, $Thgt, $tmpdir, $norepeat, $v
- # set defaults
- $Twid = 600;
- $Thgt = 8;
--$tmpdir = $ENV{"TMPDIR"} || "/tmp";
-+$tmpdir = $ENV{"TMPDIR"} || ".tmp";
- $norepeat = $FALSE;
- $verbose = $FALSE;
- 
 diff -up netpbm-10.35.46/lib/libpam.c.security netpbm-10.35.46/lib/libpam.c
 --- netpbm-10.35.46/lib/libpam.c.security	2008-06-24 08:59:03.000000000 +0200
 +++ netpbm-10.35.46/lib/libpam.c	2008-06-24 09:04:21.000000000 +0200

@@ -1,0 +1,21 @@
+diff -up netpbm-10.35.58/lib/libpm.c.64bitfix netpbm-10.35.58/lib/libpm.c
+--- netpbm-10.35.58/lib/libpm.c.64bitfix	2009-01-22 08:49:25.000000000 +0100
++++ netpbm-10.35.58/lib/libpm.c	2009-01-22 08:50:38.000000000 +0100
+@@ -1069,7 +1069,7 @@
+ pm_readbiglong(FILE * const ifP, 
+                long * const lP) {
+ 
+-    int c;
++    unsigned int c;
+     unsigned long l;
+ 
+     c = getc(ifP);
+@@ -1148,7 +1148,7 @@
+ int
+ pm_readlittlelong(FILE * const ifP, 
+                   long * const lP) {
+-    int c;
++    unsigned int c;
+     unsigned long l;
+ 
+     c = getc(ifP);
