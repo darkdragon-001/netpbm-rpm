@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.58
-Release: 4%{?dist}
+Version: 10.35.59
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -227,6 +227,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Thu Jan 29 2009 Jindrich Novy <jnovy@redhat.com> 10.35.59-1
+- update to 10.35.59
+- fixes array bound violation in ilbmtoppm
+- fixes garbage output when input in fitstopnm is little endian
+  floating point FITS
+
 * Wed Jan 28 2009 Jindrich Novy <jnovy@redhat.com> 10.35.58-4
 - fix segfault in ximtoppm (#482891), the utility lacked the
   command line parsing initialization code
