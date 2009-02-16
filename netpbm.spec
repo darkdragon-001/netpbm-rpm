@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.59
+Version: 10.35.60
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -100,9 +100,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch23 -p1 -b .pnmtofiasco-stdin
 %patch24 -p1 -b .64bitfix
 %patch25 -p1 -b .ximtoppmsegfault
-
-##mv shhopt/shhopt.h shhopt/pbmshhopt.h
-##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
 
 %build
 ./configure <<EOF
@@ -227,6 +224,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Feb 16 2009 Jindrich Novy <jnovy@redhat.com> 10.35.60-1
+- update to 10.35.60
+- update .security patch, minor cleanup
+- fixes xwdtopnm for at least some direct color 24/32 images
+- fixes memory leak and out of memory crash in libpammap
+
 * Thu Jan 29 2009 Jindrich Novy <jnovy@redhat.com> 10.35.59-1
 - update to 10.35.59
 - fixes array bound violation in ilbmtoppm
