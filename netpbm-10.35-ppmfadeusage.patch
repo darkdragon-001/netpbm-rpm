@@ -1,0 +1,12 @@
+diff -up netpbm-10.35.60/editor/ppmfade.ppmfadeusage netpbm-10.35.60/editor/ppmfade
+--- netpbm-10.35.60/editor/ppmfade.ppmfadeusage	2009-02-26 17:43:14.000000000 +0100
++++ netpbm-10.35.60/editor/ppmfade	2009-02-26 17:43:44.000000000 +0100
+@@ -36,6 +36,8 @@ my $mode = $SPREAD;		# default fading mo
+ #
+ #  Check those command line args.
+ #
++sub usage();
++
+ if (@ARGV == 0) {
+     usage();
+ }

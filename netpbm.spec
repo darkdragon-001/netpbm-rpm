@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.35.60
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -35,6 +35,8 @@ Patch22: netpbm-10.35-pnmmontagefix.patch
 Patch23: netpbm-10.35-pnmtofiasco-stdin.patch
 Patch24: netpbm-10.35-64bitfix.patch
 Patch25: netpbm-10.35-ximtoppmsegfault.patch
+Patch26: netpbm-10.35-ppmfadeusage.patch
+Patch27: netpbm-10.35-ppmrainbowexit.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -100,6 +102,8 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch23 -p1 -b .pnmtofiasco-stdin
 %patch24 -p1 -b .64bitfix
 %patch25 -p1 -b .ximtoppmsegfault
+%patch26 -p1 -b .ppmfadeusage
+%patch27 -p1 -b .ppmrainbowexit
 
 %build
 ./configure <<EOF
@@ -216,6 +220,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*.h
 %{_libdir}/lib*.so
 %{_mandir}/man3/*
+
 %files progs
 %defattr(-,root,root)
 %{_bindir}/*
@@ -224,6 +229,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Thu Feb 26 2009 Jindrich Novy <jnovy@redhat.com> 10.35.60-3
+- fix broken perl syntax in ppmfade
+- fix exit status and error reporting in ppmrainbow
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.35.60-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
