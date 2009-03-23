@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.60
-Release: 3%{?dist}
+Version: 10.35.61
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -25,7 +25,6 @@ Patch12: netpbm-10.33-ppmtompeg.patch
 Patch13: netpbm-10.33-multilib.patch
 Patch14: netpbm-10.34-pamscale.patch
 Patch15: netpbm-10.35-ppmquantall.patch
-Patch16: netpbm-10.35-pbmtog3segfault.patch
 Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
 Patch19: netpbm-10.35-gcc43.patch
@@ -92,7 +91,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch13 -p1 -b .multilib
 %patch14 -p1 -b .pamscale
 %patch15 -p1 -b .pqall
-%patch16 -p1 -b .pbmtog3segfault
 %patch17 -p1 -b .pbmtomacp
 %patch18 -p1 -b .glibc
 %patch19 -p1 -b .gcc43
@@ -229,6 +227,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Mar 23 2009 Jindrich Novy <jnovy@redhat.com> 10.35.61-1
+- update to 10.35.61
+- upstream fixes array bound violation in pbmtog3
+- drop .pbmtog3segfault patch, we fixed this some time ago already
+  and it is in upstream now
+- use saner exit status in ppmfade
+
 * Thu Feb 26 2009 Jindrich Novy <jnovy@redhat.com> 10.35.60-3
 - fix broken perl syntax in ppmfade
 - fix exit status and error reporting in ppmrainbow
