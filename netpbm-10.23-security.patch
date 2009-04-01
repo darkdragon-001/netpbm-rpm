@@ -303,27 +303,6 @@ diff -up netpbm-10.35.46/converter/other/tifftopnm.c.security netpbm-10.35.46/co
      if (samplebuf == NULL)
          pm_error ("can't allocate memory for row buffer");
  
-diff -up netpbm-10.35.46/converter/other/xwdtopnm.c.security netpbm-10.35.46/converter/other/xwdtopnm.c
---- netpbm-10.35.46/converter/other/xwdtopnm.c.security	2008-06-24 08:59:13.000000000 +0200
-+++ netpbm-10.35.46/converter/other/xwdtopnm.c	2008-06-24 09:04:21.000000000 +0200
-@@ -214,6 +214,9 @@ processX10Header(X10WDFileHeader *  cons
-         *colorsP = pnm_allocrow( 2 );
-         PNM_ASSIGN1( (*colorsP)[0], 0 );
-         PNM_ASSIGN1( (*colorsP)[1], *maxvalP );
-+        overflow_add(h10P->pixmap_width, 15);
-+        if(h10P->pixmap_width < 0)
-+            pm_error("assert: negative width");
-         *padrightP =
-             ( ( h10P->pixmap_width + 15 ) / 16 ) * 16 - h10P->pixmap_width;
-         *bits_per_itemP = 16;
-@@ -560,6 +563,7 @@ processX11Header(X11WDFileHeader *  cons
- 
-     *colsP = h11FixedP->pixmap_width;
-     *rowsP = h11FixedP->pixmap_height;
-+    overflow2(h11FixedP->bytes_per_line, 8);
-     *padrightP =
-         h11FixedP->bytes_per_line * 8 / h11FixedP->bits_per_pixel -
-         h11FixedP->pixmap_width;
 diff -up netpbm-10.35.46/converter/pbm/icontopbm.c.security netpbm-10.35.46/converter/pbm/icontopbm.c
 --- netpbm-10.35.46/converter/pbm/icontopbm.c.security	2008-06-24 08:59:23.000000000 +0200
 +++ netpbm-10.35.46/converter/pbm/icontopbm.c	2008-06-24 09:04:21.000000000 +0200
@@ -1331,30 +1310,6 @@ diff -up netpbm-10.35.46/editor/pamoil.c.security netpbm-10.35.46/editor/pamoil.
      MALLOCARRAY(hist, inpam.maxval + 1);
      if (hist == NULL)
          pm_error("Unable to allocate memory for histogram.");
-diff -up netpbm-10.35.46/editor/pbmclean.c.security netpbm-10.35.46/editor/pbmclean.c
---- netpbm-10.35.46/editor/pbmclean.c.security	2008-06-24 08:58:59.000000000 +0200
-+++ netpbm-10.35.46/editor/pbmclean.c	2008-06-24 09:04:21.000000000 +0200
-@@ -150,7 +150,7 @@ nextrow(FILE * const ifd,
-     inrow[0] = inrow[1];
-     inrow[1] = inrow[2];
-     inrow[2] = shuffle ;
--    if (row+1 < rows) {
-+    if (row <= rows) {
-         /* Read the "next" row in from the file.  Allocate buffer if needed */
-         if (inrow[2] == NULL)
-             inrow[2] = pbm_allocrow(cols);
-diff -up netpbm-10.35.46/editor/pbmlife.c.security netpbm-10.35.46/editor/pbmlife.c
---- netpbm-10.35.46/editor/pbmlife.c.security	2008-06-24 08:58:59.000000000 +0200
-+++ netpbm-10.35.46/editor/pbmlife.c	2008-06-24 09:04:21.000000000 +0200
-@@ -54,7 +54,7 @@ char* argv[];
- 	prevrow = thisrow;
- 	thisrow = nextrow;
- 	nextrow = temprow;
--	if ( row < rows - 1 )
-+	if ( row <= rows )
- 	    pbm_readpbmrow( ifp, nextrow, cols, format );
- 
-         for ( col = 0; col < cols; ++col )
 diff -up netpbm-10.35.46/editor/pbmpscale.c.security netpbm-10.35.46/editor/pbmpscale.c
 --- netpbm-10.35.46/editor/pbmpscale.c.security	2008-06-24 08:58:59.000000000 +0200
 +++ netpbm-10.35.46/editor/pbmpscale.c	2008-06-24 09:04:21.000000000 +0200
@@ -2098,3 +2053,25 @@ diff -up netpbm-10.35.46/urt/scanargs.c.security netpbm-10.35.46/urt/scanargs.c
  
  #if defined(c_plusplus) && !defined(USE_PROTOTYPES)
  #define USE_PROTOTYPES
+diff -up netpbm-10.35.60/converter/other/xwdtopnm.c.security netpbm-10.35.60/converter/other/xwdtopnm.c
+--- netpbm-10.35.60/converter/other/xwdtopnm.c.security	2009-02-15 13:04:43.000000000 +0100
++++ netpbm-10.35.60/converter/other/xwdtopnm.c	2009-02-16 12:15:50.000000000 +0100
+@@ -214,6 +214,10 @@ processX10Header(X10WDFileHeader *  cons
+         *colorsP = pnm_allocrow( 2 );
+         PNM_ASSIGN1( (*colorsP)[0], 0 );
+         PNM_ASSIGN1( (*colorsP)[1], *maxvalP );
++        overflow_add(h10P->pixmap_width, 15);
++        if(h10P->pixmap_width < 0)
++            pm_error("assert: negative width");
++        overflow2((((h10P->pixmap_width + 15) / 16) * 16 - h10P->pixmap_width), 8);
+         *padrightP =
+             (((h10P->pixmap_width + 15) / 16) * 16 - h10P->pixmap_width) * 8;
+         *bits_per_itemP = 16;
+@@ -608,6 +612,7 @@ processX11Header(X11WDFileHeader *  cons
+ 
+     *colsP = h11FixedP->pixmap_width;
+     *rowsP = h11FixedP->pixmap_height;
++    overflow2(h11FixedP->bytes_per_line, 8);
+     *padrightP =
+         h11FixedP->bytes_per_line * 8 -
+         h11FixedP->pixmap_width * h11FixedP->bits_per_pixel;
