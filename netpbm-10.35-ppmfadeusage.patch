@@ -1,0 +1,28 @@
+diff -up netpbm-10.35.60/editor/ppmfade.ppmfadeusage netpbm-10.35.60/editor/ppmfade
+--- netpbm-10.35.60/editor/ppmfade.ppmfadeusage	2009-02-27 12:35:26.000000000 +0100
++++ netpbm-10.35.60/editor/ppmfade	2009-02-27 12:39:06.000000000 +0100
+@@ -36,6 +36,8 @@ my $mode = $SPREAD;		# default fading mo
+ #
+ #  Check those command line args.
+ #
++sub usage();
++
+ if (@ARGV == 0) {
+     usage();
+ }
+@@ -82,7 +84,7 @@ for ($n = 0; $n < @ARGV; $n++) {
+         usage();
+     } else {
+         print "Unknown argument: $ARGV[$n]\n";
+-        exit 100;
++        exit 1;
+     } 
+ }
+ #
+@@ -312,5 +314,5 @@ sub usage() {
+    print "               [-base basename]\n";
+    print "Notes: Default base: fade\n";
+    print "       The resulting image files will be named fade.NNNN.ppm.\n";
+-   exit(100);
++   exit 1;
+ }

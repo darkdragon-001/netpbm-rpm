@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.58
+Version: 10.35.61
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -25,7 +25,6 @@ Patch12: netpbm-10.33-ppmtompeg.patch
 Patch13: netpbm-10.33-multilib.patch
 Patch14: netpbm-10.34-pamscale.patch
 Patch15: netpbm-10.35-ppmquantall.patch
-Patch16: netpbm-10.35-pbmtog3segfault.patch
 Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
 Patch19: netpbm-10.35-gcc43.patch
@@ -34,6 +33,11 @@ Patch21: netpbm-10.35-pamtosvgsegfault.patch
 Patch22: netpbm-10.35-pnmmontagefix.patch
 Patch23: netpbm-10.35-pnmtofiasco-stdin.patch
 Patch24: netpbm-10.35-64bitfix.patch
+Patch25: netpbm-10.35-ximtoppmsegfault.patch
+Patch26: netpbm-10.35-ppmfadeusage.patch
+Patch27: netpbm-10.35-ppmrainbowexit.patch
+Patch28: netpbm-10.35-ppmdfontfix.patch
+Patch29: netpbm-10.35-svgtopam.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -89,7 +93,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch13 -p1 -b .multilib
 %patch14 -p1 -b .pamscale
 %patch15 -p1 -b .pqall
-%patch16 -p1 -b .pbmtog3segfault
 %patch17 -p1 -b .pbmtomacp
 %patch18 -p1 -b .glibc
 %patch19 -p1 -b .gcc43
@@ -98,9 +101,11 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch22 -p1 -b .pnmmontagefix
 %patch23 -p1 -b .pnmtofiasco-stdin
 %patch24 -p1 -b .64bitfix
-
-##mv shhopt/shhopt.h shhopt/pbmshhopt.h
-##perl -pi -e 's|shhopt.h|pbmshhopt.h|g' `find -name "*.c" -o -name "*.h"` ./GNUmakefile
+%patch25 -p1 -b .ximtoppmsegfault
+%patch26 -p1 -b .ppmfadeusage
+%patch27 -p1 -b .ppmrainbowexit
+%patch28 -p1 -b .ppmdfontfix
+%patch29 -p1 -b .svgtopam
 
 %build
 ./configure <<EOF
@@ -217,6 +222,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*.h
 %{_libdir}/lib*.so
 %{_mandir}/man3/*
+
 %files progs
 %defattr(-,root,root)
 %{_bindir}/*
@@ -225,6 +231,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Apr  1 2009 Jindrich Novy <jnovy@redhat.com> 10.35.61-1
+- update to 10.35.61
+- upstream fixes array bound violation in pbmtog3
+- drop .pbmtog3segfault patch, we fixed this some time ago already
+  and it is in upstream now
+- use saner exit status in ppmfade
+- remove two hunks from security patch breaking pbmclean and pbmlife (#493015)
+- fix ppmdfont and svgtopnm, thanks to Jiri Moskovcak  
+
 * Fri Jan 23 2009 Jindrich Novy <jnovy@redhat.com> 10.35.58-1
 - update to 10.35.38
 - fixes crashes in picttoppm, pbmtomrf, mrftopbm
