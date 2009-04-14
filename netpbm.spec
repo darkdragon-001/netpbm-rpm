@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.61
-Release: 2%{?dist}
+Version: 10.35.62
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -38,6 +38,7 @@ Patch26: netpbm-10.35-ppmfadeusage.patch
 Patch27: netpbm-10.35-ppmrainbowexit.patch
 Patch28: netpbm-10.35-ppmdfontfix.patch
 Patch29: netpbm-10.35-svgtopam.patch
+Patch30: netpbm-10.35-docfix.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -106,6 +107,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch27 -p1 -b .ppmrainbowexit
 %patch28 -p1 -b .ppmdfontfix
 %patch29 -p1 -b .svgtopam
+%patch30 -p1 -b .docfix
 
 %build
 ./configure <<EOF
@@ -231,6 +233,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Tue Apr 14 2009 Jindrich Novy <jnovy@redhat.com> 10.35.62-1
+- update to 10.35.62
+- upstream fixes pamstereogram
+- fix options in pamperspective, pbmtoepson, ppmpat, pamaddnoise
+  so that they match their man pages (#483011, #483070, #483243, #483245)
+
 * Tue Mar 31 2009 Jindrich Novy <jnovy@redhat.com> 10.35.61-2
 - remove two hunks from security patch breaking pbmclean and pbmlife (#493015)
 - fix ppmdfont and svgtopnm, thanks to Jiri Moskovcak
