@@ -238,6 +238,7 @@ rm -rf $RPM_BUILD_ROOT
 - upstream fixes pamstereogram
 - fix options in pamperspective, pbmtoepson, ppmpat, pamaddnoise
   so that they match their man pages (#483011, #483070, #483243, #483245)
+- avoid clashes with getline() from glibc
 
 * Tue Mar 31 2009 Jindrich Novy <jnovy@redhat.com> 10.35.61-2
 - remove two hunks from security patch breaking pbmclean and pbmlife (#493015)
