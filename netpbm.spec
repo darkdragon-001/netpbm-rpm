@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.61
+Version: 10.35.64
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -24,19 +24,12 @@ Patch11: netpbm-10.31-xwdfix.patch
 Patch12: netpbm-10.33-ppmtompeg.patch
 Patch13: netpbm-10.33-multilib.patch
 Patch14: netpbm-10.34-pamscale.patch
-Patch15: netpbm-10.35-ppmquantall.patch
-Patch17: netpbm-10.35-pbmtomacp.patch
 Patch18: netpbm-10.35-glibc.patch
 Patch19: netpbm-10.35-gcc43.patch
 Patch20: netpbm-10.35-rgbtxt.patch
-Patch21: netpbm-10.35-pamtosvgsegfault.patch
 Patch22: netpbm-10.35-pnmmontagefix.patch
 Patch23: netpbm-10.35-pnmtofiasco-stdin.patch
 Patch24: netpbm-10.35-64bitfix.patch
-Patch25: netpbm-10.35-ximtoppmsegfault.patch
-Patch26: netpbm-10.35-ppmfadeusage.patch
-Patch27: netpbm-10.35-ppmrainbowexit.patch
-Patch28: netpbm-10.35-ppmdfontfix.patch
 Patch29: netpbm-10.35-svgtopam.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
@@ -92,19 +85,12 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch12 -p1 -b .ppmtompeg
 %patch13 -p1 -b .multilib
 %patch14 -p1 -b .pamscale
-%patch15 -p1 -b .pqall
-%patch17 -p1 -b .pbmtomacp
 %patch18 -p1 -b .glibc
 %patch19 -p1 -b .gcc43
 %patch20 -p1 -b .rgbtxt
-%patch21 -p1 -b .pamtosvgsegfault
 %patch22 -p1 -b .pnmmontagefix
 %patch23 -p1 -b .pnmtofiasco-stdin
 %patch24 -p1 -b .64bitfix
-%patch25 -p1 -b .ximtoppmsegfault
-%patch26 -p1 -b .ppmfadeusage
-%patch27 -p1 -b .ppmrainbowexit
-%patch28 -p1 -b .ppmdfontfix
 %patch29 -p1 -b .svgtopam
 
 %build
@@ -231,6 +217,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon May 18 2009 Jindrich Novy <jnovy@redhat.com> 10.35.64-1
+- update to 10.35.64
+- fixes pnmremap, giftopnm, ppmpat, ppmdraw, pamstereogram
+- fixes options in pamperspective, pbmtoepson, ppmpat, pamaddnoise
+  so that they match their man pages (#483011, #483070, #483243, #483245)
+- handful of our patches applied upstream
+  
 * Wed Apr  1 2009 Jindrich Novy <jnovy@redhat.com> 10.35.61-1
 - update to 10.35.61
 - upstream fixes array bound violation in pbmtog3
