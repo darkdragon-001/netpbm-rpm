@@ -11,4 +11,4 @@ diff -up netpbm-10.35.58/converter/other/Makefile.svgtopam netpbm-10.35.58/conve
 -
  MERGEBINARIES = $(BINARIES)
  
- EXTRA_OBJECTS = exif.o rast.o pngtxt.o bmepsoe.o
+ EXTRA_OBJECTS = exif.o rast.o bmepsoe.o

@@ -219,6 +219,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Jul 29 2009 Jindrich Novy <jnovy@redhat.com> 10.35.66-1
 - update to 10.35.66
+- sync svgatopam patch
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.35.65-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
