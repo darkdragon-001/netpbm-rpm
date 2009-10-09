@@ -1,16 +1,16 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.67
+Version: 10.35.68
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{version}
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/super_stable netpbm-%{version}
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
 # and removing the .svn directories
-Source0: netpbm-%{version}.tar.bz2
+Source0: netpbm-%{version}.tar.xz
 Patch1: netpbm-10.17-time.patch
 Patch2: netpbm-9.24-strip.patch
 Patch3: netpbm-10.19-message.patch
@@ -31,7 +31,6 @@ Patch22: netpbm-10.35-pnmmontagefix.patch
 Patch23: netpbm-10.35-pnmtofiasco-stdin.patch
 Patch24: netpbm-10.35-64bitfix.patch
 Patch29: netpbm-10.35-svgtopam.patch
-Patch30: netpbm-10.35-configfix.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -93,7 +92,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch23 -p1 -b .pnmtofiasco-stdin
 %patch24 -p1 -b .64bitfix
 %patch29 -p1 -b .svgtopam
-%patch30 -p1 -b .configfix
 
 %build
 ./configure <<EOF
@@ -219,6 +217,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Fri Oct  9 2009 Jindrich Novy <jnovy@redhat.com> 10.35.68-1
+- update to 10.35.68
+
 * Fri Sep  4 2009 Jindrich Novy <jnovy@redhat.com> 10.35.67-1
 - update to 10.35.67
 - fix configuration
