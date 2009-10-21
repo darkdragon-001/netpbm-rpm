@@ -10,7 +10,7 @@ URL: http://netpbm.sourceforge.net/
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{version}
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
 # and removing the .svn directories
-Source0: netpbm-%{version}.tar.xz
+Source0: netpbm-%{version}.tar.bz2
 Patch1: netpbm-time.patch
 Patch2: netpbm-message.patch
 Patch3: netpbm-security-scripts.patch
