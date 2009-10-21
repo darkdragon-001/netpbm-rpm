@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.35.67
+Version: 10.47.04
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -10,28 +10,22 @@ URL: http://netpbm.sourceforge.net/
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{version}
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
 # and removing the .svn directories
-Source0: netpbm-%{version}.tar.bz2
-Patch1: netpbm-10.17-time.patch
-Patch2: netpbm-9.24-strip.patch
-Patch3: netpbm-10.19-message.patch
-Patch4: netpbm-10.22-security2.patch
-Patch6: netpbm-10.23-security.patch
-Patch7: netpbm-10.24-nodoc.patch
-Patch8: netpbm-10.28-gcc4.patch
-Patch9: netpbm-10.27-bmptopnm.patch
-Patch10: netpbm-10.28-CAN-2005-2471.patch
-Patch11: netpbm-10.31-xwdfix.patch
-Patch12: netpbm-10.33-ppmtompeg.patch
-Patch13: netpbm-10.33-multilib.patch
-Patch14: netpbm-10.34-pamscale.patch
-Patch18: netpbm-10.35-glibc.patch
-Patch19: netpbm-10.35-gcc43.patch
-Patch20: netpbm-10.35-rgbtxt.patch
-Patch22: netpbm-10.35-pnmmontagefix.patch
-Patch23: netpbm-10.35-pnmtofiasco-stdin.patch
-Patch24: netpbm-10.35-64bitfix.patch
-Patch29: netpbm-10.35-svgtopam.patch
-Patch30: netpbm-10.35-configfix.patch
+Source0: netpbm-%{version}.tar.xz
+Patch1: netpbm-time.patch
+Patch2: netpbm-message.patch
+Patch3: netpbm-security-scripts.patch
+Patch4: netpbm-security-code.patch
+Patch5: netpbm-nodoc.patch
+Patch6: netpbm-gcc4.patch
+Patch7: netpbm-bmptopnm.patch
+Patch8: netpbm-CAN-2005-2471.patch
+Patch9: netpbm-xwdfix.patch
+Patch10: netpbm-ppmtompeg.patch
+Patch11: netpbm-multilib.patch
+Patch12: netpbm-pamscale.patch
+Patch13: netpbm-glibc.patch
+Patch14: netpbm-pnmtofiasco-stdin.patch
+Patch15: netpbm-svgtopam.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -74,26 +68,22 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %prep
 %setup -q
 %patch1 -p1 -b .time
-%patch2 -p1 -b .strip
-%patch3 -p1 -b .message
-%patch4 -p1 -b .security2
-%patch6 -p1 -b .security
-%patch7 -p1 -b .nodoc
-%patch8 -p1 -b .gcc4
-%patch9 -p1 -b .bmptopnm
-%patch10 -p1 -b .CAN-2005-2471
-%patch11 -p1 -b .xwdfix
-%patch12 -p1 -b .ppmtompeg
-%patch13 -p1 -b .multilib
-%patch14 -p1 -b .pamscale
-%patch18 -p1 -b .glibc
-%patch19 -p1 -b .gcc43
-%patch20 -p1 -b .rgbtxt
-%patch22 -p1 -b .pnmmontagefix
-%patch23 -p1 -b .pnmtofiasco-stdin
-%patch24 -p1 -b .64bitfix
-%patch29 -p1 -b .svgtopam
-%patch30 -p1 -b .configfix
+%patch2 -p1 -b .message
+%patch3 -p1 -b .security-scripts
+%patch4 -p1 -b .security-code
+%patch5 -p1 -b .nodoc
+%patch6 -p1 -b .gcc4
+%patch7 -p1 -b .bmptopnm
+%patch8 -p1 -b .CAN-2005-2471
+%patch9 -p1 -b .xwdfix
+%patch10 -p1 -b .ppmtompeg
+%patch11 -p1 -b .multilib
+%patch12 -p1 -b .pamscale
+%patch13 -p1 -b .glibc
+%patch14 -p1 -b .pnmtofiasco-stdin
+%patch15 -p1 -b .svgtopam
+
+sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
 %build
 ./configure <<EOF
@@ -207,7 +197,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root)
-%{_includedir}/*.h
+%dir %{_includedir}/netpbm
+%{_includedir}/netpbm/*.h
 %{_libdir}/lib*.so
 %{_mandir}/man3/*
 
@@ -219,6 +210,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Oct 21 2009 Jindrich Novy <jnovy@redhat.com> 10.47.04-1
+- update to 10.47.04 (it is now stable) (#529525)
+- fixes #502917, #482850, #482847
+
 * Fri Sep  4 2009 Jindrich Novy <jnovy@redhat.com> 10.35.67-1
 - update to 10.35.67
 - fix configuration
