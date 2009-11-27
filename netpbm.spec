@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.04
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -26,6 +26,7 @@ Patch12: netpbm-pamscale.patch
 Patch13: netpbm-glibc.patch
 Patch14: netpbm-pnmtofiasco-stdin.patch
 Patch15: netpbm-svgtopam.patch
+Patch16: netpbm-ppmpat-segfault.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -82,6 +83,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch13 -p1 -b .glibc
 %patch14 -p1 -b .pnmtofiasco-stdin
 %patch15 -p1 -b .svgtopam
+%patch16 -p1 -b .ppmpat-segfault
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
@@ -109,10 +111,11 @@ sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 EOF
 
 TOP=`pwd`
+#	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
 make \
 	CC="%{__cc}" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
-	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
+	CFLAGS="-g3 -fPIC -flax-vector-conversions" \
 	LADD="-lm" \
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
@@ -210,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Fri Nov 27 2009 Jindrich Novy <jnovy@redhat.com> 10.47.04-2
+- fix ppmpat segfault when using -camo option (#541568)
+
 * Wed Oct 21 2009 Jindrich Novy <jnovy@redhat.com> 10.47.04-1
 - update to 10.47.04 (it is now stable) (#529525)
 
