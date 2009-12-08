@@ -1,13 +1,13 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.04
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/super_stable netpbm-%{version}
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{version}
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
 # and removing the .svn directories
 Source0: netpbm-%{version}.tar.xz
@@ -27,6 +27,7 @@ Patch13: netpbm-glibc.patch
 Patch14: netpbm-pnmtofiasco-stdin.patch
 Patch15: netpbm-svgtopam.patch
 Patch16: netpbm-ppmpat-segfault.patch
+Patch17: netpbm-pnmsmooth-segfault.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -84,6 +85,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch14 -p1 -b .pnmtofiasco-stdin
 %patch15 -p1 -b .svgtopam
 %patch16 -p1 -b .ppmpat-segfault
+%patch17 -p1 -b .pnmsmooth-segfault
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
@@ -111,11 +113,10 @@ sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 EOF
 
 TOP=`pwd`
-#	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
 make \
 	CC="%{__cc}" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
-	CFLAGS="-g3 -fPIC -flax-vector-conversions" \
+	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
 	LADD="-lm" \
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
@@ -213,6 +214,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Dec  7 2009 Jindrich Novy <jnovy@redhat.com> 10.47.04-3
+- fix segfault in pnmsmooth (#545089)
+
 * Fri Nov 27 2009 Jindrich Novy <jnovy@redhat.com> 10.47.04-2
 - fix ppmpat segfault when using -camo option (#541568)
 
