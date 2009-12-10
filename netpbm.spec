@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.04
-Release: 3%{?dist}
+Version: 10.47.05
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -28,6 +28,7 @@ Patch14: netpbm-pnmtofiasco-stdin.patch
 Patch15: netpbm-svgtopam.patch
 Patch16: netpbm-ppmpat-segfault.patch
 Patch17: netpbm-pnmsmooth-segfault.patch
+Patch18: netpbm-pamtosvg.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -86,6 +87,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch15 -p1 -b .svgtopam
 %patch16 -p1 -b .ppmpat-segfault
 %patch17 -p1 -b .pnmsmooth-segfault
+%patch18 -p1 -b .pamtosvg
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
@@ -214,6 +216,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Thu Dec 10 2009 Jindrich Novy <jnovy@redhat.com> 10.47.05-1
+- update to 10.47.05
+- fixes pnmtofiasco, fiascotopnm, pamtosvg, pamtouil and ppmrainbow
+- upstream fix to pamtosvg caused netpbm not to be rebuildable on
+  any arch because of missing semicolon, the fix is now fixed :-/
+
 * Mon Dec  7 2009 Jindrich Novy <jnovy@redhat.com> 10.47.04-3
 - fix segfault in pnmsmooth (#545089)
 
