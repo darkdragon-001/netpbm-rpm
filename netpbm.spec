@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.07
+Version: 10.47.08
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -24,9 +24,7 @@ Patch10: netpbm-ppmtompeg.patch
 Patch11: netpbm-multilib.patch
 Patch12: netpbm-pamscale.patch
 Patch13: netpbm-glibc.patch
-Patch14: netpbm-pnmtofiasco-stdin.patch
-Patch15: netpbm-svgtopam.patch
-Patch16: netpbm-ppmpat-segfault.patch
+Patch14: netpbm-svgtopam.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -81,9 +79,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch11 -p1 -b .multilib
 %patch12 -p1 -b .pamscale
 %patch13 -p1 -b .glibc
-%patch14 -p1 -b .pnmtofiasco-stdin
-%patch15 -p1 -b .svgtopam
-%patch16 -p1 -b .ppmpat-segfault
+%patch14 -p1 -b .svgtopam
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
@@ -212,6 +208,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Jan 13 2010 Jindrich Novy <jnovy@redhat.com> 10.47.08-1
+- update to 10.47.08
+
 * Wed Dec 30 2009 Jindrich Novy <jnovy@redhat.com> 10.47.07-1
 - update to 10.47.07
 
