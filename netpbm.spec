@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.08
+Version: 10.47.09
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -25,6 +25,8 @@ Patch11: netpbm-multilib.patch
 Patch12: netpbm-pamscale.patch
 Patch13: netpbm-glibc.patch
 Patch14: netpbm-svgtopam.patch
+Patch15: netpbm-docfix.patch
+Patch16: netpbm-ppmfadeusage.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -80,6 +82,8 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch12 -p1 -b .pamscale
 %patch13 -p1 -b .glibc
 %patch14 -p1 -b .svgtopam
+%patch15 -p1 -b .docfix
+%patch16 -p1 -b .ppmfadeusage
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
@@ -208,6 +212,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Mon Jan 25 2010 Jindrich Novy <jnovy@redhat.com> 10.47.09-1
+- update to 10.47.09, fixes occassional crash in pamtosvg
+- fix documentation
+- fix ppmfade exit status
+
 * Wed Jan 13 2010 Jindrich Novy <jnovy@redhat.com> 10.47.08-1
 - update to 10.47.08
 
