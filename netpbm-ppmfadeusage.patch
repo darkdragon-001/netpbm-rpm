@@ -1,0 +1,60 @@
+diff -up netpbm-10.47.05/editor/ppmfade.ppmfadeusage netpbm-10.47.05/editor/ppmfade
+--- netpbm-10.47.05/editor/ppmfade.ppmfadeusage	2010-01-21 05:36:00.000000000 +0100
++++ netpbm-10.47.05/editor/ppmfade	2010-01-21 05:40:32.000000000 +0100
+@@ -34,6 +34,7 @@ my $base_name = "fade";		# default base 
+ my $image = "ppm";		# default output storage format
+ my $mode = $SPREAD;		# default fading mode
+ 
++sub usage();
+ 
+ my $n;  # argument number
+ 
+@@ -44,7 +45,7 @@ for ($n = 0; $n < @ARGV; $n++) {
+         if (-e $first_file) {
+         } else {
+             print "I can't find first file '$first_file'\n";
+-            exit 20;
++            exit 1;
+         }
+     } elsif ($ARGV[$n] eq "-l") {
+         $n++;
+@@ -52,7 +53,7 @@ for ($n = 0; $n < @ARGV; $n++) {
+         if (-e $last_file) {
+         } else {
+             print "I can't find last file '$last_file'\n";
+-            exit 20;
++            exit 1;
+         }
+     } elsif ($ARGV[$n] eq "-base") {
+         $n++;
+@@ -77,7 +78,7 @@ for ($n = 0; $n < @ARGV; $n++) {
+         usage();
+     } else {
+         print "Unknown argument: $ARGV[$n]\n";
+-        exit 100;
++        exit 1;
+     } 
+ }
+ #
+@@ -96,18 +97,18 @@ if ($first_file ne "undefined") {
+         $width = $1; $height = $2;
+     } else {
+         print("Unrecognized results from pnmfile on $first_file.\n");
+-        exit(50);
++        exit 1;
+     }
+ } elsif ($last_file ne "undefined") {
+     if ((`pnmfile $last_file` =~ m{\b(\d+)\sby\s(\d+)} )) { 
+         $width = $1; $height = $2;
+     } else {
+         print("Unrecognized results from pnmfile on $first_file.\n");
+-        exit(50);
++        exit 1;
+     }
+ } else {
+     print("ppmfade:  You must specify -f or -l (or both)\n");
+-    exit(90);
++    exit 1;
+ }
+ 
+ print("Frames are " . $width . "W x " . $height . "H\n");
