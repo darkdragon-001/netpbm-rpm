@@ -1,15 +1,15 @@
-diff -up netpbm-10.47.05/editor/ppmfade.ppmfadeusage netpbm-10.47.05/editor/ppmfade
---- netpbm-10.47.05/editor/ppmfade.ppmfadeusage	2010-01-21 05:36:00.000000000 +0100
-+++ netpbm-10.47.05/editor/ppmfade	2010-01-21 05:40:32.000000000 +0100
-@@ -34,6 +34,7 @@ my $base_name = "fade";		# default base 
+diff -up netpbm-10.47.09/editor/ppmfade.ppmfadeusage netpbm-10.47.09/editor/ppmfade
+--- netpbm-10.47.09/editor/ppmfade.ppmfadeusage	2010-02-17 11:22:02.000000000 +0100
++++ netpbm-10.47.09/editor/ppmfade	2010-02-17 11:27:29.000000000 +0100
+@@ -34,7 +34,6 @@ my $base_name = "fade";		# default base 
  my $image = "ppm";		# default output storage format
  my $mode = $SPREAD;		# default fading mode
  
-+sub usage();
- 
+-
  my $n;  # argument number
  
-@@ -44,7 +45,7 @@ for ($n = 0; $n < @ARGV; $n++) {
+ for ($n = 0; $n < @ARGV; $n++) {
+@@ -44,7 +43,7 @@ for ($n = 0; $n < @ARGV; $n++) {
          if (-e $first_file) {
          } else {
              print "I can't find first file '$first_file'\n";
@@ -18,7 +18,7 @@ diff -up netpbm-10.47.05/editor/ppmfade.ppmfadeusage netpbm-10.47.05/editor/ppmf
          }
      } elsif ($ARGV[$n] eq "-l") {
          $n++;
-@@ -52,7 +53,7 @@ for ($n = 0; $n < @ARGV; $n++) {
+@@ -52,7 +51,7 @@ for ($n = 0; $n < @ARGV; $n++) {
          if (-e $last_file) {
          } else {
              print "I can't find last file '$last_file'\n";
@@ -27,8 +27,15 @@ diff -up netpbm-10.47.05/editor/ppmfade.ppmfadeusage netpbm-10.47.05/editor/ppmf
          }
      } elsif ($ARGV[$n] eq "-base") {
          $n++;
-@@ -77,7 +78,7 @@ for ($n = 0; $n < @ARGV; $n++) {
-         usage();
+@@ -73,11 +72,12 @@ for ($n = 0; $n < @ARGV; $n++) {
+         $mode = $BLOCK;
+     } elsif ("$ARGV[$n]" eq "-mix") {
+         $mode = $MIX;
+-    } elsif ($ARGV[$n] eq "-help" || $ARGV[$n] eq "-h") {
+-        usage();
++    } elsif ($ARGV[$n] eq "-help" || $ARGV[$n] eq "--help" || $ARGV[$n] eq "-h") {
++        print "ppmfade: Use 'man ppmfade' for help.\n";
++        exit 1;
      } else {
          print "Unknown argument: $ARGV[$n]\n";
 -        exit 100;
@@ -36,7 +43,7 @@ diff -up netpbm-10.47.05/editor/ppmfade.ppmfadeusage netpbm-10.47.05/editor/ppmf
      } 
  }
  #
-@@ -96,18 +97,18 @@ if ($first_file ne "undefined") {
+@@ -96,18 +96,18 @@ if ($first_file ne "undefined") {
          $width = $1; $height = $2;
      } else {
          print("Unrecognized results from pnmfile on $first_file.\n");
