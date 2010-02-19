@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.09
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -28,6 +28,7 @@ Patch14: netpbm-svgtopam.patch
 Patch15: netpbm-docfix.patch
 Patch16: netpbm-ppmfadeusage.patch
 Patch17: netpbm-fiasco-overflow.patch
+Patch18: netpbm-lz.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -86,6 +87,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch15 -p1 -b .docfix
 %patch16 -p1 -b .ppmfadeusage
 %patch17 -p1 -b .fiasco-overflow
+%patch18 -p1 -b .lz
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
@@ -163,8 +165,7 @@ mv userguide/man $RPM_BUILD_ROOT%{_mandir}
 sed -i 's/\xa0//' $RPM_BUILD_ROOT%{_mandir}/man1/pgmminkowski.1
 
 # Don't ship man pages for non-existent binaries and bogus ones
-for i in hpcdtoppm pcdovtoppm pnmtojbig \
-	 ppmsvgalib vidtoppm picttoppm jbigtopnm \
+for i in hpcdtoppm ppmsvgalib vidtoppm picttoppm \
 	 directory error extendedopacity \
 	 pam pbm pgm pnm ppm index libnetpbm_dir \
 	 liberror pambackground pamfixtrunc \
@@ -186,6 +187,13 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 
 # Don't ship the static library
 rm -f $RPM_BUILD_ROOT/%{_libdir}/lib*.a
+
+# remove/symlink obsolete utilities
+pushd $RPM_BUILD_ROOT%{_bindir}
+rm -f pgmtopbm pnmcomp
+ln -s pamditherbw pgmtopbm
+ln -s pamcomp pnmcomp
+popd
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -214,6 +222,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Feb 17 2010 Jindrich Novy <jnovy@redhat.com> 10.47.09-3
+- remove obsolete pgmtopbm and pnmcomp, symlink them to the new
+  compatible variants
+- fix ppmfade -h, --help options
+- add missing man pages
+- link against -lz (#564649)
+
 * Wed Jan 27 2010 Jindrich Novy <jnovy@redhat.com> 10.47.09-2
 - fix buffer overflow in pnmtofiasco
 
