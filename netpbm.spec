@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -29,6 +29,7 @@ Patch15: netpbm-docfix.patch
 Patch16: netpbm-ppmfadeusage.patch
 Patch17: netpbm-fiasco-overflow.patch
 Patch18: netpbm-lz.patch
+Patch19: netpbm-pnmmontagefix.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -88,6 +89,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch16 -p1 -b .ppmfadeusage
 %patch17 -p1 -b .fiasco-overflow
 %patch18 -p1 -b .lz
+%patch19 -p1 -b .pnmmmontagefix
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
@@ -188,12 +190,14 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 # Don't ship the static library
 rm -f $RPM_BUILD_ROOT/%{_libdir}/lib*.a
 
-# remove/symlink obsolete utilities
+# remove/symlink/substitute obsolete utilities
 pushd $RPM_BUILD_ROOT%{_bindir}
 rm -f pgmtopbm pnmcomp
-ln -s pamditherbw pgmtopbm
 ln -s pamcomp pnmcomp
+echo -e '#!/bin/sh\npamditherbw $@ | pamtopnm\n' > pgmtopbm
+chmod 0755 pgmtopbm
 popd
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -222,6 +226,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Wed Mar 17 2010 Jindrich Novy <jnovy@redhat.com> 10.47.10-2
+- pgmtopbm should generate PBM, not PAM file
+- forwardport pnmmontage from 10.35 to make it work
+- fix pamstretch-gen
+
 * Wed Feb 24 2010 Jindrich Novy <jnovy@redhat.com> 10.47.10-1
 - update to 10.47.10
 - fixes crash in pnmhistmap
