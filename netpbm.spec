@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -57,6 +57,7 @@ to have the netpbm package installed.
 %package progs
 Summary: Tools for manipulating graphics files in netpbm supported formats
 Group: Applications/Multimedia
+Requires: ghostscript
 Requires: netpbm = %{version}-%{release}
 
 %description progs
@@ -68,6 +69,18 @@ scripts for converting from one graphics file format to another.
 
 If you need to use these conversion scripts, you should install
 netpbm-progs.  You'll also need to install the netpbm package.
+
+%package doc
+Summary: Documentation for tools manipulating graphics files in netpbm supported formats
+Group: Applications/Multimedia
+Requires: netpbm-progs = %{version}-%{release}
+
+%description doc
+The netpbm-doc package contains a documentation in HTML format for utilities
+present in netpbm-progs package.
+
+If you need to look into the HTML documentation, you should install
+netpbm-doc.  You'll also need to install the netpbm-progs package.
 
 %prep
 %setup -q
@@ -85,7 +98,7 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch12 -p1 -b .pamscale
 %patch13 -p1 -b .glibc
 %patch14 -p1 -b .svgtopam
-%patch15 -p1 -b .docfix
+%patch15 -p1
 %patch16 -p1 -b .ppmfadeusage
 %patch17 -p1 -b .fiasco-overflow
 %patch18 -p1 -b .lz
@@ -208,7 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README userguide
+%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README
 %{_libdir}/lib*.so.*
 
 %files devel
@@ -225,7 +238,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/*
 %{_datadir}/netpbm/
 
+%files doc
+%defattr(-,root,root)
+%doc userguide/*
+
 %changelog
+* Thu Mar 18 2010 Jindrich Novy <jnovy@redhat.com> 10.47.10-3
+- package docs in separate netpbm-doc package (#492437)
+- don't package patch backups in documentation
+- netpbm-progs package requires ghostscript
+
 * Wed Mar 17 2010 Jindrich Novy <jnovy@redhat.com> 10.47.10-2
 - pgmtopbm should generate PBM, not PAM file
 - forwardport pnmmontage from 10.35 to make it work
