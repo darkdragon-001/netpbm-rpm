@@ -1,6 +1,6 @@
-diff -up netpbm-10.47.06/converter/other/anytopnm.security-scripts netpbm-10.47.06/converter/other/anytopnm
---- netpbm-10.47.06/converter/other/anytopnm.security-scripts	2009-12-13 20:27:05.000000000 +0100
-+++ netpbm-10.47.06/converter/other/anytopnm	2009-12-16 18:59:17.000000000 +0100
+diff -up netpbm-10.47.05/converter/other/anytopnm.security-scripts netpbm-10.47.05/converter/other/anytopnm
+--- netpbm-10.47.05/converter/other/anytopnm.security-scripts	2009-12-10 08:34:36.000000000 +0100
++++ netpbm-10.47.05/converter/other/anytopnm	2010-03-16 21:28:09.000000000 +0100
 @@ -510,10 +510,7 @@ else
      inputFile="-"
  fi
@@ -31,10 +31,10 @@ diff -up netpbm-10.47.06/converter/other/anytopnm.security-scripts netpbm-10.47.
 +fi
 +
  exit 0
-diff -up netpbm-10.47.06/editor/pamstretch-gen.security-scripts netpbm-10.47.06/editor/pamstretch-gen
---- netpbm-10.47.06/editor/pamstretch-gen.security-scripts	2009-12-13 20:26:58.000000000 +0100
-+++ netpbm-10.47.06/editor/pamstretch-gen	2009-12-16 18:59:17.000000000 +0100
-@@ -31,9 +31,7 @@ if [ "$1" = "" ]; then
+diff -up netpbm-10.47.05/editor/pamstretch-gen.security-scripts netpbm-10.47.05/editor/pamstretch-gen
+--- netpbm-10.47.05/editor/pamstretch-gen.security-scripts	2009-12-10 08:34:32.000000000 +0100
++++ netpbm-10.47.05/editor/pamstretch-gen	2010-03-16 21:28:47.000000000 +0100
+@@ -31,13 +31,9 @@ if [ "$1" = "" ]; then
    exit 1
  fi
  
@@ -44,10 +44,14 @@ diff -up netpbm-10.47.06/editor/pamstretch-gen.security-scripts netpbm-10.47.06/
 +tempfile=$(mktemp /tmp/pnmig.XXXXXXXXXX) || exit 1
  trap 'rm -rf $tempdir' 0 1 3 15
  
- tempfile=$tempdir/pnmig
-diff -up netpbm-10.47.06/editor/pnmmargin.security-scripts netpbm-10.47.06/editor/pnmmargin
---- netpbm-10.47.06/editor/pnmmargin.security-scripts	2009-12-13 20:26:58.000000000 +0100
-+++ netpbm-10.47.06/editor/pnmmargin	2009-12-16 19:04:05.000000000 +0100
+-tempfile=$tempdir/pnmig
+-
+ if ! cat $2 >$tempfile 2>/dev/null; then
+   echo 'pamstretch-gen: error reading file' 1>&2
+   exit 1
+diff -up netpbm-10.47.05/editor/pnmmargin.security-scripts netpbm-10.47.05/editor/pnmmargin
+--- netpbm-10.47.05/editor/pnmmargin.security-scripts	2009-12-10 08:34:32.000000000 +0100
++++ netpbm-10.47.05/editor/pnmmargin	2010-03-16 21:28:09.000000000 +0100
 @@ -11,15 +11,11 @@
  # documentation.  This software is provided "as is" without express or
  # implied warranty.
@@ -86,9 +90,9 @@ diff -up netpbm-10.47.06/editor/pnmmargin.security-scripts netpbm-10.47.06/edito
 -
 -
 +rm -rf "$tmpdir"
-diff -up netpbm-10.47.06/editor/ppmfade.security-scripts netpbm-10.47.06/editor/ppmfade
---- netpbm-10.47.06/editor/ppmfade.security-scripts	2009-12-13 20:26:58.000000000 +0100
-+++ netpbm-10.47.06/editor/ppmfade	2009-12-16 18:59:17.000000000 +0100
+diff -up netpbm-10.47.05/editor/ppmfade.security-scripts netpbm-10.47.05/editor/ppmfade
+--- netpbm-10.47.05/editor/ppmfade.security-scripts	2009-12-10 08:34:32.000000000 +0100
++++ netpbm-10.47.05/editor/ppmfade	2010-03-16 21:28:09.000000000 +0100
 @@ -14,6 +14,7 @@
  #
  #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -352,9 +356,9 @@ diff -up netpbm-10.47.06/editor/ppmfade.security-scripts netpbm-10.47.06/editor/
 +system("rm $tmpdir/junk*$$.ppm");
  
  exit(0);
-diff -up netpbm-10.47.06/editor/ppmquantall.security-scripts netpbm-10.47.06/editor/ppmquantall
---- netpbm-10.47.06/editor/ppmquantall.security-scripts	2009-12-13 20:26:58.000000000 +0100
-+++ netpbm-10.47.06/editor/ppmquantall	2009-12-16 18:59:17.000000000 +0100
+diff -up netpbm-10.47.05/editor/ppmquantall.security-scripts netpbm-10.47.05/editor/ppmquantall
+--- netpbm-10.47.05/editor/ppmquantall.security-scripts	2009-12-10 08:34:32.000000000 +0100
++++ netpbm-10.47.05/editor/ppmquantall	2010-03-16 21:28:09.000000000 +0100
 @@ -70,12 +70,8 @@ for i in ${files[@]}; do
      heights=(${heights[*]} `grep -v '^#' $i | sed '1d; s/.* //; 2q'`)
  done
@@ -370,9 +374,9 @@ diff -up netpbm-10.47.06/editor/ppmquantall.security-scripts netpbm-10.47.06/edi
  
  pnmcat -topbottom -jleft -white ${files[@]} | pnmquant $newcolors > $all
  if [ $? != 0 ]; then
-diff -up netpbm-10.47.06/editor/ppmshadow.security-scripts netpbm-10.47.06/editor/ppmshadow
---- netpbm-10.47.06/editor/ppmshadow.security-scripts	2009-12-13 20:26:58.000000000 +0100
-+++ netpbm-10.47.06/editor/ppmshadow	2009-12-16 18:59:17.000000000 +0100
+diff -up netpbm-10.47.05/editor/ppmshadow.security-scripts netpbm-10.47.05/editor/ppmshadow
+--- netpbm-10.47.05/editor/ppmshadow.security-scripts	2009-12-10 08:34:32.000000000 +0100
++++ netpbm-10.47.05/editor/ppmshadow	2010-03-16 21:28:09.000000000 +0100
 @@ -72,9 +72,10 @@ sub makeConvolutionKernel($$) {
  
  
