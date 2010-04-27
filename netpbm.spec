@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.10
-Release: 3%{?dist}
+Version: 10.47.12
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -9,7 +9,8 @@ URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{version}
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
-# and removing the .svn directories
+# and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
+# and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%{version}/converter/ppm/ppmtompeg/ )
 Source0: netpbm-%{version}.tar.xz
 Patch1: netpbm-time.patch
 Patch2: netpbm-message.patch
@@ -20,7 +21,6 @@ Patch6: netpbm-gcc4.patch
 Patch7: netpbm-bmptopnm.patch
 Patch8: netpbm-CAN-2005-2471.patch
 Patch9: netpbm-xwdfix.patch
-Patch10: netpbm-ppmtompeg.patch
 Patch11: netpbm-multilib.patch
 Patch12: netpbm-pamscale.patch
 Patch13: netpbm-glibc.patch
@@ -30,6 +30,7 @@ Patch16: netpbm-ppmfadeusage.patch
 Patch17: netpbm-fiasco-overflow.patch
 Patch18: netpbm-lz.patch
 Patch19: netpbm-pnmmontagefix.patch
+Patch20: netpbm-noppmtompeg.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -93,7 +94,6 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch7 -p1 -b .bmptopnm
 %patch8 -p1 -b .CAN-2005-2471
 %patch9 -p1 -b .xwdfix
-%patch10 -p1 -b .ppmtompeg
 %patch11 -p1 -b .multilib
 %patch12 -p1 -b .pamscale
 %patch13 -p1 -b .glibc
@@ -103,6 +103,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch17 -p1 -b .fiasco-overflow
 %patch18 -p1 -b .lz
 %patch19 -p1 -b .pnmmmontagefix
+%patch20 -p1 -b .noppmtompeg
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 
@@ -243,6 +244,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue Apr 27 2010 Tom "spot" Callaway <tcallawa@redhat.com> 10.47.12-1
+- update to 10.47.12
+- remove ppmtompeg, due to legal issues
+
 * Thu Mar 18 2010 Jindrich Novy <jnovy@redhat.com> 10.47.10-3
 - package docs in separate netpbm-doc package (#492437)
 - don't package patch backups in documentation
