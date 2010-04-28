@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -106,6 +106,8 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch20 -p1 -b .noppmtompeg
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
+rm -rf converter/other/jpeg2000/libjasper/
+sed -i -e 's/^SUBDIRS = libjasper/SUBDIRS =/' converter/other/jpeg2000/Makefile
 
 %build
 ./configure <<EOF
@@ -146,7 +148,8 @@ make \
 	X11LIB=%{_libdir}/libX11.so \
 	XML2LIBS="NONE" \
 	JASPERLIB="" \
-	JASPERDEPLIBS="-ljasper"
+	JASPERDEPLIBS="-ljasper" \
+	JASPERHDR_DIR="/usr/include/jasper"
 
 # prepare man files
 cd userguide
@@ -181,11 +184,11 @@ mv userguide/man $RPM_BUILD_ROOT%{_mandir}
 sed -i 's/\xa0//' $RPM_BUILD_ROOT%{_mandir}/man1/pgmminkowski.1
 
 # Don't ship man pages for non-existent binaries and bogus ones
-for i in hpcdtoppm ppmsvgalib vidtoppm picttoppm \
+for i in hpcdtoppm \
+	 ppmsvgalib vidtoppm picttoppm \
 	 directory error extendedopacity \
 	 pam pbm pgm pnm ppm index libnetpbm_dir \
-	 liberror pambackground pamfixtrunc \
-	 pamtogif pamtooctaveimg pamundice ppmtotga; do
+	 liberror ppmtotga; do
 	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/${i}.1
 done
 rm -f $RPM_BUILD_ROOT%{_mandir}/man5/extendedopacity.5
@@ -244,6 +247,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Apr 28 2010 Jindrich Novy <jnovy@redhat.com> 10.47.12-2
+- fix CVE-2007-2721 (#501451)
+- add missing man pages
+
 * Tue Apr 27 2010 Tom "spot" Callaway <tcallawa@redhat.com> 10.47.12-1
 - update to 10.47.12
 - remove ppmtompeg, due to legal issues
