@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -31,6 +31,8 @@ Patch17: netpbm-fiasco-overflow.patch
 Patch18: netpbm-lz.patch
 Patch19: netpbm-pnmmontagefix.patch
 Patch20: netpbm-noppmtompeg.patch
+Patch21: netpbm-cmuwtopbm.patch
+Patch22: netpbm-pamtojpeg2k.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -104,6 +106,8 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch18 -p1 -b .lz
 %patch19 -p1 -b .pnmmmontagefix
 %patch20 -p1 -b .noppmtompeg
+%patch21 -p1 -b .cmuwtopbmfix
+%patch22 -p1 -b .pamtojpeg2kfix
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -247,6 +251,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon May  3 2010 Jindrich Novy <jnovy@redhat.com> 10.47.12-2
+- actually apply patches to fix cmuwtopbm and pamtojpeg2k
+
 * Mon May  3 2010 Jindrich Novy <jnovy@redhat.com> 10.47.12-1
 - update to 10.47.12
 - fix CVE-2007-2721 (#501451)
