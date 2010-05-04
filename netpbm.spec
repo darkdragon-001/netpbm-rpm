@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.12
-Release: 3%{?dist}
+Version: 10.47.13
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -251,6 +251,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue May  4 2010 Jindrich Novy <jnovy@redhat.com> 10.47.13-1
+- update to 10.47.13
+- fixes pnmtops
+
 * Mon May  3 2010 Jindrich Novy <jnovy@redhat.com> 10.47.12-3
 - fix cmuwtopbm so that magic bytes test actually works
 - fix pamtojpeg2k (don't close stdout twice)
