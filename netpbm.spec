@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.09
-Release: 2%{?dist}
+Version: 10.47.13
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -28,7 +28,11 @@ Patch14: netpbm-svgtopam.patch
 Patch15: netpbm-docfix.patch
 Patch16: netpbm-ppmfadeusage.patch
 Patch17: netpbm-fiasco-overflow.patch
-Patch18: netpbm-noppmtompeg.patch
+Patch18: netpbm-lz.patch
+Patch19: netpbm-pnmmontagefix.patch
+Patch20: netpbm-noppmtompeg.patch
+Patch21: netpbm-cmuwtopbm.patch
+Patch22: netpbm-pamtojpeg2k.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -56,6 +60,7 @@ to have the netpbm package installed.
 %package progs
 Summary: Tools for manipulating graphics files in netpbm supported formats
 Group: Applications/Multimedia
+Requires: ghostscript
 Requires: netpbm = %{version}-%{release}
 
 %description progs
@@ -83,12 +88,18 @@ netpbm-progs.  You'll also need to install the netpbm package.
 %patch12 -p1 -b .pamscale
 %patch13 -p1 -b .glibc
 %patch14 -p1 -b .svgtopam
-%patch15 -p1 -b .docfix
+%patch15 -p1
 %patch16 -p1 -b .ppmfadeusage
 %patch17 -p1 -b .fiasco-overflow
-%patch18 -p1 -b .noppmtompeg
+%patch18 -p1 -b .lz
+%patch19 -p1 -b .pnmmmontagefix
+%patch20 -p1 -b .noppmtompeg
+%patch21 -p1 -b .cmuwtopbmfix
+%patch22 -p1 -b .pamtojpeg2kfix
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
+rm -rf converter/other/jpeg2000/libjasper/
+sed -i -e 's/^SUBDIRS = libjasper/SUBDIRS =/' converter/other/jpeg2000/Makefile
 
 %build
 ./configure <<EOF
@@ -129,7 +140,8 @@ make \
 	X11LIB=%{_libdir}/libX11.so \
 	XML2LIBS="NONE" \
 	JASPERLIB="" \
-	JASPERDEPLIBS="-ljasper"
+	JASPERDEPLIBS="-ljasper" \
+	JASPERHDR_DIR="/usr/include/jasper"
 
 # prepare man files
 cd userguide
@@ -164,12 +176,11 @@ mv userguide/man $RPM_BUILD_ROOT%{_mandir}
 sed -i 's/\xa0//' $RPM_BUILD_ROOT%{_mandir}/man1/pgmminkowski.1
 
 # Don't ship man pages for non-existent binaries and bogus ones
-for i in hpcdtoppm pcdovtoppm pnmtojbig \
-	 ppmsvgalib vidtoppm picttoppm jbigtopnm \
+for i in hpcdtoppm \
+	 ppmsvgalib vidtoppm picttoppm \
 	 directory error extendedopacity \
 	 pam pbm pgm pnm ppm index libnetpbm_dir \
-	 liberror pambackground pamfixtrunc \
-	 pamtogif pamtooctaveimg pamundice ppmtotga; do
+	 liberror ppmtotga; do
 	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/${i}.1
 done
 rm -f $RPM_BUILD_ROOT%{_mandir}/man5/extendedopacity.5
@@ -187,6 +198,15 @@ rm -rf $RPM_BUILD_ROOT/usr/config_template
 
 # Don't ship the static library
 rm -f $RPM_BUILD_ROOT/%{_libdir}/lib*.a
+
+# remove/symlink/substitute obsolete utilities
+pushd $RPM_BUILD_ROOT%{_bindir}
+rm -f pgmtopbm pnmcomp
+ln -s pamcomp pnmcomp
+echo -e '#!/bin/sh\npamditherbw $@ | pamtopnm\n' > pgmtopbm
+chmod 0755 pgmtopbm
+popd
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -215,6 +235,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/netpbm/
 
 %changelog
+* Tue May  4 2010 Jindrich Novy <jnovy@redhat.com> 10.47.13-1
+- update to 10.47.13
+- fixes pnmtops
+- fix CVE-2007-2721 (#501451)
+- fix cmuwtopbm so that magic bytes test actually works
+- fix pamtojpeg2k (don't close stdout twice)
+- don't package patch backups in documentation
+- netpbm-progs package requires ghostscript
+- pgmtopbm should generate PBM, not PAM file
+- forwardport pnmmontage from 10.35 to make it work
+- fix pamstretch-gen
+- fix documentation for pamperspective and pbmtoepson
+- add missing man pages
+
 * Tue Apr 27 2010 Tom "spot" Callaway <tcallawa@redhat.com> 10.47.09-2
 - remove ppmtompeg, due to legal issues
 
