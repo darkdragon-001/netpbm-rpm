@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.14
+Version: 10.47.15
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -140,7 +140,7 @@ TOP=`pwd`
 make \
 	CC="%{__cc}" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
-	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions" \
+	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions -fno-strict-aliasing" \
 	LADD="-lm" \
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
@@ -251,6 +251,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Jun  7 2010 Jindrich Novy <jnovy@redhat.com> 10.47.15-1
+- update to 10.47.15
+
+* Tue Jun  1 2010 Jindrich Novy <jnovy@redhat.com> 10.47.14-2
+- add -fno-strict-aliasing to CFLAGS
+
 * Fri May 21 2010 Jindrich Novy <jnovy@redhat.com> 10.47.14-1
 - update to 10.47.14
 - fixes memory leak in pamarith
