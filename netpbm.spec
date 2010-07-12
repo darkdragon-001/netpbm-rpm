@@ -253,7 +253,6 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Jul 12 2010 Jindrich Novy <jnovy@redhat.com> 10.47.17-1
 - update to 10.47.17
-- add couple of missign overflow checks
 
 * Fri Jun 18 2010 Jindrich Novy <jnovy@redhat.com> 10.47.16-1
 - update to 10.47.16
