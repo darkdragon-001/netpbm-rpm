@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.21
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -33,6 +33,7 @@ Patch19: netpbm-pnmmontagefix.patch
 Patch20: netpbm-noppmtompeg.patch
 Patch21: netpbm-cmuwtopbm.patch
 Patch22: netpbm-pamtojpeg2k.patch
+Patch23: netpbm-manfix.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -108,6 +109,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch20 -p1 -b .noppmtompeg
 %patch21 -p1 -b .cmuwtopbmfix
 %patch22 -p1 -b .pamtojpeg2kfix
+%patch23 -p1 -b .manfix
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -251,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue Oct 19 2010 Jindrich Novy <jnovy@redhat.com> 10.47.21-2
+- fix HTML pages from which man pages are now generated correctly (#644248)
+
 * Fri Oct 18 2010 Jindrich Novy <jnovy@redhat.com> 10.47.21-1
 - update to 10.47.21
 
