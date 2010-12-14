@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.21
-Release: 2%{?dist}
+Version: 10.47.23
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue Dec 14 2010 Jindrich Novy <jnovy@redhat.com> 10.47.23-1
+- update to 10.47.23
+
 * Tue Oct 19 2010 Jindrich Novy <jnovy@redhat.com> 10.47.21-2
 - fix HTML pages from which man pages are now generated correctly (#644248)
 
