@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.23
+Version: 10.47.24
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Sat Jan  1 2011 Jindrich Novy <jnovy@redhat.com> 10.47.24-1
+- update to 10.47.24
+
 * Tue Dec 14 2010 Jindrich Novy <jnovy@redhat.com> 10.47.23-1
 - update to 10.47.23
 
