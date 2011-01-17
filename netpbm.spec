@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.24
+Version: 10.47.25
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -34,6 +34,7 @@ Patch20: netpbm-noppmtompeg.patch
 Patch21: netpbm-cmuwtopbm.patch
 Patch22: netpbm-pamtojpeg2k.patch
 Patch23: netpbm-manfix.patch
+Patch24: netpbm-asciitopgm.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel
@@ -110,6 +111,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch21 -p1 -b .cmuwtopbmfix
 %patch22 -p1 -b .pamtojpeg2kfix
 %patch23 -p1 -b .manfix
+%patch24 -p0 -b .asciitopgmfix
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -253,6 +255,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Jan 17 2011 Jindrich Novy <jnovy@redhat.com> 10.47.25-1
+- update to 10.47.25
+- fix asciitopgm (#670082), thanks to Jonathan Kamens
+
 * Sat Jan  1 2011 Jindrich Novy <jnovy@redhat.com> 10.47.24-1
 - update to 10.47.24
 
