@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.47.26
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.47.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Mon Feb  7 2011 Jindrich Novy <jnovy@redhat.com> 10.47.26-1
 - update to 10.47.26
 - drop upstreamed asciitopgm patch
