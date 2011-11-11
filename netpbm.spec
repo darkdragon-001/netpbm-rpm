@@ -1,13 +1,13 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.47.32
+Version: 10.56.03
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/stable netpbm-%{version}
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced netpbm-%{version}
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
 # and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%{version}/converter/ppm/ppmtompeg/ )
@@ -24,19 +24,15 @@ Patch9: netpbm-xwdfix.patch
 Patch11: netpbm-multilib.patch
 Patch12: netpbm-pamscale.patch
 Patch13: netpbm-glibc.patch
-Patch14: netpbm-svgtopam.patch
 Patch15: netpbm-docfix.patch
 Patch16: netpbm-ppmfadeusage.patch
 Patch17: netpbm-fiasco-overflow.patch
-Patch18: netpbm-lz.patch
-Patch19: netpbm-pnmmontagefix.patch
 Patch20: netpbm-noppmtompeg.patch
 Patch21: netpbm-cmuwtopbm.patch
 Patch22: netpbm-pamtojpeg2k.patch
 Patch23: netpbm-manfix.patch
-Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires: libX11-devel, python, jasper-devel
+BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
 
 %description
 The netpbm package contains a library of functions which support
@@ -98,14 +94,10 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch8 -p1 -b .CAN-2005-2471
 %patch9 -p1 -b .xwdfix
 %patch11 -p1 -b .multilib
-%patch12 -p1 -b .pamscale
 %patch13 -p1 -b .glibc
-%patch14 -p1 -b .svgtopam
 %patch15 -p1
 %patch16 -p1 -b .ppmfadeusage
 %patch17 -p1 -b .fiasco-overflow
-%patch18 -p1 -b .lz
-%patch19 -p1 -b .pnmmmontagefix
 %patch20 -p1 -b .noppmtompeg
 %patch21 -p1 -b .cmuwtopbmfix
 %patch22 -p1 -b .pamtojpeg2kfix
@@ -253,9 +245,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
-* Wed Nov 09 2011 Jindrich Novy <jnovy@redhat.com> 10.47.32-1
-- update to 10.47.32
-- fixes -multiply option of pamarith
+* Fri Nov 11 2011 Jindrich Novy <jnovy@redhat.com> 10.56.03-1
+- update to 10.56.03
+- fixes compilation against new libpng
 
 * Tue Sep 27 2011 Jindrich Novy <jnovy@redhat.com> 10.47.31-1
 - update to 10.47.31
