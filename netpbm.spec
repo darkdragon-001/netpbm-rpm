@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.56.03
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -173,7 +173,7 @@ if [ "%{_libdir}" != "/usr/lib" ]; then
 fi
 
 cp -af lib/libnetpbm.a $RPM_BUILD_ROOT%{_libdir}/libnetpbm.a
-ln -sf libnetpbm.so.10 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
+ln -sf libnetpbm.so.11 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}
 mv userguide/man $RPM_BUILD_ROOT%{_mandir}
@@ -245,6 +245,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Nov 16 2011 Jindrich Novy <jnovy@redhat.com> 10.56.03-2
+- fix library symlink to point to the new soname
+
 * Fri Nov 11 2011 Jindrich Novy <jnovy@redhat.com> 10.56.03-1
 - update to 10.56.03
 - fixes compilation against new libpng
