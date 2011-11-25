@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.56.03
-Release: 2%{?dist}
+Version: 10.56.04
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -173,7 +173,7 @@ if [ "%{_libdir}" != "/usr/lib" ]; then
 fi
 
 cp -af lib/libnetpbm.a $RPM_BUILD_ROOT%{_libdir}/libnetpbm.a
-ln -sf libnetpbm.so.11 $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
+cp -l $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so.?? $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}
 mv userguide/man $RPM_BUILD_ROOT%{_mandir}
@@ -245,6 +245,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Fri Nov 25 2011 Jindrich Novy <jnovy@redhat.com> 10.56.04-1
+- update to 10.56.04
+- fixes pngtopam
+- use more robust way to create library symlinks
+
 * Wed Nov 16 2011 Jindrich Novy <jnovy@redhat.com> 10.56.03-2
 - fix library symlink to point to the new soname
 
