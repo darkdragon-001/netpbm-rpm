@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.56.04
+Version: 10.56.05
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -245,6 +245,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Dec 12 2011 Jindrich Novy <jnovy@redhat.com> 10.56.05-1
+- update to 10.56.05
+- fixes pamscale
+
 * Fri Nov 25 2011 Jindrich Novy <jnovy@redhat.com> 10.56.04-1
 - update to 10.56.04
 - fixes pngtopam
