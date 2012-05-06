@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.58.01
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -245,6 +245,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Sun May 06 2012 Jindrich Novy <jnovy@redhat.com> 10.58.01-2
+- rebuild against new libtiff
+
 * Mon Apr 09 2012 Jindrich Novy <jnovy@redhat.com> 10.58.01-1
 - update to 10.58.01
 
