@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.58.01
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -31,6 +31,8 @@ Patch20: netpbm-noppmtompeg.patch
 Patch21: netpbm-cmuwtopbm.patch
 Patch22: netpbm-pamtojpeg2k.patch
 Patch23: netpbm-manfix.patch
+Patch24: netpbm-ppmtopict.patch
+Patch25: netpbm-pnmtopclxl.patch
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
 
@@ -102,6 +104,8 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch21 -p1 -b .cmuwtopbmfix
 %patch22 -p1 -b .pamtojpeg2kfix
 %patch23 -p1 -b .manfix
+%patch24 -p1 -b .ppmtopict
+%patch25 -p1 -b .pnmtopclxl
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -131,6 +135,7 @@ sed -i -e 's/^SUBDIRS = libjasper/SUBDIRS =/' converter/other/jpeg2000/Makefile
 EOF
 
 TOP=`pwd`
+
 make \
 	CC="%{__cc}" \
 	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
@@ -245,6 +250,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Jun 13 2012 Jindrich Novy <jnovy@redhat.com> 10.58.01-3
+- fix ppmtopict buffer underflow
+- fix memory corruption in pnmtopclxl
+
 * Sun May 06 2012 Jindrich Novy <jnovy@redhat.com> 10.58.01-2
 - rebuild against new libtiff
 
