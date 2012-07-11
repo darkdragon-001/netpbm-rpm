@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.58.03
+Version: 10.59.01
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -250,6 +250,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Jul 11 2012 Jindrich Novy <jnovy@redhat.com> 10.59.01-1
+- update to 10.59.01
+
 * Fri Jun 22 2012 Jindrich Novy <jnovy@redhat.com> 10.58.03-1
 - update to 10.58.03
 - pnmtops is back
