@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.59.02
+Version: 10.59.03
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -250,6 +250,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue Sep 25 2012 Jindrich Novy <jnovy@redhat.com> 10.59.03-1
+- update to 10.59.03
+- fixes xpmtoppm
+
 * Fri Jul 20 2012 Jindrich Novy <jnovy@redhat.com> 10.59.02-1
 - update to 10.59.02
 - fixes getline() glibc function conflict
