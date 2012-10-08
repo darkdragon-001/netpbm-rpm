@@ -1,6 +1,6 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.60.00
+Version: 10.60.01
 Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
@@ -250,6 +250,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Oct 08 2012 Jindrich Novy <jnovy@redhat.com> 10.60.01-1
+- update to 10.60.01
+- fixes pamgauss, sunicontopnm
+
 * Tue Oct 02 2012 Jindrich Novy <jnovy@redhat.com> 10.60.00-1
 - update to 10.60.00
 - speeds up xpmtoppm
