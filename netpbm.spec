@@ -221,7 +221,9 @@ popd
 
 %check
 pushd test
-PBM_TESTPREFIX=$RPM_BUILD_ROOT%{_bindir} ./Execute-Tests
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
+export PBM_TESTPREFIX=$RPM_BUILD_ROOT%{_bindir}
+./Execute-Tests
 popd
 
 %clean
