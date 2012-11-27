@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.60.03
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -9,6 +9,7 @@ URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced netpbm-%{version}
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/trunk/test netpbm-%{version}/test
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
 # and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%{version}/converter/ppm/ppmtompeg/ )
 Source0: netpbm-%{version}.tar.xz
@@ -218,6 +219,10 @@ echo -e '#!/bin/sh\npamditherbw $@ | pamtopnm\n' > pgmtopbm
 chmod 0755 pgmtopbm
 popd
 
+%check
+pushd test
+PBM_TESTPREFIX=$RPM_BUILD_ROOT%{_bindir} ./Execute-Tests
+popd
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -250,6 +255,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue Nov 27 2012 Jindrich Novy <jnovy@redhat.com> 10.60.03-2
+- add upstream test suite
+
 * Wed Nov 21 2012 Jindrich Novy <jnovy@redhat.com> 10.60.03-1
 - update to 10.60.3
 - fixes xbmptopbm, pamtojpeg2k
