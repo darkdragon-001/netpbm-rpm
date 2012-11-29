@@ -23,7 +23,6 @@ Patch7: netpbm-bmptopnm.patch
 Patch8: netpbm-CAN-2005-2471.patch
 Patch9: netpbm-xwdfix.patch
 Patch11: netpbm-multilib.patch
-Patch12: netpbm-pamscale.patch
 Patch13: netpbm-glibc.patch
 Patch15: netpbm-docfix.patch
 Patch16: netpbm-ppmfadeusage.patch
