@@ -109,17 +109,18 @@ diff -up netpbm-10.59.03/userguide/pamstereogram.html.manfix netpbm-10.59.03/use
 +<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
 +<html>
  <head>
- <meta http-equiv="Content-type" content="text/html">
+ <meta charset="UTF-8">
  <title>Pamstereogram User Manual</title>
-@@ -11,7 +11,7 @@
+@@ -11,8 +11,7 @@
  
- <p>Updated: 20 June 2012</p>
+ <p>Updated:30 December 2012</p>
  
 -<p><a href="#contents">Table Of Contents</a></p>
+-
 +<p><a href="#index">Table Of Contents</a></p>
  
- 
  <h2 id="name">NAME</h2>
+ 
 diff -up netpbm-10.59.03/userguide/pamtoavs.html.manfix netpbm-10.59.03/userguide/pamtoavs.html
 --- netpbm-10.59.03/userguide/pamtoavs.html.manfix	2012-09-22 03:46:15.000000000 +0200
 +++ netpbm-10.59.03/userguide/pamtoavs.html	2012-09-25 10:47:22.759174777 +0200
