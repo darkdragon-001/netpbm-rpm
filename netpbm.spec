@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.61.01
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Jan 21 2013 Adam Tkac <atkac redhat com> - 10.61.01-2
+- rebuild due to "jpeg8-ABI" feature drop
+
 * Thu Jan 03 2013 Jindrich Novy <jnovy@redhat.com> 10.61.01-1
 - update to 10.61.01
 - sync patches
