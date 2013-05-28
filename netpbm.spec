@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.61.02
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -34,6 +34,7 @@ Patch23: netpbm-manfix.patch
 Patch24: netpbm-ppmtopict.patch
 Patch25: netpbm-pnmtopclxl.patch
 Patch26: netpbm-man-repeated.patch
+Patch27: netpbm-multipage-pam.patch
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
 
@@ -108,6 +109,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch24 -p1 -b .ppmtopict
 %patch25 -p1 -b .pnmtopclxl
 %patch26 -p1 -b .man-repeated
+%patch27 -p1 -b .multipage-pam
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -258,6 +260,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue May 28 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-3
+- pnmtops: Multi-page PAM files correction (#833546)
+
 * Mon May 27 2013 Petr Hracek <phracek@redhat.com> 10.61.02-2
 - Man page corrections (#948531)
 
