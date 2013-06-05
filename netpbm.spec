@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.61.02
-Release: 3%{?dist}
+Release: 4%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -35,6 +35,7 @@ Patch24: netpbm-ppmtopict.patch
 Patch25: netpbm-pnmtopclxl.patch
 Patch26: netpbm-man-repeated.patch
 Patch27: netpbm-multipage-pam.patch
+Patch28: netpbm-compare-same-images.patch
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
 
@@ -110,6 +111,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch25 -p1 -b .pnmtopclxl
 %patch26 -p1 -b .man-repeated
 %patch27 -p1 -b .multipage-pam
+%patch28 -p1 -b .compare-same-images
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -260,6 +262,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Jun 05 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-4
+- pnmpsnr: compare the same images failed (#969479)
+
 * Tue May 28 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-3
 - pnmtops: Multi-page PAM files correction (#833546)
 
