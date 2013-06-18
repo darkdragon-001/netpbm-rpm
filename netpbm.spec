@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.61.02
-Release: 4%{?dist}
+Release: 5%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -33,9 +33,11 @@ Patch22: netpbm-pamtojpeg2k.patch
 Patch23: netpbm-manfix.patch
 Patch24: netpbm-ppmtopict.patch
 Patch25: netpbm-pnmtopclxl.patch
-Patch26: netpbm-man-repeated.patch
+#Patch26: netpbm-man-repeated.patch
 Patch27: netpbm-multipage-pam.patch
 Patch28: netpbm-compare-same-images.patch
+#Patch29: netpbm-man-corrections.patch
+Patch29: netpbm-manual-pages.patch
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
 
@@ -109,9 +111,12 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch23 -p1 -b .manfix
 %patch24 -p1 -b .ppmtopict
 %patch25 -p1 -b .pnmtopclxl
-%patch26 -p1 -b .man-repeated
+#%patch26 -p1 -b .man-repeated
 %patch27 -p1 -b .multipage-pam
 %patch28 -p1 -b .compare-same-images
+#%patch29 -p1 -b .man-corrections
+%patch29 -p1 -b .manual-pages
+exit 0
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -162,6 +167,10 @@ make \
 
 # prepare man files
 cd userguide
+# BZ 948531
+rm -f ppmtompeg*
+rm -f *.manual-pages
+rm -f *.manfix
 for i in *.html ; do
   ../buildtools/makeman ${i}
 done
@@ -262,6 +271,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Jun 17 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-5
+- Manual page corrections (#948531)
+
 * Wed Jun 05 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-4
 - pnmpsnr: compare the same images failed (#969479)
 
