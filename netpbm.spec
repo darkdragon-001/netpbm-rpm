@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.61.02
-Release: 8%{?dist}
+Release: 9%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -39,6 +39,7 @@ Patch28: netpbm-compare-same-images.patch
 #Patch29: netpbm-man-corrections.patch
 Patch29: netpbm-manual-pages.patch
 Patch30: netpbm-format-security.patch
+Patch31: netpbm-more-files.patch
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
 
@@ -118,7 +119,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 #%patch29 -p1 -b .man-corrections
 %patch29 -p1 -b .manual-pages
 %patch30 -p1 -b .fmt-sec
-exit 0
+%patch31 -p1 -b .more-files
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -273,6 +274,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Nov 13 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-9
+- pnmtops hangs in case of more then 10 files (#1029512)
+
 * Mon Apr 14 2014 Jaromir Capik <jcapik@redhat.com> - 10.61.02-8
 - Fixing format-security flaws (#1037217)
 
