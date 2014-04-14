@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.61.02
-Release: 7%{?dist}
+Release: 8%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -38,6 +38,7 @@ Patch27: netpbm-multipage-pam.patch
 Patch28: netpbm-compare-same-images.patch
 #Patch29: netpbm-man-corrections.patch
 Patch29: netpbm-manual-pages.patch
+Patch30: netpbm-format-security.patch
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
 
@@ -116,6 +117,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch28 -p1 -b .compare-same-images
 #%patch29 -p1 -b .man-corrections
 %patch29 -p1 -b .manual-pages
+%patch30 -p1 -b .fmt-sec
 exit 0
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
@@ -271,6 +273,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Apr 14 2014 Jaromir Capik <jcapik@redhat.com> - 10.61.02-8
+- Fixing format-security flaws (#1037217)
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.61.02-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
