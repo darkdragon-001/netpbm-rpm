@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
-Version: 10.61.02
-Release: 9%{?dist}
+Version: 10.66.02
+Release: 1%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -33,13 +33,8 @@ Patch22: netpbm-pamtojpeg2k.patch
 Patch23: netpbm-manfix.patch
 Patch24: netpbm-ppmtopict.patch
 Patch25: netpbm-pnmtopclxl.patch
-#Patch26: netpbm-man-repeated.patch
-Patch27: netpbm-multipage-pam.patch
-Patch28: netpbm-compare-same-images.patch
-#Patch29: netpbm-man-corrections.patch
-Patch29: netpbm-manual-pages.patch
-Patch30: netpbm-format-security.patch
-Patch31: netpbm-more-files.patch
+Patch26: netpbm-werror.patch
+Patch27: netpbm-disable-pbmtog3.patch
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
 
@@ -104,7 +99,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch9 -p1 -b .xwdfix
 %patch11 -p1 -b .multilib
 %patch13 -p1 -b .glibc
-%patch15 -p1
+%patch15 -p1 -b .docfix
 %patch16 -p1 -b .ppmfadeusage
 %patch17 -p1 -b .fiasco-overflow
 %patch20 -p1 -b .noppmtompeg
@@ -113,13 +108,8 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch23 -p1 -b .manfix
 %patch24 -p1 -b .ppmtopict
 %patch25 -p1 -b .pnmtopclxl
-#%patch26 -p1 -b .man-repeated
-%patch27 -p1 -b .multipage-pam
-%patch28 -p1 -b .compare-same-images
-#%patch29 -p1 -b .man-corrections
-%patch29 -p1 -b .manual-pages
-%patch30 -p1 -b .fmt-sec
-%patch31 -p1 -b .more-files
+%patch26 -p1 -b .werror
+%patch27 -p1 -b .disable-pbmtog3
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -224,6 +214,7 @@ rm -rf $RPM_BUILD_ROOT/usr/misc
 rm -rf $RPM_BUILD_ROOT/usr/man
 rm -rf $RPM_BUILD_ROOT/usr/pkginfo
 rm -rf $RPM_BUILD_ROOT/usr/config_template
+rm -rf $RPM_BUILD_ROOT/usr/pkgconfig_template
 
 # Don't ship the static library
 rm -f $RPM_BUILD_ROOT/%{_libdir}/lib*.a
@@ -240,6 +231,7 @@ popd
 pushd test
 export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 export PBM_TESTPREFIX=$RPM_BUILD_ROOT%{_bindir}
+export PBM_BINPREFIX=$RPM_BUILD_ROOT%{_bindir}
 ./Execute-Tests && exit 0
 popd
 
@@ -274,7 +266,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
-* Wed Nov 13 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-9
+* Tue May 13 2014 Petr Hracek <phracek@redhat.com> - 10.66.02-1
+- Update new sources (#1063264)
+
+* Wed Nov 13 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-8
 - pnmtops hangs in case of more then 10 files (#1029512)
 
 * Mon Apr 14 2014 Jaromir Capik <jcapik@redhat.com> - 10.61.02-8
