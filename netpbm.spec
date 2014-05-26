@@ -269,11 +269,11 @@ rm -rf $RPM_BUILD_ROOT
 * Tue May 13 2014 Petr Hracek <phracek@redhat.com> - 10.66.02-1
 - Update new sources (#1063264)
 
+* Mon Apr 14 2014 Jaromir Capik <jcapik@redhat.com> - 10.61.02-9
+- Fixing format-security flaws (#1037217)
+
 * Wed Nov 13 2013 Petr Hracek <phracek@redhat.com> - 10.61.02-8
 - pnmtops hangs in case of more then 10 files (#1029512)
-
-* Mon Apr 14 2014 Jaromir Capik <jcapik@redhat.com> - 10.61.02-8
-- Fixing format-security flaws (#1037217)
 
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.61.02-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
