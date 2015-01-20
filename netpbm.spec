@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.66.02
-Release: 4%{?dist}
+Release: 5%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -248,13 +248,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*.so*
 
 %files devel
 %defattr(-,root,root)
 %dir %{_includedir}/netpbm
 %{_includedir}/netpbm/*.h
-%{_libdir}/lib*.so
 %{_mandir}/man3/*
 
 %files progs
@@ -269,6 +268,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue Jan 20 2015 Petr Hracek <phracek@redhat.com> - 10.66.02-5
+- Moving libnetpbm.so from netpbm-devel to netpbm (#1180811)
+
 * Tue Jan 20 2015 Petr Hracek <phracek@redhat.com> - 10.66.02-4
 - Add missing pnmtops to netpbm-progs (#1171903)
 
