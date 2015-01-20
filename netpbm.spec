@@ -1,7 +1,7 @@
 Summary: A library for handling different graphics file formats
 Name: netpbm
 Version: 10.66.02
-Release: 3%{?dist}
+Release: 4%{?dist}
 # See copyright_summary for details
 License: BSD and GPLv2 and IJG and MIT and Public Domain
 Group: System Environment/Libraries
@@ -35,8 +35,10 @@ Patch24: netpbm-ppmtopict.patch
 Patch25: netpbm-pnmtopclxl.patch
 Patch26: netpbm-werror.patch
 Patch27: netpbm-disable-pbmtog3.patch
+Patch28: netpbm-pnmtops.patch
 BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
+BuildRequires: ghostscript-core
 
 %description
 The netpbm package contains a library of functions which support
@@ -110,6 +112,7 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch25 -p1 -b .pnmtopclxl
 %patch26 -p1 -b .werror
 %patch27 -p1 -b .disable-pbmtog3
+%patch28 -p1 -b .pnmtops
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -266,6 +269,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Tue Jan 20 2015 Petr Hracek <phracek@redhat.com> - 10.66.02-4
+- Add missing pnmtops to netpbm-progs (#1171903)
+
 * Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.66.02-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
