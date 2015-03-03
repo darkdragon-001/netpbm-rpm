@@ -246,25 +246,22 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root)
-%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY README
+%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/HISTORY README
+%license doc/GPL_LICENSE.txt
 %{_libdir}/lib*.so*
 
 %files devel
-%defattr(-,root,root)
 %dir %{_includedir}/netpbm
 %{_includedir}/netpbm/*.h
 %{_mandir}/man3/*
 
 %files progs
-%defattr(-,root,root)
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %{_datadir}/netpbm/
 
 %files doc
-%defattr(-,root,root)
 %doc userguide/*
 
 %changelog
