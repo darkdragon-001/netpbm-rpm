@@ -849,7 +849,7 @@ rm -rf $RPM_BUILD_ROOT
 - fix segfault in ppmtompeg when encoding jpeg images (#185970)
 
 * Mon Apr  3 2006 Jindrich Novy <jnovy@redhat.com> 10.32-2
-- fix broken symlink in upstream: pnmsdepth -> pamdepth  (#187667)
+- fix broken symlink in upstream: pnmsdepth -> pamdepth (#187667)
 
 * Tue Feb 28 2006 Jindrich Novy <jnovy@redhat.com> 10.32-1
 - update to 10.32
