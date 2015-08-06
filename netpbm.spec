@@ -1,10 +1,10 @@
-Summary: A library for handling different graphics file formats
-Name: netpbm
-Version: 10.66.02
-Release: 6%{?dist}
+Summary:         A library for handling different graphics file formats
+Name:            netpbm
+Version:         10.66.02
+Release:         7%{?dist}
 # See copyright_summary for details
-License: BSD and GPLv2 and IJG and MIT and Public Domain
-Group: System Environment/Libraries
+License:         BSD and GPLv2 and IJG and MIT and Public Domain
+Group:           System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced netpbm-%{version}
@@ -12,33 +12,33 @@ URL: http://netpbm.sourceforge.net/
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/trunk/test netpbm-%{version}/test
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
 # and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%{version}/converter/ppm/ppmtompeg/ )
-Source0: netpbm-%{version}.tar.xz
-Patch1: netpbm-time.patch
-Patch2: netpbm-message.patch
-Patch3: netpbm-security-scripts.patch
-Patch4: netpbm-security-code.patch
-Patch5: netpbm-nodoc.patch
-Patch6: netpbm-gcc4.patch
-Patch7: netpbm-bmptopnm.patch
-Patch8: netpbm-CAN-2005-2471.patch
-Patch9: netpbm-xwdfix.patch
-Patch11: netpbm-multilib.patch
-Patch13: netpbm-glibc.patch
-Patch15: netpbm-docfix.patch
-Patch16: netpbm-ppmfadeusage.patch
-Patch17: netpbm-fiasco-overflow.patch
-Patch20: netpbm-noppmtompeg.patch
-Patch21: netpbm-cmuwtopbm.patch
-Patch22: netpbm-pamtojpeg2k.patch
-Patch23: netpbm-manfix.patch
-Patch24: netpbm-ppmtopict.patch
-Patch25: netpbm-pnmtopclxl.patch
-Patch26: netpbm-werror.patch
-Patch27: netpbm-disable-pbmtog3.patch
-Patch28: netpbm-pnmtops.patch
-BuildRequires: libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires: libX11-devel, python, jasper-devel, libxml2-devel
-BuildRequires: ghostscript-core
+Source0:         netpbm-%{version}.tar.xz
+Patch1:          netpbm-time.patch
+Patch2:          netpbm-message.patch
+Patch3:          netpbm-security-scripts.patch
+Patch4:          netpbm-security-code.patch
+Patch5:          netpbm-nodoc.patch
+Patch6:          netpbm-gcc4.patch
+Patch7:          netpbm-bmptopnm.patch
+Patch8:          netpbm-CAN-2005-2471.patch
+Patch9:          netpbm-xwdfix.patch
+Patch11:         netpbm-multilib.patch
+Patch13:         netpbm-glibc.patch
+Patch15:         netpbm-docfix.patch
+Patch16:         netpbm-ppmfadeusage.patch
+Patch17:         netpbm-fiasco-overflow.patch
+Patch20:         netpbm-noppmtompeg.patch
+Patch21:         netpbm-cmuwtopbm.patch
+Patch22:         netpbm-pamtojpeg2k.patch
+Patch23:         netpbm-manfix.patch
+Patch24:         netpbm-ppmtopict.patch
+Patch25:         netpbm-pnmtopclxl.patch
+Patch26:         netpbm-werror.patch
+Patch27:         netpbm-disable-pbmtog3.patch
+Patch28:         netpbm-pnmtops.patch
+BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
+BuildRequires:   libX11-devel, python, jasper-devel, libxml2-devel
+BuildRequires:   ghostscript-core
 
 %description
 The netpbm package contains a library of functions which support
@@ -47,9 +47,9 @@ programs for handling various graphics file formats, including .pbm
 .ppm (portable pixmaps) and others.
 
 %package devel
-Summary: Development tools for programs which will use the netpbm libraries
-Group: Development/Libraries
-Requires: netpbm = %{version}-%{release}
+Summary:         Development tools for programs which will use the netpbm libraries
+Group:           Development/Libraries
+Requires:        netpbm = %{version}-%{release}
 
 %description devel
 The netpbm-devel package contains the header files and static libraries,
@@ -61,10 +61,10 @@ graphics file formats supported by the netpbm libraries.  You'll also need
 to have the netpbm package installed.
 
 %package progs
-Summary: Tools for manipulating graphics files in netpbm supported formats
-Group: Applications/Multimedia
-Requires: ghostscript
-Requires: netpbm = %{version}-%{release}
+Summary:         Tools for manipulating graphics files in netpbm supported formats
+Group:           Applications/Multimedia
+Requires:        ghostscript
+Requires:        netpbm = %{version}-%{release}
 
 %description progs
 The netpbm-progs package contains a group of scripts for manipulating the
@@ -77,9 +77,9 @@ If you need to use these conversion scripts, you should install
 netpbm-progs.  You'll also need to install the netpbm package.
 
 %package doc
-Summary: Documentation for tools manipulating graphics files in netpbm supported formats
-Group: Applications/Multimedia
-Requires: netpbm-progs = %{version}-%{release}
+Summary:         Documentation for tools manipulating graphics files in netpbm supported formats
+Group:           Applications/Multimedia
+Requires:        netpbm-progs = %{version}-%{release}
 
 %description doc
 The netpbm-doc package contains a documentation in HTML format for utilities
@@ -246,7 +246,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %files
-%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/HISTORY README
+%doc doc/COPYRIGHT.PATENT doc/HISTORY README
 %license doc/GPL_LICENSE.txt
 %{_libdir}/lib*.so*
 
@@ -265,6 +265,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Thu Aug 06 2015 Petr Hracek <phracek@redhat.com> - 10.66.02-7
+- remove doc/copyright_summary (#1219743)
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 10.66.02-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
