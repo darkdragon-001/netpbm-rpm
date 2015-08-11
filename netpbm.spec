@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.66.02
-Release:         7%{?dist}
+Version:         10.71.02
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -32,10 +32,10 @@ Patch21:         netpbm-cmuwtopbm.patch
 Patch22:         netpbm-pamtojpeg2k.patch
 Patch23:         netpbm-manfix.patch
 Patch24:         netpbm-ppmtopict.patch
-Patch25:         netpbm-pnmtopclxl.patch
 Patch26:         netpbm-werror.patch
 Patch27:         netpbm-disable-pbmtog3.patch
 Patch28:         netpbm-pnmtops.patch
+Patch29:         netpbm-config.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires:   libX11-devel, python, jasper-devel, libxml2-devel
 BuildRequires:   ghostscript-core
@@ -109,10 +109,10 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch22 -p1 -b .pamtojpeg2kfix
 %patch23 -p1 -b .manfix
 %patch24 -p1 -b .ppmtopict
-%patch25 -p1 -b .pnmtopclxl
 %patch26 -p1 -b .werror
 %patch27 -p1 -b .disable-pbmtog3
 %patch28 -p1 -b .pnmtops
+%patch29 -p1 -b .config
 
 sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
 rm -rf converter/other/jpeg2000/libjasper/
@@ -156,10 +156,7 @@ make \
 	TIFFLIB_DIR=%{_libdir} \
 	LINUXSVGALIB="NONE" \
 	X11LIB=%{_libdir}/libX11.so \
-	XML2LIBS="NONE" \
-	JASPERLIB="" \
-	JASPERDEPLIBS="-ljasper" \
-	JASPERHDR_DIR="/usr/include/jasper"
+	XML2LIBS="NONE"
 
 # prepare man files
 cd userguide
@@ -265,6 +262,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Aug 10 2015 Petr Hracek <phracek@redhat.com> - 10.71.02-1
+- Update to the latest upstream release (#1252352)
+
 * Thu Aug 06 2015 Petr Hracek <phracek@redhat.com> - 10.66.02-7
 - remove doc/copyright_summary (#1219743)
 

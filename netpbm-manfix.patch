@@ -1,10 +1,10 @@
-diff -up netpbm-10.59.03/userguide/avstopam.html.manfix netpbm-10.59.03/userguide/avstopam.html
---- netpbm-10.59.03/userguide/avstopam.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/avstopam.html	2012-09-25 10:47:22.756174816 +0200
+diff --git a/userguide/avstopam.html b/userguide/avstopam.html
+index 9ec5e41..f69fdaa 100644
+--- a/userguide/avstopam.html
++++ b/userguide/avstopam.html
 @@ -1,8 +1,7 @@
--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+ <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
 -<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
 +<html>
  <head>
  <title>Avstopam User Manual</title>
@@ -12,25 +12,22 @@ diff -up netpbm-10.59.03/userguide/avstopam.html.manfix netpbm-10.59.03/userguid
  </head>
  
  <body>
-diff -up netpbm-10.59.03/userguide/escp2topbm.html.manfix netpbm-10.59.03/userguide/escp2topbm.html
---- netpbm-10.59.03/userguide/escp2topbm.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/escp2topbm.html	2012-09-25 10:47:22.756174816 +0200
-@@ -2,10 +2,11 @@
- <HTML><HEAD><TITLE>Escp2topbm User Manual</TITLE></HEAD>
- <BODY>
- <H1>escp2topbm</H1>
--Created: 1 August 2003
-+Updated: 1 August 2003
+diff --git a/userguide/escp2topbm.html b/userguide/escp2topbm.html
+index 186e032..af35b06 100644
+--- a/userguide/escp2topbm.html
++++ b/userguide/escp2topbm.html
+@@ -6,6 +6,7 @@ Updated: 14 July 2015
  <BR>
  <A HREF="#index">Table Of Contents</A>
  
-+<H2>NAME</H2>
++<h2>NAME</h2>
  escp2topbm - convert an ESC/P2 printer file to a PBM image
  
  <H2 id="synopsis">SYNOPSIS</H2>
-diff -up netpbm-10.59.03/userguide/faxformat.html.manfix netpbm-10.59.03/userguide/faxformat.html
---- netpbm-10.59.03/userguide/faxformat.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/faxformat.html	2012-09-25 10:47:22.756174816 +0200
+diff --git a/userguide/faxformat.html b/userguide/faxformat.html
+index cb5d710..cadd217 100644
+--- a/userguide/faxformat.html
++++ b/userguide/faxformat.html
 @@ -5,10 +5,12 @@
  Updated: 03 December 2008
  <BR>
@@ -44,9 +41,10 @@ diff -up netpbm-10.59.03/userguide/faxformat.html.manfix netpbm-10.59.03/usergui
  <p>The ITU (formerly CCITT) publishes standards for operation of fax machines
  (the idea is to provide a way to be sure that a fax machine is able to receive
  a fax sent by another).  These standards incidentally specify graphics file
-diff -up netpbm-10.59.03/userguide/pampaintspill.html.manfix netpbm-10.59.03/userguide/pampaintspill.html
---- netpbm-10.59.03/userguide/pampaintspill.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/pampaintspill.html	2012-09-25 10:47:22.757174803 +0200
+diff --git a/userguide/pampaintspill.html b/userguide/pampaintspill.html
+index c71db55..f62011f 100644
+--- a/userguide/pampaintspill.html
++++ b/userguide/pampaintspill.html
 @@ -1,8 +1,7 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
 -<html xmlns="http://www.w3.org/1999/xhtml">
@@ -65,33 +63,12 @@ diff -up netpbm-10.59.03/userguide/pampaintspill.html.manfix netpbm-10.59.03/use
  <p>pampaintspill - smoothly spill colors into the background</p>
  
  <h2><a name="synopsis">SYNOPSIS</a></h2>
-diff -up netpbm-10.59.03/userguide/pamrecolor.html.manfix netpbm-10.59.03/userguide/pamrecolor.html
---- netpbm-10.59.03/userguide/pamrecolor.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/pamrecolor.html	2012-09-25 10:47:22.757174803 +0200
-@@ -1,8 +1,7 @@
--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
- <html>
- <head>
- <title>Pamrecolor User Manual</title>
--<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
- </head>
- 
- <body>
-@@ -11,7 +10,7 @@
- 
- <p>Updated: 31 July 2010</p>
- 
--<p><a href="#contents">Table Of Contents</a></p>
-+<p><a href="#index">Table Of Contents</a></p>
- 
- 
- <h2 id="name">NAME</h2>
-diff -up netpbm-10.59.03/userguide/pamsistoaglyph.html.manfix netpbm-10.59.03/userguide/pamsistoaglyph.html
---- netpbm-10.59.03/userguide/pamsistoaglyph.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/pamsistoaglyph.html	2012-09-25 10:47:22.758174790 +0200
-@@ -1,8 +1,7 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+diff --git a/userguide/pamsistoaglyph.html b/userguide/pamsistoaglyph.html
+index 8487717..d17368b 100644
+--- a/userguide/pamsistoaglyph.html
++++ b/userguide/pamsistoaglyph.html
+@@ -1,8 +1,6 @@
+-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
 -<html xmlns="http://www.w3.org/1999/xhtml">
 +<html>
  <head>
@@ -100,13 +77,34 @@ diff -up netpbm-10.59.03/userguide/pamsistoaglyph.html.manfix netpbm-10.59.03/us
  </head>
  
  <body>
-diff -up netpbm-10.59.03/userguide/pamtoavs.html.manfix netpbm-10.59.03/userguide/pamtoavs.html
---- netpbm-10.59.03/userguide/pamtoavs.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/pamtoavs.html	2012-09-25 10:47:22.759174777 +0200
-@@ -1,8 +1,7 @@
--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
--<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+diff --git a/userguide/pamstereogram.html b/userguide/pamstereogram.html
+index d5c3f83..a43fd5f 100644
+--- a/userguide/pamstereogram.html
++++ b/userguide/pamstereogram.html
+@@ -1,5 +1,5 @@
+-<!DOCTYPE html>
+-<html xmlns="http://www.w3.org/1999/xhtml">
 +<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
++<html>
+ <head>
+ <title>Pamstereogram User Manual</title>
+ </head>
+@@ -10,7 +10,7 @@
+ 
+ <p>Updated: 19 June 2015</p>
+ 
+-<p><a href="#contents">Table Of Contents</a></p>
++<p><a href="#index">Table Of Contents</a></p>
+ 
+ 
+ <h2 id="name">NAME</h2>
+diff --git a/userguide/pamtoavs.html b/userguide/pamtoavs.html
+index 4f1b63e..0619e1b 100644
+--- a/userguide/pamtoavs.html
++++ b/userguide/pamtoavs.html
+@@ -1,8 +1,7 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 +<html>
  <head>
  <title>Pamtoavs User Manual</title>
@@ -114,13 +112,13 @@ diff -up netpbm-10.59.03/userguide/pamtoavs.html.manfix netpbm-10.59.03/userguid
  </head>
  
  <body>
-diff -up netpbm-10.59.03/userguide/pamtooctaveimg.html.manfix netpbm-10.59.03/userguide/pamtooctaveimg.html
---- netpbm-10.59.03/userguide/pamtooctaveimg.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/pamtooctaveimg.html	2012-09-25 10:47:22.759174777 +0200
+diff --git a/userguide/pamtooctaveimg.html b/userguide/pamtooctaveimg.html
+index 9cadc13..69b09cb 100644
+--- a/userguide/pamtooctaveimg.html
++++ b/userguide/pamtooctaveimg.html
 @@ -1,8 +1,7 @@
--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+ <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
 -<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
 +<html>
  <head>
  <title>Pamtooctaveimg User Manual</title>
@@ -128,9 +126,10 @@ diff -up netpbm-10.59.03/userguide/pamtooctaveimg.html.manfix netpbm-10.59.03/us
  </head>
  
  <body>
-diff -up netpbm-10.59.03/userguide/pnmflip.html.manfix netpbm-10.59.03/userguide/pnmflip.html
---- netpbm-10.59.03/userguide/pnmflip.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/pnmflip.html	2012-09-25 10:47:22.760174765 +0200
+diff --git a/userguide/pnmflip.html b/userguide/pnmflip.html
+index 53c365c..eb0b896 100644
+--- a/userguide/pnmflip.html
++++ b/userguide/pnmflip.html
 @@ -4,9 +4,11 @@
  <BODY>
  <H1>pnmflip</H1>
@@ -143,9 +142,10 @@ diff -up netpbm-10.59.03/userguide/pnmflip.html.manfix netpbm-10.59.03/userguide
  <P><B>pamflip</b> is mostly backward compatible with <b>pnmflip</b>,
  but works on PAM images too.
  
-diff -up netpbm-10.59.03/userguide/pnmmercator.html.manfix netpbm-10.59.03/userguide/pnmmercator.html
---- netpbm-10.59.03/userguide/pnmmercator.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/pnmmercator.html	2012-09-25 10:47:22.760174765 +0200
+diff --git a/userguide/pnmmercator.html b/userguide/pnmmercator.html
+index e9e7165..9ac6c5b 100644
+--- a/userguide/pnmmercator.html
++++ b/userguide/pnmmercator.html
 @@ -1,7 +1,6 @@
 -<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
 +<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
@@ -155,18 +155,10 @@ diff -up netpbm-10.59.03/userguide/pnmmercator.html.manfix netpbm-10.59.03/userg
  <title>PnmMercator User Manual</title>
  </head>
  <body>
-diff -up netpbm-10.59.03/userguide/pnmtotiff.html.manfix netpbm-10.59.03/userguide/pnmtotiff.html
---- netpbm-10.59.03/userguide/pnmtotiff.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/pnmtotiff.html	2012-09-25 10:47:22.760174765 +0200
-@@ -1,5 +1,4 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
--<!>
- <html><head>
- <title>pnmtotiff</title>
- </head><body>
-diff -up netpbm-10.59.03/userguide/ppmtogif.html.manfix netpbm-10.59.03/userguide/ppmtogif.html
---- netpbm-10.59.03/userguide/ppmtogif.html.manfix	2012-09-22 03:46:15.000000000 +0200
-+++ netpbm-10.59.03/userguide/ppmtogif.html	2012-09-25 10:47:22.761174753 +0200
+diff --git a/userguide/ppmtogif.html b/userguide/ppmtogif.html
+index 84b5163..1d33072 100644
+--- a/userguide/ppmtogif.html
++++ b/userguide/ppmtogif.html
 @@ -4,11 +4,14 @@
  <BODY>
  <H1>ppmtogif</H1>
@@ -182,24 +174,3 @@ diff -up netpbm-10.59.03/userguide/ppmtogif.html.manfix netpbm-10.59.03/userguid
  <P>One way <b>pamtogif</b> is not backward compatible with <b>ppmtogif</b>
  is that to specify a transparency (alpha) mask with <b>ppmtogif</b>, you
  supply the transparency as a separate pseudo-PGM image and use the
-diff -up netpbm-10.61.02/userguide/pamstereogram.html.manfix netpbm-10.61.02/userguide/pamstereogram.html
---- netpbm-10.61.02/userguide/pamstereogram.html.manfix	2013-02-20 07:32:26.000000000 +0100
-+++ netpbm-10.61.02/userguide/pamstereogram.html	2013-02-20 07:40:35.071099535 +0100
-@@ -1,5 +1,5 @@
--<!DOCTYPE html>
--<html xmlns="http://www.w3.org/1999/xhtml">
-+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
-+<html>
- <head>
- <title>Pamstereogram User Manual</title>
- </head>
-@@ -10,8 +10,7 @@
- 
- <p>Updated:30 December 2012</p>
- 
--<p><a href="#contents">Table Of Contents</a></p>
--
-+<p><a href="#index">Table Of Contents</a></p>
- 
- <h2 id="name">NAME</h2>
- 

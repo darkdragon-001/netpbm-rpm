@@ -1,5 +1,5 @@
 diff --git a/converter/other/Makefile b/converter/other/Makefile
-index 7aefda1..0d998f6 100644
+index f51a780..9df16bc 100644
 --- a/converter/other/Makefile
 +++ b/converter/other/Makefile
 @@ -121,7 +121,7 @@ PORTBINARIES =  avstopam bmptopnm fitstopnm \
@@ -7,7 +7,7 @@ index 7aefda1..0d998f6 100644
  		pbmtopgm pdbimgtopam pfmtopam \
  	        pgmtopbm pgmtoppm ppmtopgm pnmtoddif \
 -		pnmtopclxl pnmtorast \
-+		pnmtopclxl pnmtops pnmtorast \
++                pnmtopclxl pnmtops pnmtorast \
  		pnmtosgi pnmtosir pamtotga pnmtoxwd \
  		rasttopnm rlatopam sgitopnm sirtopnm srftopam sunicontopnm \
- 		winicontopam xwdtopnm zeisstopnm
+ 		winicontopam xwdtopnm yuy2topam zeisstopnm

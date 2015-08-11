@@ -14,7 +14,7 @@ if [[ -z $VERSION ]]; then
 fi
 NETPBM_NAME="netpbm-$VERSION"
 TEMP_DIR="/var/tmp/netpbm"
-TARBALL="$TEMP_DIR/$NETPBM_NAME.tar.gz"
+TARBALL="$TEMP_DIR/$NETPBM_NAME.tar.xz"
 mkdir -p $TEMP_DIR
 pushd $TEMP_DIR
 svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced $NETPBM_NAME
@@ -22,7 +22,7 @@ svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide $NETPBM
 svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/trunk/test $NETPBM_NAME/test
 find -name '\.svn' -type d -print0 | xargs -0 rm -rf
 rm -rf $NETPBM_NAME/converter/ppm/ppmtompeg/
-tar -czvf $NETPBM_NAME.tar.gz $NETPBM_NAME
+tar -cJvf $NETPBM_NAME.tar.xz $NETPBM_NAME
 rm -rf $NETPBM_NAME/
 popd
 if [[ -f "$TARBALL" ]]; then
