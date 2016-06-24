@@ -37,7 +37,7 @@ Patch27:         netpbm-disable-pbmtog3.patch
 Patch28:         netpbm-pnmtops.patch
 Patch29:         netpbm-config.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires:   libX11-devel, python, jasper-devel, libxml2-devel
+BuildRequires:   libX11-devel, perl-generators, python, jasper-devel, libxml2-devel
 BuildRequires:   ghostscript-core
 
 %description
