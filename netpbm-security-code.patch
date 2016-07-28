@@ -1,5 +1,5 @@
 diff --git a/analyzer/pgmtexture.c b/analyzer/pgmtexture.c
-index 0731733..635c58b 100644
+index 84c6bf4..c9576f5 100644
 --- a/analyzer/pgmtexture.c
 +++ b/analyzer/pgmtexture.c
 @@ -98,6 +98,8 @@ vector(unsigned int const nl,
@@ -65,10 +65,10 @@ index 69b20fb..382a487 100644
      pgm_writepgminit(stdout, cols, rows, maxval, 0) ;
  
 diff --git a/converter/other/pnmtoddif.c b/converter/other/pnmtoddif.c
-index ae8c852..9ee037b 100644
+index ac02e42..a2f045b 100644
 --- a/converter/other/pnmtoddif.c
 +++ b/converter/other/pnmtoddif.c
-@@ -632,6 +632,7 @@ main(int argc, char *argv[]) {
+@@ -629,6 +629,7 @@ main(int argc, char *argv[]) {
      switch (PNM_FORMAT_TYPE(format)) {
      case PBM_TYPE:
          ip.bits_per_pixel = 1;
@@ -76,7 +76,7 @@ index ae8c852..9ee037b 100644
          ip.bytes_per_line = (cols + 7) / 8;
          ip.spectral = 2;
          ip.components = 1;
-@@ -647,6 +648,7 @@ main(int argc, char *argv[]) {
+@@ -644,6 +645,7 @@ main(int argc, char *argv[]) {
          ip.polarity = 2;
          break;
      case PPM_TYPE:
@@ -119,10 +119,10 @@ index ce231c9..1279040 100644
      ((j_common_ptr) cinfo_p, JPOOL_IMAGE,
       (unsigned int) cinfo_p->image_width * cinfo_p->input_components, 
 diff --git a/converter/other/pnmtops.c b/converter/other/pnmtops.c
-index 6cd6be9..8a7d25a 100644
+index c1dadc3..8f9f608 100644
 --- a/converter/other/pnmtops.c
 +++ b/converter/other/pnmtops.c
-@@ -292,17 +292,21 @@ parseCommandLine(int argc, const char ** argv,
+@@ -293,17 +293,21 @@ parseCommandLine(int argc, const char ** argv,
      validateCompDimension(width, 72, "-width value");
      validateCompDimension(height, 72, "-height value");
      
@@ -146,7 +146,7 @@ index 6cd6be9..8a7d25a 100644
      }
      else
 diff --git a/converter/other/rletopnm.c b/converter/other/rletopnm.c
-index 9995914..058278c 100644
+index ff37cfe..a1dd7b9 100644
 --- a/converter/other/rletopnm.c
 +++ b/converter/other/rletopnm.c
 @@ -19,6 +19,8 @@
@@ -171,10 +171,10 @@ index fafcc91..9fe49d0 100644
  	    planesize = cols * rows;
              if ( !( sirarray = (unsigned char*) malloc( picsize ) ) ) 
 diff --git a/converter/other/tifftopnm.c b/converter/other/tifftopnm.c
-index 0d6494f..19e9e38 100644
+index f9e602f..4637afa 100644
 --- a/converter/other/tifftopnm.c
 +++ b/converter/other/tifftopnm.c
-@@ -1309,7 +1309,9 @@ convertRasterByRows(pnmOut *       const pnmOutP,
+@@ -1317,7 +1317,9 @@ convertRasterByRows(pnmOut *       const pnmOutP,
      if (scanbuf == NULL)
          pm_error("can't allocate memory for scanline buffer");
  
@@ -186,7 +186,7 @@ index 0d6494f..19e9e38 100644
          pm_error("can't allocate memory for row buffer");
  
 diff --git a/converter/other/xwdtopnm.c b/converter/other/xwdtopnm.c
-index 45d66b4..c914481 100644
+index d49a2b0..3a6b335 100644
 --- a/converter/other/xwdtopnm.c
 +++ b/converter/other/xwdtopnm.c
 @@ -209,6 +209,10 @@ processX10Header(X10WDFileHeader *  const h10P,
@@ -346,7 +346,7 @@ index f43c08a..98e0284 100644
      printer.fptr=out;
  
 diff --git a/converter/pbm/pbmtoxbm.c b/converter/pbm/pbmtoxbm.c
-index 14c6b85..362b70e 100644
+index 14c6b85..6323483 100644
 --- a/converter/pbm/pbmtoxbm.c
 +++ b/converter/pbm/pbmtoxbm.c
 @@ -351,6 +351,8 @@ convertRaster(FILE *          const ifP,
@@ -440,10 +440,10 @@ index 07417d1..25bb311 100644
      for (row = 0; row < rows; ++row) {
          unsigned int col;
 diff --git a/converter/ppm/Makefile b/converter/ppm/Makefile
-index 09f05cd..f68170f 100644
+index 003ef8d..b97349d 100644
 --- a/converter/ppm/Makefile
 +++ b/converter/ppm/Makefile
-@@ -11,7 +11,7 @@ SUBDIRS = hpcdtoppm
+@@ -11,7 +11,7 @@ SUBDIRS = hpcdtoppm ppmtompeg
  
  PORTBINARIES =	411toppm eyuvtoppm gouldtoppm ilbmtoppm imgtoppm \
  		leaftoppm mtvtoppm neotoppm \
@@ -567,7 +567,7 @@ index e252ba2..270ae3b 100644
      if (headerCols > rawcols) {
          pm_message("warning - BytesPerLine = %d, "
 diff --git a/converter/ppm/picttoppm.c b/converter/ppm/picttoppm.c
-index 828d527..8cdb7b3 100644
+index d412038..a59bf77 100644
 --- a/converter/ppm/picttoppm.c
 +++ b/converter/ppm/picttoppm.c
 @@ -1,3 +1,4 @@
@@ -683,7 +683,7 @@ index fa68edc..97dfb2b 100644
      MALLOCARRAY_NOFAIL(indexRow, cols);
      MALLOCARRAY_NOFAIL(planesrow, BytesPerLine);
 diff --git a/converter/ppm/ppmtopict.c b/converter/ppm/ppmtopict.c
-index 034e705..4541387 100644
+index 36464b6..c91ccf2 100644
 --- a/converter/ppm/ppmtopict.c
 +++ b/converter/ppm/ppmtopict.c
 @@ -450,6 +450,8 @@ main(int argc, const char ** argv) {
@@ -708,10 +708,10 @@ index d116773..fc84cac 100644
  	cbuf = (unsigned char *) pm_allocrow(cols * 2, sizeof(unsigned char));
  
 diff --git a/converter/ppm/ppmtopjxl.c b/converter/ppm/ppmtopjxl.c
-index ddf4963..b2c7e8e 100644
+index 90bcef0..72d0027 100644
 --- a/converter/ppm/ppmtopjxl.c
 +++ b/converter/ppm/ppmtopjxl.c
-@@ -306,6 +306,9 @@ main(int argc, const char * argv[]) {
+@@ -267,6 +267,9 @@ main(int argc, const char * argv[]) {
      if (maxval > PCL_MAXVAL)
          pm_error("color range too large; reduce with ppmcscale");
  
@@ -721,7 +721,7 @@ index ddf4963..b2c7e8e 100644
      /* Figure out the colormap. */
      pm_message("Computing colormap...");
      chv = ppm_computecolorhist(pixels, cols, rows, MAXCOLORS, &colors);
-@@ -325,6 +328,8 @@ main(int argc, const char * argv[]) {
+@@ -286,6 +289,8 @@ main(int argc, const char * argv[]) {
          case 0: /* direct mode (no palette) */
              bpp = bitsperpixel(maxval); /* bits per pixel */
              bpg = bpp; bpb = bpp;
@@ -730,7 +730,7 @@ index ddf4963..b2c7e8e 100644
              bpp = (bpp*3+7)>>3;     /* bytes per pixel now */
              bpr = (bpp<<3)-bpg-bpb; 
              bpp *= cols;            /* bytes per row now */
-@@ -334,9 +339,13 @@ main(int argc, const char * argv[]) {
+@@ -295,9 +300,13 @@ main(int argc, const char * argv[]) {
          case 3: case 7: pclindex++;
          default:
              bpp = 8/pclindex;
@@ -888,18 +888,6 @@ index 7c41af3..72df687 100644
      outpam.width  = rightcol - leftcol + 1;
      outpam.height = bottomrow - toprow + 1;
  
-diff --git a/editor/pbmreduce.c b/editor/pbmreduce.c
-index f49c8d9..580e5e0 100644
---- a/editor/pbmreduce.c
-+++ b/editor/pbmreduce.c
-@@ -94,6 +94,7 @@ main( argc, argv )
-     if (halftone == QT_FS) {
-         unsigned int col;
-         /* Initialize Floyd-Steinberg. */
-+        overflow_add(newcols, 2);
-         MALLOCARRAY(thiserr, newcols + 2);
-         MALLOCARRAY(nexterr, newcols + 2);
-         if (thiserr == NULL || nexterr == NULL)
 diff --git a/editor/pnmgamma.c b/editor/pnmgamma.c
 index b357b0d..ec612d3 100644
 --- a/editor/pnmgamma.c
@@ -937,10 +925,10 @@ index c6f1e84..c513a84 100755
  #
  # Copyright (C) 1991 by Jef Poskanzer.
 diff --git a/editor/pnmpad.c b/editor/pnmpad.c
-index 1904b68..0797cf1 100644
+index 168b73e..c248924 100644
 --- a/editor/pnmpad.c
 +++ b/editor/pnmpad.c
-@@ -527,6 +527,8 @@ main(int argc, const char ** argv) {
+@@ -631,6 +631,8 @@ main(int argc, const char ** argv) {
  
      computePadSizes(cmdline, cols, rows, &lpad, &rpad, &tpad, &bpad);
  
@@ -950,10 +938,10 @@ index 1904b68..0797cf1 100644
  
      if (PNM_FORMAT_TYPE(format) == PBM_TYPE)
 diff --git a/editor/pnmremap.c b/editor/pnmremap.c
-index b2448cb..b924120 100644
+index ed758aa..73968be 100644
 --- a/editor/pnmremap.c
 +++ b/editor/pnmremap.c
-@@ -428,6 +428,7 @@ initFserr(struct pam *   const pamP,
+@@ -430,6 +430,7 @@ initFserr(struct pam *   const pamP,
  
      unsigned int const fserrSize = pamP->width + 2;
  
@@ -961,7 +949,7 @@ index b2448cb..b924120 100644
      fserrP->width = pamP->width;
  
      MALLOCARRAY(fserrP->thiserr, pamP->depth);
-@@ -465,6 +466,7 @@ floydInitRow(struct pam * const pamP, struct fserr * const fserrP) {
+@@ -467,6 +468,7 @@ floydInitRow(struct pam * const pamP, struct fserr * const fserrP) {
  
      int col;
      
@@ -1029,41 +1017,29 @@ index 6cb8d3a..6f4bde9 100644
      if (hist == NULL)
          pm_error("Unable to allocate memory for histogram.");
 diff --git a/generator/pbmtext.c b/generator/pbmtext.c
-index 9f4366d..445d718 100644
+index cfb858a..e5c7bd1 100644
 --- a/generator/pbmtext.c
 +++ b/generator/pbmtext.c
-@@ -96,12 +96,14 @@ parseCommandLine(int argc, const char ** argv,
+@@ -122,8 +122,10 @@ parseCommandLine(int argc, const char ** argv,
          
          for (i = 1; i < argc; ++i) {
              if (i > 1) {
 +                overflow_add(totaltextsize, 1);
-                 totaltextsize += 1;
-                 text = realloc(text, totaltextsize);
-                 if (text == NULL)
-                     pm_error("out of memory allocating space for input text");
                  strcat(text, " ");
 -            } 
 +            }
 +            overflow_add(totaltextsize, strlen(argv[i]));
-             totaltextsize += strlen(argv[i]);
-             text = realloc(text, totaltextsize);
-             if (text == NULL)
-@@ -712,6 +714,7 @@ getText(const char          cmdline_text[],
+             totaltextsize += strlen(argv[i]) + 1;
+             if (totaltextsize > MAXLINECHARS)
+                 pm_error("input text too long");
+@@ -744,6 +746,7 @@ getText(char          const cmdlineText[],
                  pm_error("A line of input text is longer than %u characters."
-                          "Cannot process.", (unsigned)sizeof(buf)-1);
+                          "Cannot process", (unsigned int) MAXLINECHARS-1);
              if (lineCount >= maxlines) {
 +                overflow2(maxlines, 2);
                  maxlines *= 2;
-                 REALLOCARRAY(text_array, maxlines);
-                 if (text_array == NULL)
-@@ -832,6 +835,7 @@ main(int argc, const char *argv[]) {
-             hmargin = fontP->maxwidth;
-         } else {
-             vmargin = fontP->maxheight;
-+            overflow2(2, fontP->maxwidth);
-             hmargin = 2 * fontP->maxwidth;
-         }
-     }
+                 REALLOCARRAY(textArray, maxlines);
+                 if (textArray == NULL)
 diff --git a/lib/libpam.c b/lib/libpam.c
 index cc6368e..4e10572 100644
 --- a/lib/libpam.c
@@ -1081,7 +1057,7 @@ index cc6368e..4e10572 100644
          /* Now we initialize the pointers to the individual tuples
             to make this a regulation C two dimensional array.  
 diff --git a/lib/libpammap.c b/lib/libpammap.c
-index 55e1d3f..04b1ba3 100644
+index 2222491..ba27a4c 100644
 --- a/lib/libpammap.c
 +++ b/lib/libpammap.c
 @@ -108,7 +108,9 @@ allocTupleIntListItem(struct pam * const pamP) {
@@ -1154,10 +1130,10 @@ index 4374bbe..5ab7f83 100644
 +}
  
 diff --git a/lib/pm.h b/lib/pm.h
-index e9f1405..da54391 100644
+index 47cbfe8..5005df2 100644
 --- a/lib/pm.h
 +++ b/lib/pm.h
-@@ -435,5 +435,12 @@ pm_parse_height(const char * const arg);
+@@ -434,5 +434,12 @@ pm_parse_height(const char * const arg);
  }
  #endif
  
@@ -1212,10 +1188,10 @@ index 3bc562a..645a376 100644
  	{
  	    fprintf( stderr,
 diff --git a/urt/rle.h b/urt/rle.h
-index 8d72cb9..ac65b94 100644
+index 0766d22..c80a5fa 100644
 --- a/urt/rle.h
 +++ b/urt/rle.h
-@@ -161,6 +161,17 @@ rle_hdr             /* End of typedef. */
+@@ -160,6 +160,17 @@ rle_hdr             /* End of typedef. */
   */
  extern rle_hdr rle_dflt_hdr;
  
@@ -1271,17 +1247,17 @@ index b165175..e09ed94 100644
      ++length;                               /*Cater for the null. */
  
 diff --git a/urt/rle_getrow.c b/urt/rle_getrow.c
-index bd7d1c8..bd05698 100644
+index 679811c..cc1f5cb 100644
 --- a/urt/rle_getrow.c
 +++ b/urt/rle_getrow.c
-@@ -168,6 +168,7 @@ rle_get_setup(rle_hdr * const the_hdr) {
-         register char * cp;
+@@ -160,6 +160,7 @@ rle_get_setup(rle_hdr * const the_hdr) {
+         char * cp;
  
-         VAXSHORT( comlen, infile ); /* get comment length */
+         VAXSHORT(comlen, infile); /* get comment length */
 +        overflow_add(comlen, 1);
          evenlen = (comlen + 1) & ~1;    /* make it even */
-         if ( evenlen )
-         {
+         if (evenlen) {
+             MALLOCARRAY(comment_buf, evenlen);
 diff --git a/urt/rle_hdr.c b/urt/rle_hdr.c
 index 1611324..7c9c010 100644
 --- a/urt/rle_hdr.c
@@ -1418,7 +1394,7 @@ index ae8548b..c2ef37d 100644
  
  
 diff --git a/urt/rle_putcom.c b/urt/rle_putcom.c
-index ab2eb20..f6a6ff7 100644
+index ab2eb20..ce83615 100644
 --- a/urt/rle_putcom.c
 +++ b/urt/rle_putcom.c
 @@ -98,12 +98,14 @@ rle_putcom(const char * const value,

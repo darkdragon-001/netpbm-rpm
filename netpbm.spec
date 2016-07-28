@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.71.02
-Release:         2%{?dist}
+Version:         10.75.99
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -13,29 +13,10 @@ URL: http://netpbm.sourceforge.net/
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
 # and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%{version}/converter/ppm/ppmtompeg/ )
 Source0:         netpbm-%{version}.tar.xz
-Patch1:          netpbm-time.patch
-Patch2:          netpbm-message.patch
-Patch3:          netpbm-security-scripts.patch
-Patch4:          netpbm-security-code.patch
-Patch5:          netpbm-nodoc.patch
-Patch6:          netpbm-gcc4.patch
-Patch7:          netpbm-bmptopnm.patch
-Patch8:          netpbm-CAN-2005-2471.patch
-Patch9:          netpbm-xwdfix.patch
-Patch11:         netpbm-multilib.patch
-Patch13:         netpbm-glibc.patch
-Patch15:         netpbm-docfix.patch
-Patch16:         netpbm-ppmfadeusage.patch
-Patch17:         netpbm-fiasco-overflow.patch
-Patch20:         netpbm-noppmtompeg.patch
-Patch21:         netpbm-cmuwtopbm.patch
-Patch22:         netpbm-pamtojpeg2k.patch
-Patch23:         netpbm-manfix.patch
-Patch24:         netpbm-ppmtopict.patch
-Patch26:         netpbm-werror.patch
-Patch27:         netpbm-disable-pbmtog3.patch
-Patch28:         netpbm-pnmtops.patch
-Patch29:         netpbm-config.patch
+Patch0: rebase-helper-results/netpbm-security-scripts.patch
+Patch1: rebase-helper-results/netpbm-security-code.patch
+Patch2: rebase-helper-results/netpbm-ppmfadeusage.patch
+Patch3: rebase-helper-results/netpbm-noppmtompeg.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires:   libX11-devel, perl-generators, python, jasper-devel, libxml2-devel
 BuildRequires:   ghostscript-core
@@ -90,33 +71,10 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 
 %prep
 %setup -q
-%patch1 -p1 -b .time
-%patch2 -p1 -b .message
-%patch3 -p1 -b .security-scripts
-%patch4 -p1 -b .security-code
-%patch5 -p1 -b .nodoc
-%patch6 -p1 -b .gcc4
-%patch7 -p1 -b .bmptopnm
-%patch8 -p1 -b .CAN-2005-2471
-%patch9 -p1 -b .xwdfix
-%patch11 -p1 -b .multilib
-%patch13 -p1 -b .glibc
-%patch15 -p1 -b .docfix
-%patch16 -p1 -b .ppmfadeusage
-%patch17 -p1 -b .fiasco-overflow
-%patch20 -p1 -b .noppmtompeg
-%patch21 -p1 -b .cmuwtopbmfix
-%patch22 -p1 -b .pamtojpeg2kfix
-%patch23 -p1 -b .manfix
-%patch24 -p1 -b .ppmtopict
-%patch26 -p1 -b .werror
-%patch27 -p1 -b .disable-pbmtog3
-%patch28 -p1 -b .pnmtops
-%patch29 -p1 -b .config
-
-sed -i 's/STRIPFLAG = -s/STRIPFLAG =/g' config.mk.in
-rm -rf converter/other/jpeg2000/libjasper/
-sed -i -e 's/^SUBDIRS = libjasper/SUBDIRS =/' converter/other/jpeg2000/Makefile
+%patch0 -p1 -b .security-scripts
+%patch1 -p1 -b .security-code
+%patch2 -p1 -b .ppmfadeusage
+%patch3 -p1 -b .noppmtompeg
 
 %build
 ./configure <<EOF
@@ -262,6 +220,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Thu Jul 28 2016 Josef Ridky <jridky@redhat.com> - 10.75.99-1
+- Update no the latest upstream release 10.75.99 (#1361103)
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 10.71.02-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
