@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.76.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -20,6 +20,7 @@ Patch3:          netpbm-noppmtompeg.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires:   libX11-devel, perl-generators, python, jasper-devel, libxml2-devel
 BuildRequires:   ghostscript-core
+Provides:        bundled(jasper), bundled(jbigkit)
 
 %description
 The netpbm package contains a library of functions which support
@@ -220,6 +221,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Dec  5 2016 Josef Ridky <jridky@redhat.com> - 10.76.00-2
+- set Provides: bundled for jasper and jbigkit library (#1395716)
+
 * Thu Nov 10 2016 Josef Ridky <jridky@redhat.com> - 10.76.00-1
 - Update to the latest upstream release 10.76.00 (#1393713)
 
