@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.76.00
-Release:         2%{?dist}
+Version:         10.77.00
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -221,6 +221,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Jan 23 2017 Josef Ridky <jridky@redhat.com> - 10.77.00-1
+- New upstream release 10.77.00 (#1408611)
+
 * Mon Dec  5 2016 Josef Ridky <jridky@redhat.com> - 10.76.00-2
 - set Provides: bundled for jasper and jbigkit library (#1395716)
 
