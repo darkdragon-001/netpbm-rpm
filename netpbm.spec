@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.77.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -202,7 +202,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %files
-%doc doc/COPYRIGHT.PATENT doc/HISTORY README
+%doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/HISTORY README
 %license doc/GPL_LICENSE.txt
 %{_libdir}/lib*.so*
 
@@ -221,6 +221,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Jan 23 2017 Josef Ridky <jridky@redhat.com> - 10.77.00-2
+- fix #1404757 - add copyright_summary to doc section
+
 * Mon Jan 23 2017 Josef Ridky <jridky@redhat.com> - 10.77.00-1
 - New upstream release 10.77.00 (#1408611)
 
