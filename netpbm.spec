@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.77.00
-Release:         2%{?dist}
+Release:         3%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -17,6 +17,8 @@ Patch0:          netpbm-security-scripts.patch
 Patch1:          netpbm-security-code.patch
 Patch2:          netpbm-ppmfadeusage.patch
 Patch3:          netpbm-noppmtompeg.patch
+Patch4:          netpbm-CVE-2017-2586.patch
+Patch5:          netpbm-CVE-2017-2587.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires:   libX11-devel, perl-generators, python, jasper-devel, libxml2-devel
 BuildRequires:   ghostscript-core
@@ -76,6 +78,8 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch1 -p1 -b .security-code
 %patch2 -p1 -b .ppmfadeusage
 %patch3 -p1 -b .noppmtompeg
+%patch4 -p1 -b .CVE-2586
+%patch5 -p1 -b .CVE-2587
 
 %build
 ./configure <<EOF
@@ -221,6 +225,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Feb 08 2017 Josef Ridky <jridky@redhat.com> - 10.77.00-3
+- fix CVE-2017-2586, CVE-2017-2587 (#1419545)
+
 * Mon Jan 23 2017 Josef Ridky <jridky@redhat.com> - 10.77.00-2
 - fix #1404757 - add copyright_summary to doc section
 
