@@ -1,0 +1,25 @@
+diff -urNp old/analyzer/pamtable.c new/analyzer/pamtable.c
+--- old/analyzer/pamtable.c	2017-07-03 12:07:13.979196547 +0200
++++ new/analyzer/pamtable.c	2017-07-03 12:09:10.567765434 +0200
+@@ -131,18 +131,18 @@ printRow(const struct pam * const pamP,
+         unsigned int plane;
+ 
+         if (col > 0)
+-            fprintf(ofP, format.interTupleGutter);
++            fputs(format.interTupleGutter, ofP);
+ 
+         for (plane = 0; plane < pamP->depth; ++plane) {
+ 
+             if (plane > 0)
+-                fprintf(ofP, format.interSampleGutter);
++                fputs(format.interSampleGutter, ofP);
+ 
+             fprintf(ofP, format.sampleFmt, tupleRow[col][plane]);
+         }
+     }
+ 
+-    fprintf(ofP, "\n");
++    fputs("\n", ofP);
+ }
+ 
+ 
