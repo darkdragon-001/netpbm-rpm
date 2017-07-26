@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.79.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -225,6 +225,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 10.79.00-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Mon Jul 03 2017 Josef Ridky <jridky@redhat.com> - 10.79.00-1
 - New upstream release 10.79.00 (#1466772)
 
