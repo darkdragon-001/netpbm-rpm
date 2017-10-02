@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.79.00
-Release:         3%{?dist}
+Version:         10.80.00
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -18,7 +18,6 @@ Patch1:          netpbm-security-code.patch
 Patch2:          netpbm-ppmfadeusage.patch
 Patch3:          netpbm-noppmtompeg.patch
 Patch4:          netpbm-CVE-2017-2587.patch
-Patch5:          netpbm-10.79.00-fprintf.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires:   libX11-devel, perl-generators, python, jasper-devel, libxml2-devel
 BuildRequires:   ghostscript-core
@@ -79,7 +78,6 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 %patch2 -p1 -b .ppmfadeusage
 %patch3 -p1 -b .noppmtompeg
 %patch4 -p1 -b .CVE-2587
-%patch5 -p1 -b .fprintf
 
 %build
 ./configure <<EOF
@@ -225,6 +223,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Mon Oct 02 2017 Josef Ridky <jridky@redhat.com> - 10.80.00-1
+- New upstream release 10.80.00 (#1496797)
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 10.79.00-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
