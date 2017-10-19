@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.80.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 Group:           System Environment/Libraries
@@ -19,7 +19,7 @@ Patch2:          netpbm-ppmfadeusage.patch
 Patch3:          netpbm-noppmtompeg.patch
 Patch4:          netpbm-CVE-2017-2587.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires:   libX11-devel, perl-generators, python, jasper-devel, libxml2-devel
+BuildRequires:   libX11-devel, perl-generators, python2, jasper-devel, libxml2-devel
 BuildRequires:   ghostscript-core
 Provides:        bundled(jasper), bundled(jbigkit)
 
@@ -223,6 +223,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Thu Oct 19 2017 Josef Ridky <jridky@redhat.com> - 10.80.00-2
+- Rebuilt for python package
+
 * Mon Oct 02 2017 Josef Ridky <jridky@redhat.com> - 10.80.00-1
 - New upstream release 10.80.00 (#1496797)
 
