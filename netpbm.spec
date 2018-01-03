@@ -1,10 +1,9 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.80.00
-Release:         2%{?dist}
+Version:         10.81.00
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
-Group:           System Environment/Libraries
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
 # svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced netpbm-%{version}
@@ -31,7 +30,6 @@ programs for handling various graphics file formats, including .pbm
 
 %package devel
 Summary:         Development tools for programs which will use the netpbm libraries
-Group:           Development/Libraries
 Requires:        netpbm = %{version}-%{release}
 
 %description devel
@@ -45,7 +43,6 @@ to have the netpbm package installed.
 
 %package progs
 Summary:         Tools for manipulating graphics files in netpbm supported formats
-Group:           Applications/Multimedia
 Requires:        ghostscript
 Requires:        netpbm = %{version}-%{release}
 
@@ -61,7 +58,6 @@ netpbm-progs.  You'll also need to install the netpbm package.
 
 %package doc
 Summary:         Documentation for tools manipulating graphics files in netpbm supported formats
-Group:           Applications/Multimedia
 Requires:        netpbm-progs = %{version}-%{release}
 
 %description doc
@@ -72,12 +68,7 @@ If you need to look into the HTML documentation, you should install
 netpbm-doc.  You'll also need to install the netpbm-progs package.
 
 %prep
-%setup -q
-%patch0 -p1 -b .security-scripts
-%patch1 -p1 -b .security-code
-%patch2 -p1 -b .ppmfadeusage
-%patch3 -p1 -b .noppmtompeg
-%patch4 -p1 -b .CVE-2587
+%autosetup -p1
 
 %build
 ./configure <<EOF
@@ -196,9 +187,6 @@ export PBM_BINPREFIX=$RPM_BUILD_ROOT%{_bindir}
 ./Execute-Tests && exit 0
 popd
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
@@ -223,6 +211,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc userguide/*
 
 %changelog
+* Wed Jan 03 2018 rebase-helper <rebase-helper@localhost.local> - 10.81.00-1
+- New upstream release 10.81.00 (#1529904)
+- update spec file
+
 * Thu Oct 19 2017 Josef Ridky <jridky@redhat.com> - 10.80.00-2
 - Rebuilt for python package
 
