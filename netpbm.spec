@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.81.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -19,7 +19,11 @@ Patch3:          netpbm-noppmtompeg.patch
 Patch4:          netpbm-CVE-2017-2587.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires:   libX11-devel, perl-generators, python2, jasper-devel, libxml2-devel
+%if 0%{?fedora} < 28 || 0%{?rhel} < 8
 BuildRequires:   ghostscript-core
+%else
+BuildRequires:   ghostscript
+%endif
 Provides:        bundled(jasper), bundled(jbigkit)
 
 %description
@@ -211,7 +215,10 @@ popd
 %doc userguide/*
 
 %changelog
-* Wed Jan 03 2018 rebase-helper <rebase-helper@localhost.local> - 10.81.00-1
+* Mon Jan 22 2018 Josef Ridky <jridky@redhat.com> - 10.81.00-2
+- change ghostscript requirement
+
+* Wed Jan 03 2018 Josef Ridky <jridky@redhat.com> - 10.81.00-1
 - New upstream release 10.81.00 (#1529904)
 - update spec file
 
