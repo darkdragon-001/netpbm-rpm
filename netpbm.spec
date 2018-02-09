@@ -19,7 +19,7 @@ Patch3:          netpbm-noppmtompeg.patch
 Patch4:          netpbm-CVE-2017-2587.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires:   libX11-devel, perl-generators, python2, jasper-devel, libxml2-devel
-%if 0%{?fedora} < 28 || 0%{?rhel} < 8
+%if (0%{?fedora} && 0%{?fedora} < 28) || (0%{?rhel} || 0%{?rhel} < 8)
 BuildRequires:   ghostscript-core
 %else
 BuildRequires:   ghostscript
