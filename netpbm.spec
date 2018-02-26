@@ -6,20 +6,21 @@ Release:         3%{?dist}
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced netpbm-%{version}
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%{version}/userguide
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/trunk/test netpbm-%{version}/test
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced netpbm-%%{version}
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%%{version}/userguide
+# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/trunk/test netpbm-%%{version}/test
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
-# and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%{version}/converter/ppm/ppmtompeg/ )
+# and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%%{version}/converter/ppm/ppmtompeg/ )
 Source0:         netpbm-%{version}.tar.xz
 Patch0:          netpbm-security-scripts.patch
 Patch1:          netpbm-security-code.patch
 Patch2:          netpbm-ppmfadeusage.patch
 Patch3:          netpbm-noppmtompeg.patch
 Patch4:          netpbm-CVE-2017-2587.patch
+Patch5:          netpbm-python3.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
-BuildRequires:   libX11-devel, perl-generators, python2, jasper-devel, libxml2-devel
-%if (0%{?fedora} && 0%{?fedora} < 28) || (0%{?rhel} || 0%{?rhel} < 8)
+BuildRequires:   libX11-devel, perl-generators, python3, jasper-devel, libxml2-devel
+%if (0%{?fedora} && 0%{?fedora} < 28) || (0%{?rhel} || 0%{?rhel} <= 7)
 BuildRequires:   ghostscript-core
 %else
 BuildRequires:   ghostscript
@@ -130,25 +131,22 @@ done
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-mkdir -p $RPM_BUILD_ROOT
-make package pkgdir=$RPM_BUILD_ROOT/usr LINUXSVGALIB="NONE" XML2LIBS="NONE"
+make package pkgdir=%{buildroot}/usr LINUXSVGALIB="NONE" XML2LIBS="NONE"
 
 # Ugly hack to have libs in correct dir on 64bit archs.
-mkdir -p $RPM_BUILD_ROOT%{_libdir}
+mkdir -p %{buildroot}%{_libdir}
 if [ "%{_libdir}" != "/usr/lib" ]; then
-  mv $RPM_BUILD_ROOT/usr/lib/lib* $RPM_BUILD_ROOT%{_libdir}
+  mv %{buildroot}/usr/lib/lib* %{buildroot}%{_libdir}
 fi
 
-cp -af lib/libnetpbm.a $RPM_BUILD_ROOT%{_libdir}/libnetpbm.a
-cp -l $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so.?? $RPM_BUILD_ROOT%{_libdir}/libnetpbm.so
+cp -af lib/libnetpbm.a %{buildroot}%{_libdir}/libnetpbm.a
+cp -l %{buildroot}%{_libdir}/libnetpbm.so.?? %{buildroot}%{_libdir}/libnetpbm.so
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}
-mv userguide/man $RPM_BUILD_ROOT%{_mandir}
+mkdir -p %{buildroot}%{_datadir}
+mv userguide/man %{buildroot}%{_mandir}
 
 # Get rid of the useless non-ascii character in pgmminkowski.1
-sed -i 's/\xa0//' $RPM_BUILD_ROOT%{_mandir}/man1/pgmminkowski.1
+sed -i 's/\xa0//' %{buildroot}%{_mandir}/man1/pgmminkowski.1
 
 # Don't ship man pages for non-existent binaries and bogus ones
 for i in hpcdtoppm \
@@ -156,44 +154,42 @@ for i in hpcdtoppm \
 	 directory error extendedopacity \
 	 pam pbm pgm pnm ppm index libnetpbm_dir \
 	 liberror ppmtotga; do
-	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/${i}.1
+	rm -f %{buildroot}%{_mandir}/man1/${i}.1
 done
-rm -f $RPM_BUILD_ROOT%{_mandir}/man5/extendedopacity.5
+rm -f %{buildroot}%{_mandir}/man5/extendedopacity.5
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/netpbm
-mv $RPM_BUILD_ROOT/usr/misc/*.map $RPM_BUILD_ROOT%{_datadir}/netpbm/
-mv $RPM_BUILD_ROOT/usr/misc/rgb.txt $RPM_BUILD_ROOT%{_datadir}/netpbm/
-rm -rf $RPM_BUILD_ROOT/usr/README
-rm -rf $RPM_BUILD_ROOT/usr/VERSION
-rm -rf $RPM_BUILD_ROOT/usr/link
-rm -rf $RPM_BUILD_ROOT/usr/misc
-rm -rf $RPM_BUILD_ROOT/usr/man
-rm -rf $RPM_BUILD_ROOT/usr/pkginfo
-rm -rf $RPM_BUILD_ROOT/usr/config_template
-rm -rf $RPM_BUILD_ROOT/usr/pkgconfig_template
+mkdir -p %{buildroot}%{_datadir}/netpbm
+mv %{buildroot}/usr/misc/*.map %{buildroot}%{_datadir}/netpbm/
+mv %{buildroot}/usr/misc/rgb.txt %{buildroot}%{_datadir}/netpbm/
+rm -rf %{buildroot}/usr/README
+rm -rf %{buildroot}/usr/VERSION
+rm -rf %{buildroot}/usr/link
+rm -rf %{buildroot}/usr/misc
+rm -rf %{buildroot}/usr/man
+rm -rf %{buildroot}/usr/pkginfo
+rm -rf %{buildroot}/usr/config_template
+rm -rf %{buildroot}/usr/pkgconfig_template
 
 # Don't ship the static library
-rm -f $RPM_BUILD_ROOT/%{_libdir}/lib*.a
+rm -f %{buildroot}%{_libdir}/lib*.a
 
 # remove/symlink/substitute obsolete utilities
-pushd $RPM_BUILD_ROOT%{_bindir}
+pushd %{buildroot}%{_bindir}
 rm -f pgmtopbm pnmcomp
 ln -s pamcomp pnmcomp
 echo -e '#!/bin/sh\npamditherbw $@ | pamtopnm\n' > pgmtopbm
 chmod 0755 pgmtopbm
 popd
 
+%ldconfig_scriptlets
+
 %check
 pushd test
-export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
-export PBM_TESTPREFIX=$RPM_BUILD_ROOT%{_bindir}
-export PBM_BINPREFIX=$RPM_BUILD_ROOT%{_bindir}
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+export PBM_TESTPREFIX=%{buildroot}%{_bindir}
+export PBM_BINPREFIX=%{buildroot}%{_bindir}
 ./Execute-Tests && exit 0
 popd
-
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
 
 %files
 %doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/HISTORY README
@@ -215,6 +211,10 @@ popd
 %doc userguide/*
 
 %changelog
+* Mon Feb 26 2018 Josef Ridky <jridky@redhat.com> - 10.81.00-4
+- spec clean up
+- build against Python3
+
 * Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 10.81.00-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
