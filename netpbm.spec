@@ -1,14 +1,14 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.81.00
-Release:         3%{?dist}
+Version:         10.82.00
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced netpbm-%%{version}
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/userguide netpbm-%%{version}/userguide
-# svn checkout https://netpbm.svn.sourceforge.net/svnroot/netpbm/trunk/test netpbm-%%{version}/test
+# svn checkout https://svn.code.sf.net/p/netpbm/code/advanced netpbm-%%{version}
+# svn checkout https://svn.code.sf.net/p/netpbm/code/userguide netpbm-%%{version}/userguide
+# svn checkout https://svn.code.sf.net/p/netpbm/code/trunk/test netpbm-%%{version}/test
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
 # and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%%{version}/converter/ppm/ppmtompeg/ )
 Source0:         netpbm-%{version}.tar.xz
@@ -211,6 +211,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Tue Mar 27 2018 Josef Ridky <jridky@redhat.com> - 10.82.00-1
+- New upstream release 10.82.00 (#1560330)
+
 * Mon Feb 26 2018 Josef Ridky <jridky@redhat.com> - 10.81.00-4
 - spec clean up
 - build against Python3

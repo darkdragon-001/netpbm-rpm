@@ -895,7 +895,7 @@ index 5ce92c2..2a482be 100644
 -               followed by 4 bytes of offset of the next directory entry.
 -            */
 -            const char * const slideName = (const char *)(&libent[0]);
--            if (strnlen(slideName, 32) == 32)
+-            if (pm_strnlen(slideName, 32) == 32)
 -                pm_error("Invalid input: slide name field is not "
 -                         "nul-terminated");
 -            else {
@@ -1139,7 +1139,7 @@ diff --git a/editor/pnmremap.c b/editor/pnmremap.c
 index ed758aa..73968be 100644
 --- a/editor/pnmremap.c
 +++ b/editor/pnmremap.c
-@@ -430,6 +430,7 @@ initFserr(struct pam *   const pamP,
+@@ -468,6 +468,7 @@ fserr_init(struct pam *   const pamP,
  
      unsigned int const fserrSize = pamP->width + 2;
  
@@ -1147,14 +1147,14 @@ index ed758aa..73968be 100644
      fserrP->width = pamP->width;
  
      MALLOCARRAY(fserrP->thiserr, pamP->depth);
-@@ -467,6 +468,7 @@ floydInitRow(struct pam * const pamP, struct fserr * const fserrP) {
+@@ -505,6 +506,7 @@ floydInitRow(struct pam * const pamP, struct Fserr * const fserrP) {
  
      int col;
-     
+ 
 +    overflow_add(pamP->width, 2);
      for (col = 0; col < pamP->width + 2; ++col) {
          unsigned int plane;
-         for (plane = 0; plane < pamP->depth; ++plane) 
+         for (plane = 0; plane < pamP->depth; ++plane)
 diff --git a/editor/pnmscalefixed.c b/editor/pnmscalefixed.c
 index 884ca31..747cd8f 100644
 --- a/editor/pnmscalefixed.c
@@ -1214,46 +1214,20 @@ index 6cb8d3a..6f4bde9 100644
      MALLOCARRAY(hist, inpam.maxval + 1);
      if (hist == NULL)
          pm_error("Unable to allocate memory for histogram.");
-diff --git a/generator/pbmtext.c b/generator/pbmtext.c
-index e25c6bb..e545b8e 100644
---- a/generator/pbmtext.c
-+++ b/generator/pbmtext.c
-@@ -125,8 +125,10 @@ parseCommandLine(int argc, const char ** argv,
-         
-         for (i = 1; i < argc; ++i) {
-             if (i > 1) {
-+                overflow_add(totaltextsize, 1);
-                 strcat(text, " ");
--            } 
-+            }
-+            overflow_add(totaltextsize, strlen(argv[i]));
-             totaltextsize += strlen(argv[i]) + 1;
-             if (totaltextsize > MAXLINECHARS)
-                 pm_error("input text too long");
-@@ -782,6 +784,7 @@ getText(char          const cmdlineText[],
-                 pm_error("A line of input text is longer than %u characters."
-                          "Cannot process", (unsigned int) MAXLINECHARS-1);
-             if (lineCount >= maxlines) {
-+                overflow2(maxlines, 2);
-                 maxlines *= 2;
-                 REALLOCARRAY(textArray, maxlines);
-                 if (textArray == NULL)
 diff --git a/lib/libpam.c b/lib/libpam.c
 index fa1be8f..e5cef1a 100644
 --- a/lib/libpam.c
 +++ b/lib/libpam.c
-@@ -225,8 +225,9 @@ allocPamRow(const struct pam * const pamP) {
+@@ -225,7 +225,8 @@ allocPamRow(const struct pam * const pamP) {
      unsigned int const bytesPerTuple = allocationDepth(pamP) * sizeof(sample);
      tuple * tuplerow;
  
 -    tuplerow = malloc(pamP->width * (sizeof(tuple *) + bytesPerTuple));
--                      
 +    overflow_add(sizeof(tuple *), bytesPerTuple);
 +    tuplerow = malloc2(pamP->width, (sizeof(tuple *) + bytesPerTuple));
-+
+ 
      if (tuplerow != NULL) {
          /* Now we initialize the pointers to the individual tuples
-            to make this a regulation C two dimensional array.  
 diff --git a/lib/libpammap.c b/lib/libpammap.c
 index 2222491..ba27a4c 100644
 --- a/lib/libpammap.c
