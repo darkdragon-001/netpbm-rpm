@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.82.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -102,8 +102,9 @@ TOP=`pwd`
 
 make \
 	CC="%{__cc}" \
-	LDFLAGS="-L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
+	LDFLAGS="$RPM_LD_FLAGS -L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
 	CFLAGS="$RPM_OPT_FLAGS -fPIC -flax-vector-conversions -fno-strict-aliasing" \
+	CFLAGS_CONFIG="$RPM_OPT_FLAGS" \
 	LADD="-lm" \
 	JPEGINC_DIR=%{_includedir} \
 	PNGINC_DIR=%{_includedir} \
@@ -211,6 +212,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Wed Apr 11 2018 Rafael Santos <rdossant@redhat.com> - 10.82.00-2
+- Use standard Fedora build and linker flags (bug #1543858)
+
 * Tue Mar 27 2018 Josef Ridky <jridky@redhat.com> - 10.82.00-1
 - New upstream release 10.82.00 (#1560330)
 
