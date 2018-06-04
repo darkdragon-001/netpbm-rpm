@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.82.00
-Release:         2%{?dist}
+Release:         3%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -18,6 +18,19 @@ Patch2:          netpbm-ppmfadeusage.patch
 Patch3:          netpbm-noppmtompeg.patch
 Patch4:          netpbm-CVE-2017-2587.patch
 Patch5:          netpbm-python3.patch
+Patch6:          netpbm-time.patch
+Patch7:          netpbm-gcc4.patch
+Patch8:          netpbm-bmptopnm.patch
+Patch9:          netpbm-CAN-2005-2471.patch
+Patch10:         netpbm-xwdfix.patch
+Patch11:         netpbm-multilib.patch
+Patch12:         netpbm-glibc.patch
+Patch13:         netpbm-docfix.patch
+Patch14:         netpbm-fiasco-overflow.patch
+Patch15:         netpbm-cmuwtopbm.patch
+Patch16:         netpbm-pamtojpeg2k.patch
+Patch17:         netpbm-manfix.patch
+Patch18:         netpbm-manual-pages.patch
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex
 BuildRequires:   libX11-devel, perl-generators, python3, jasper-devel, libxml2-devel
 %if (0%{?fedora} && 0%{?fedora} < 28) || (0%{?rhel} || 0%{?rhel} <= 7)
@@ -212,6 +225,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Mon Jun 04 2018 Josef Ridky <jridky@redhat.com> - 10.82.00-3
+- Backport unimplemented fixes from 10.79.00 (#1585695)
+
 * Wed Apr 11 2018 Rafael Santos <rdossant@redhat.com> - 10.82.00-2
 - Use standard Fedora build and linker flags (bug #1543858)
 
