@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.83.01
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -31,15 +31,15 @@ Patch15:         netpbm-cmuwtopbm.patch
 Patch16:         netpbm-pamtojpeg2k.patch
 Patch17:         netpbm-manfix.patch
 Patch18:         netpbm-manual-pages.patch
+Patch19:         netpbm-jasper.patch
 
-BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc
+BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
 BuildRequires:   libX11-devel, perl-generators, python3, jasper-devel, libxml2-devel
 %if (0%{?fedora} && 0%{?fedora} < 28) || (0%{?rhel} || 0%{?rhel} <= 7)
 BuildRequires:   ghostscript-core
 %else
 BuildRequires:   ghostscript
 %endif
-Provides:        bundled(jasper), bundled(jbigkit)
 
 %description
 The netpbm package contains a library of functions which support
@@ -88,6 +88,8 @@ netpbm-doc.  You'll also need to install the netpbm-progs package.
 
 %prep
 %autosetup -p1
+rm -rf converter/other/jpeg2000/libjasper/
+rm -rf converter/other/jbig/libjbig/
 
 %build
 ./configure <<EOF
@@ -124,6 +126,7 @@ make \
 	PNGINC_DIR=%{_includedir} \
 	TIFFINC_DIR=%{_includedir} \
 	JPEGLIB_DIR=%{_libdir} \
+	JBIGLIB=%{_libdir}/libjbig.so.2.1 \
 	PNGLIB_DIR=%{_libdir} \
 	TIFFLIB_DIR=%{_libdir} \
 	LINUXSVGALIB="NONE" \
@@ -155,7 +158,6 @@ if [ "%{_libdir}" != "/usr/lib" ]; then
 fi
 
 cp -af lib/libnetpbm.a %{buildroot}%{_libdir}/libnetpbm.a
-cp -l %{buildroot}%{_libdir}/libnetpbm.so.?? %{buildroot}%{_libdir}/libnetpbm.so
 
 mkdir -p %{buildroot}%{_datadir}
 mv userguide/man %{buildroot}%{_mandir}
@@ -226,6 +228,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Wed Nov 21 2018 Josef Ridky <jridky@redhat.com> - 10.83.01-2
+- Use system version of jasper and jbigkit library (#1651965)
+
 * Mon Jul 23 2018 Josef Ridky <jridky@redhat.com> - 10.83.01-1
 - New upstream release 10.83.01 (#1596970)
 
