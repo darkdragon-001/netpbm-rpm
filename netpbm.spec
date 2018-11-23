@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.83.01
-Release:         2%{?dist}
+Version:         10.84.03
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -32,6 +32,7 @@ Patch16:         netpbm-pamtojpeg2k.patch
 Patch17:         netpbm-manfix.patch
 Patch18:         netpbm-manual-pages.patch
 Patch19:         netpbm-jasper.patch
+Patch20:	 netpbm-userguide.patch
 
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
 BuildRequires:   libX11-devel, perl-generators, python3, jasper-devel, libxml2-devel
@@ -228,6 +229,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Fri Nov 23 2018 Josef Ridky <jridky@redhat.com> - 10.84.03-1
+- New upstream release (#1634256)
+
 * Wed Nov 21 2018 Josef Ridky <jridky@redhat.com> - 10.83.01-2
 - Use system version of jasper and jbigkit library (#1651965)
 
