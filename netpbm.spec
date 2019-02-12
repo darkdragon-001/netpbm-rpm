@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.84.03
-Release:         2%{?dist}
+Release:         3%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -33,6 +33,7 @@ Patch17:         netpbm-manfix.patch
 Patch18:         netpbm-manual-pages.patch
 Patch19:         netpbm-jasper.patch
 Patch20:	 netpbm-userguide.patch
+Patch21:	 netpbm-libdir-so.patch
 
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
 BuildRequires:   libX11-devel, perl-generators, python3, jasper-devel, libxml2-devel
@@ -212,12 +213,13 @@ popd
 %files
 %doc doc/copyright_summary doc/COPYRIGHT.PATENT doc/HISTORY README
 %license doc/GPL_LICENSE.txt
-%{_libdir}/lib*.so*
+%{_libdir}/lib*.so.*
 
 %files devel
 %dir %{_includedir}/netpbm
 %{_includedir}/netpbm/*.h
 %{_mandir}/man3/*
+%{_libdir}/lib*.so
 
 %files progs
 %{_bindir}/*
@@ -229,6 +231,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Tue Feb 12 2019 Ralf Corsépius <corsepiu@fedoraproject.org> - 10.84.03-3
+- Package %%{_libdir}/*.so (RHBZ#1676370).
+
 * Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 10.84.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
