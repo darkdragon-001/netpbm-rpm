@@ -1,33 +1,34 @@
-diff -Naur netpbm-10.84.03.orig/lib/Makefile netpbm-10.84.03/lib/Makefile
---- netpbm-10.84.03.orig/lib/Makefile	2018-11-23 10:36:41.000000000 +0100
-+++ netpbm-10.84.03/lib/Makefile	2019-02-12 08:22:24.188229574 +0100
-@@ -221,7 +221,7 @@
+diff --git a/lib/Makefile b/lib/Makefile
+index bc758df..7f51b41 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -221,7 +221,7 @@ libpm.o: compile.h
  .PHONY: install.lib
  ifeq ($(NETPBMLIBTYPE),unixshared)
  # install a Unix-style shared library
--install.lib: $(PKGDIR)/lib $(PKGDIR)/link
+-install.lib: $(PKGDIR)/lib $(PKGDIR)/sharedlink
 +install.lib: $(PKGDIR)/lib
  	cd $(PKGDIR)/lib ; rm -f libnetpbm.$(NETPBMLIBSUFFIX).$(MAJ).*
  	$(INSTALL) -c -m $(INSTALL_PERM_LIBD) \
  	  libnetpbm.$(NETPBMLIBSUFFIX).$(MAJ).$(MIN)  $(PKGDIR)/lib/
-@@ -263,19 +263,19 @@
+@@ -263,27 +263,26 @@ $(INTERFACE_HEADERS:%=%_installhdr): $(PKGDIR)/include/netpbm
  	  $(SRCDIR)/lib/$(@:%_installhdr=%) $(PKGDIR)/include/netpbm/
  
  .PHONY: install.staticlib
--install.staticlib: $(PKGDIR)/link
+-install.staticlib: $(PKGDIR)/staticlink
 +install.staticlib: $(PKGDIR)/lib
  	$(INSTALL) -c -m $(INSTALL_PERM_LIBS) libnetpbm.$(STATICLIBSUFFIX) \
--	  $(PKGDIR)/link
+-	  $(PKGDIR)/staticlink
 +	  $(PKGDIR)/lib
  
  # Install a shared library stub -- the ".so" file used at link time to
  # prepare a program for dynamically linking a library at run time 
  .PHONY: install.sharedlibstub
--install.sharedlibstub: $(PKGDIR)/link
+-install.sharedlibstub: $(PKGDIR)/sharedlink
 +install.sharedlibstub: $(PKGDIR)/lib
  ifeq ($(NETPBMLIBTYPE),unixshared)
  # install the link-time (.so) links to the runtime libraries
--	cd $(PKGDIR)/link ; \
+-	cd $(PKGDIR)/sharedlink ; \
 +	cd $(PKGDIR)/lib ; \
            rm -f libnetpbm.$(NETPBMLIBSUFFIX); \
 -          $(SYMLINK) ../lib/libnetpbm.$(NETPBMLIBSUFFIX).$(MAJ) \
@@ -35,3 +36,13 @@ diff -Naur netpbm-10.84.03.orig/lib/Makefile netpbm-10.84.03/lib/Makefile
              libnetpbm.$(NETPBMLIBSUFFIX)
  endif
  ifeq ($(NETPBMLIBTYPE),dll)
+-	$(INSTALL) -c -m $(INSTALL_PERM_LIBS) libnetpbm.dll.a \
+-	  $(PKGDIR)/sharedlink
++	$(INSTALL) -c -m $(INSTALL_PERM_LIBS) libnetpbm.dll.a $(PKGDIR)/link
+ endif
+ ifeq ($(NETPBMLIBTYPE),dylib)
+-	cd $(PKGDIR)/sharedlink/ ; \
++	cd $(PKGDIR)/link/ ; \
+           rm -f libnetpbm.dylib; \
+ 	$(SYMLINK) ../lib/libnetpbm.$(MAJ).$(MIN).dylib libnetpbm.dylib
+ endif

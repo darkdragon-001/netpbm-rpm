@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.84.03
-Release:         3%{?dist}
+Version:         10.86.00
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -231,6 +231,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Mon Apr 01 2019 Josef Ridky <jridky@redhat.com> - 10.86.00-1
+- New upstream release (#1694351)
+
 * Tue Feb 12 2019 Ralf Corsépius <corsepiu@fedoraproject.org> - 10.84.03-3
 - Package %%{_libdir}/*.so (RHBZ#1676370).
 
