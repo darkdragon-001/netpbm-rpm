@@ -5,7 +5,6 @@
 # svn checkout https://svn.code.sf.net/p/netpbm/code/userguide netpbm-%{version}/userguide
 # svn checkout https://svn.code.sf.net/p/netpbm/code/trunk/test netpbm-%{version}/test
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
-# and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%{version}/converter/ppm/ppmtompeg/ )
 
 VERSION=$1
 if [[ -z $VERSION ]]; then
@@ -21,7 +20,6 @@ svn checkout https://svn.code.sf.net/p/netpbm/code/advanced $NETPBM_NAME
 svn checkout https://svn.code.sf.net/p/netpbm/code/userguide $NETPBM_NAME/userguide
 svn checkout https://svn.code.sf.net/p/netpbm/code/trunk/test $NETPBM_NAME/test
 find -name '\.svn' -type d -print0 | xargs -0 rm -rf
-rm -rf $NETPBM_NAME/converter/ppm/ppmtompeg/
 tar -cJvf $NETPBM_NAME.tar.xz $NETPBM_NAME
 rm -rf $NETPBM_NAME/
 popd

@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.86.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -10,30 +10,28 @@ URL: http://netpbm.sourceforge.net/
 # svn checkout https://svn.code.sf.net/p/netpbm/code/userguide netpbm-%%{version}/userguide
 # svn checkout https://svn.code.sf.net/p/netpbm/code/trunk/test netpbm-%%{version}/test
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
-# and removing the ppmtompeg code, due to patents ( rm -rf netpbm-%%{version}/converter/ppm/ppmtompeg/ )
 Source0:         netpbm-%{version}.tar.xz
 Patch0:          netpbm-security-scripts.patch
 Patch1:          netpbm-security-code.patch
 Patch2:          netpbm-ppmfadeusage.patch
-Patch3:          netpbm-noppmtompeg.patch
-Patch4:          netpbm-CVE-2017-2587.patch
-Patch5:          netpbm-python3.patch
-Patch6:          netpbm-time.patch
-Patch7:          netpbm-gcc4.patch
-Patch8:          netpbm-bmptopnm.patch
-Patch9:          netpbm-CAN-2005-2471.patch
-Patch10:         netpbm-xwdfix.patch
-Patch11:         netpbm-multilib.patch
-Patch12:         netpbm-glibc.patch
-Patch13:         netpbm-docfix.patch
-Patch14:         netpbm-fiasco-overflow.patch
-Patch15:         netpbm-cmuwtopbm.patch
-Patch16:         netpbm-pamtojpeg2k.patch
-Patch17:         netpbm-manfix.patch
-Patch18:         netpbm-manual-pages.patch
-Patch19:         netpbm-jasper.patch
-Patch20:	 netpbm-userguide.patch
-Patch21:	 netpbm-libdir-so.patch
+Patch3:          netpbm-CVE-2017-2587.patch
+Patch4:          netpbm-python3.patch
+Patch5:          netpbm-time.patch
+Patch6:          netpbm-gcc4.patch
+Patch7:          netpbm-bmptopnm.patch
+Patch8:          netpbm-CAN-2005-2471.patch
+Patch9:         netpbm-xwdfix.patch
+Patch10:         netpbm-multilib.patch
+Patch11:         netpbm-glibc.patch
+Patch12:         netpbm-docfix.patch
+Patch13:         netpbm-fiasco-overflow.patch
+Patch14:         netpbm-cmuwtopbm.patch
+Patch15:         netpbm-pamtojpeg2k.patch
+Patch16:         netpbm-manfix.patch
+Patch17:         netpbm-manual-pages.patch
+Patch18:         netpbm-jasper.patch
+Patch19:	 netpbm-userguide.patch
+Patch20:	 netpbm-libdir-so.patch
 
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
 BuildRequires:   libX11-devel, perl-generators, python3, jasper-devel, libxml2-devel
@@ -138,7 +136,6 @@ make \
 # prepare man files
 cd userguide
 # BZ 948531
-rm -f ppmtompeg*
 rm -f *.manual-pages
 rm -f *.manfix
 for i in *.html ; do
@@ -231,6 +228,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Wed Apr 17 2019 Josef Ridky <jridky@redhat.com> - 10.86.00-2
+- Enable MPEG and MPEG-2 support (#1700164)
+
 * Mon Apr 01 2019 Josef Ridky <jridky@redhat.com> - 10.86.00-1
 - New upstream release (#1694351)
 
