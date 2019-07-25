@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.86.00
-Release:         2%{?dist}
+Release:         3%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -228,6 +228,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 10.86.00-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Wed Apr 17 2019 Josef Ridky <jridky@redhat.com> - 10.86.00-2
 - Enable MPEG and MPEG-2 support (#1700164)
 
