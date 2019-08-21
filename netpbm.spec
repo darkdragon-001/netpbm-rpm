@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.86.00
-Release:         3%{?dist}
+Version:         10.87.00
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -20,7 +20,7 @@ Patch5:          netpbm-time.patch
 Patch6:          netpbm-gcc4.patch
 Patch7:          netpbm-bmptopnm.patch
 Patch8:          netpbm-CAN-2005-2471.patch
-Patch9:         netpbm-xwdfix.patch
+Patch9:          netpbm-xwdfix.patch
 Patch10:         netpbm-multilib.patch
 Patch11:         netpbm-glibc.patch
 Patch12:         netpbm-docfix.patch
@@ -228,6 +228,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Wed Aug 21 2019 Josef Ridky <jridky@redhat.com> - 10.87.00-1
+- New upstream release (#1725280)
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 10.86.00-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
