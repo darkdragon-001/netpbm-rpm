@@ -1,6 +1,6 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.88.00
+Version:         10.89.00
 Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
@@ -228,6 +228,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Mon Jan 06 2020 Josef Ridky <jridky@redhat.com> - 10.89.00-1
+- New upstream release 10.89.00 (#1787801)
+
 * Mon Dec 09 2019 Josef Ridky <jridky@redhat.com> - 10.88.00-1
 - New upstream release (#1756647)
 
