@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         10.89.00
-Release:         2%{?dist}
+Release:         3%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -35,6 +35,8 @@ Patch20:	 netpbm-libdir-so.patch
 
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
 BuildRequires:   libX11-devel, perl-generators, python3, jasper-devel, libxml2-devel
+BuildRequires:   perl(Config), perl(Cwd), perl(English), perl(Fcntl), perl(File::Basename)
+BuildRequires:   perl(strict)
 %if (0%{?fedora} && 0%{?fedora} < 28) || (0%{?rhel} || 0%{?rhel} <= 7)
 BuildRequires:   ghostscript-core
 %else
@@ -228,6 +230,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Wed Mar 25 2020 Jitka Plesnikova <jplesnik@redhat.com> - 10.89.00-3
+- Add perl dependencies for build
+
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 10.89.00-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
