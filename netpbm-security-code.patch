@@ -1,8 +1,8 @@
 diff --git a/analyzer/pgmtexture.c b/analyzer/pgmtexture.c
-index 5883327..eb8cf70 100644
+index c69643e..eae0b42 100644
 --- a/analyzer/pgmtexture.c
 +++ b/analyzer/pgmtexture.c
-@@ -98,6 +98,8 @@ vector(unsigned int const nl,
+@@ -54,6 +54,8 @@ vector(unsigned int const nl,
  
      assert(nh >= nl);
  
@@ -11,7 +11,7 @@ index 5883327..eb8cf70 100644
      MALLOCARRAY(v, (unsigned) (nh - nl + 1));
  
      if (v == NULL)
-@@ -129,6 +131,7 @@ matrix (unsigned int const nrl,
+@@ -85,6 +87,7 @@ matrix (unsigned int const nrl,
      assert(nrh >= nrl);
  
      /* allocate pointers to rows */
@@ -19,7 +19,7 @@ index 5883327..eb8cf70 100644
      MALLOCARRAY(m, (unsigned) (nrh - nrl + 1));
      if (m == NULL)
          pm_error("Unable to allocate memory for a matrix.");
-@@ -137,6 +140,7 @@ matrix (unsigned int const nrl,
+@@ -93,6 +96,7 @@ matrix (unsigned int const nrl,
  
      assert (nch >= ncl);
  
@@ -28,7 +28,7 @@ index 5883327..eb8cf70 100644
      for (i = nrl; i <= nrh; ++i) {
          MALLOCARRAY(m[i], (unsigned) (nch - ncl + 1));
 diff --git a/converter/other/gemtopnm.c b/converter/other/gemtopnm.c
-index d862213..5f1a51a 100644
+index 6bbfcc0..f7d1dc6 100644
 --- a/converter/other/gemtopnm.c
 +++ b/converter/other/gemtopnm.c
 @@ -36,7 +36,7 @@
@@ -360,11 +360,11 @@ index 98552c0..311298c 100644
      jpeg_start_decompress(cinfoP);
  
 diff --git a/converter/other/pbmtopgm.c b/converter/other/pbmtopgm.c
-index 69b20fb..382a487 100644
+index 817fb5b..8baaa57 100644
 --- a/converter/other/pbmtopgm.c
 +++ b/converter/other/pbmtopgm.c
-@@ -47,6 +47,7 @@ main(int argc, char *argv[]) {
-                  "than the image height (%u rows)", height, rows);
+@@ -60,6 +60,7 @@ main(int argc, char *argv[]) {
+ 
  
      outrow = pgm_allocrow(cols) ;
 +    overflow2(width, height);
@@ -372,7 +372,7 @@ index 69b20fb..382a487 100644
      pgm_writepgminit(stdout, cols, rows, maxval, 0) ;
  
 diff --git a/converter/other/pnmtoddif.c b/converter/other/pnmtoddif.c
-index ac02e42..a2f045b 100644
+index b7b942b..52be0e4 100644
 --- a/converter/other/pnmtoddif.c
 +++ b/converter/other/pnmtoddif.c
 @@ -629,6 +629,7 @@ main(int argc, char *argv[]) {
@@ -392,14 +392,230 @@ index ac02e42..a2f045b 100644
          ip.bits_per_pixel = 24;
          ip.spectral = 5;
 diff --git a/converter/other/pnmtojpeg.c b/converter/other/pnmtojpeg.c
-index 4482624..757d08d 100644
+index e345831..757d08d 100644
 --- a/converter/other/pnmtojpeg.c
 +++ b/converter/other/pnmtojpeg.c
-@@ -606,7 +606,11 @@ read_scan_script(j_compress_ptr const cinfo,
-            want JPOOL_PERMANENT.  
+@@ -9,7 +9,7 @@
+   This program is by Bryan Henderson on 2000.03.06, but is derived
+   with permission from the program cjpeg, which is in the Independent
+   Jpeg Group's JPEG library package.  Under the terms of that permission,
+-  redistribution of this software is restricted as described in the
++  redistribution of this software is restricted as described in the 
+   file README.JPEG.
+ 
+   Copyright (C) 1991-1998, Thomas G. Lane.
+@@ -84,12 +84,12 @@ struct cmdlineInfo {
+     struct density density;
+ };
+ 
+-static void
+-interpret_maxmemory (const char * const maxmemory,
+-                     long int * const max_memory_to_use_p) {
++static void 
++interpret_maxmemory (const char * const maxmemory, 
++                     long int * const max_memory_to_use_p) { 
+     long int lval;
+     char ch;
+-
++    
+     if (maxmemory == NULL) {
+         *max_memory_to_use_p = -1;  /* unspecified */
+     } else if (sscanf(maxmemory, "%ld%c", &lval, &ch) < 1) {
+@@ -119,9 +119,9 @@ interpret_restart(const char * const restart,
+         long lval;
+         char ch;
+         unsigned int matches;
+-
++        
+         matches= sscanf(restart, "%ld%c", &lval, &ch);
+-        if (matches == 0)
++        if (matches == 0) 
+             pm_error("Invalid value for the --restart option : '%s'.",
+                      restart);
+         else {
+@@ -160,7 +160,7 @@ interpret_density(const char *        const densityString,
+         int horiz, vert;
+ 
+         unitName = malloc(strlen(densityString)+1);
+-
++    
+         matched = sscanf(densityString, "%dx%d%s", &horiz, &vert, unitName);
+ 
+         if (matched < 2)
+@@ -178,7 +178,7 @@ interpret_density(const char *        const densityString,
+                 densityP->horiz = horiz;
+                 densityP->vert  = vert;
+ 
+-                if (matched < 3)
++                if (matched < 3) 
+                     densityP->unit = DEN_UNSPECIFIED;
+                 else {
+                     if (streq(unitName, "dpi") || streq(unitName, "DPI"))
+@@ -235,7 +235,7 @@ parseCommandLine(const int argc, char ** argv,
+ 
+     option_def_index = 0;   /* incremented by OPTENTRY */
+     OPTENT3(0, "verbose",     OPT_FLAG,   NULL, &cmdlineP->verbose,        0);
+-    OPTENT3(0, "quality",     OPT_UINT,   &cmdlineP->quality,
++    OPTENT3(0, "quality",     OPT_UINT,   &cmdlineP->quality, 
+             &qualitySpec,        0);
+     OPTENT3(0, "baseline",    OPT_FLAG,   NULL, &cmdlineP->force_baseline, 0);
+     OPTENT3(0, "progressive", OPT_FLAG,   NULL, &cmdlineP->progressive,    0);
+@@ -250,14 +250,14 @@ parseCommandLine(const int argc, char ** argv,
+     OPTENT3(0, "qtables",     OPT_STRING, &cmdlineP->qtablefile,  NULL,    0);
+     OPTENT3(0, "sample",      OPT_STRING, &cmdlineP->sample,      NULL,    0);
+     OPTENT3(0, "scans",       OPT_STRING, &cmdlineP->scans,       NULL,    0);
+-    OPTENT3(0, "smooth",      OPT_UINT,   &cmdlineP->smoothing_factor,
++    OPTENT3(0, "smooth",      OPT_UINT,   &cmdlineP->smoothing_factor, 
+             &smoothSpec,  0);
+     OPTENT3(0, "optimize",    OPT_FLAG,   NULL, &cmdlineP->optimize,       0);
+     OPTENT3(0, "optimise",    OPT_FLAG,   NULL, &cmdlineP->optimize,       0);
+     OPTENT3(0, "restart",     OPT_STRING, &restart, NULL,                   0);
+     OPTENT3(0, "comment",     OPT_STRING, &cmdlineP->comment, NULL,        0);
+     OPTENT3(0, "exif",        OPT_STRING, &cmdlineP->exif_filespec, NULL,  0);
+-    OPTENT3(0, "density",     OPT_STRING, &density,
++    OPTENT3(0, "density",     OPT_STRING, &density, 
+             &cmdlineP->density_spec, 0);
+ 
+     /* Set the defaults */
+@@ -295,7 +295,7 @@ parseCommandLine(const int argc, char ** argv,
+         cmdlineP->input_filespec = strdup("-");  /* he wants stdin */
+     else if (argc_parse - 1 == 1)
+         cmdlineP->input_filespec = strdup(argv_parse[1]);
+-    else
++    else 
+         pm_error("Too many arguments.  The only argument accepted "
+                  "is the input file specification.");
+     if (dctval == NULL)
+@@ -314,15 +314,15 @@ parseCommandLine(const int argc, char ** argv,
+     interpret_maxmemory(maxmemory, &cmdlineP->max_memory_to_use);
+     interpret_restart(restart, &cmdlineP->restart_value,
+                       &cmdlineP->restart_unit);
+-    if (cmdlineP->density_spec)
++    if (cmdlineP->density_spec) 
+         interpret_density(density, &cmdlineP->density);
+-
++    
+     if (cmdlineP->smoothing_factor > 100)
+         pm_error("Smoothing factor %d is greater than 100 (%%).",
+                  cmdlineP->smoothing_factor);
+ 
+     if (streq(cmdlineP->input_filespec, "=") &&
+-        cmdlineP->exif_filespec &&
++        cmdlineP->exif_filespec && 
+         streq(cmdlineP->exif_filespec, "-"))
+ 
+         pm_error("Cannot have both input image and exif header be from "
+@@ -336,7 +336,7 @@ parseCommandLine(const int argc, char ** argv,
+ 
+ static void
+ report_compressor(const struct jpeg_compress_struct cinfo) {
+-
++    
+     if (cinfo.scan_info == NULL)
+         pm_message("No scan script is being used");
+     else {
+@@ -346,7 +346,7 @@ report_compressor(const struct jpeg_compress_struct cinfo) {
+         for (i = 0; i < cinfo.num_scans; i++) {
+             int j;
+             pm_message("    Scan %2d: Ss=%2d Se=%2d Ah=%2d Al=%2d  "
+-                       "%d components",
++                       "%d components", 
+                        i,
+                        cinfo.scan_info[i].Ss,
+                        cinfo.scan_info[i].Se,
+@@ -364,11 +364,11 @@ report_compressor(const struct jpeg_compress_struct cinfo) {
+ 
+ 
+ static void
+-setup_jpeg_source_parameters(struct jpeg_compress_struct * const cinfoP,
+-                             int const width, int const height,
++setup_jpeg_source_parameters(struct jpeg_compress_struct * const cinfoP, 
++                             int const width, int const height, 
+                              int const format) {
+ /*----------------------------------------------------------------------------
+-   Set up in the compressor descriptor *cinfoP the description of the
++   Set up in the compressor descriptor *cinfoP the description of the 
+    source image as required by the compressor.
+ -----------------------------------------------------------------------------*/
+ 
+@@ -379,7 +379,7 @@ setup_jpeg_source_parameters(struct jpeg_compress_struct * const cinfoP,
+         cinfoP->input_components = 1;
+         break;
+     case PPM_TYPE:
+-        cinfoP->in_color_space = JCS_RGB;
++        cinfoP->in_color_space = JCS_RGB; 
+         cinfoP->input_components = 3;
+         break;
+     default:
+@@ -391,7 +391,7 @@ setup_jpeg_source_parameters(struct jpeg_compress_struct * const cinfoP,
+ 
+ 
+ static void
+-setup_jpeg_density(struct jpeg_compress_struct * const cinfoP,
++setup_jpeg_density(struct jpeg_compress_struct * const cinfoP, 
+                    struct density                const density) {
+ /*----------------------------------------------------------------------------
+    Set up in the compressor descriptor *cinfoP the density information
+@@ -402,7 +402,7 @@ setup_jpeg_density(struct jpeg_compress_struct * const cinfoP,
+     case DEN_DOTS_PER_INCH: cinfoP->density_unit = 1; break;
+     case DEN_DOTS_PER_CM:   cinfoP->density_unit = 2; break;
+     }
+-
++    
+     cinfoP->X_density = density.horiz;
+     cinfoP->Y_density = density.vert;
+ }
+@@ -411,7 +411,7 @@ setup_jpeg_density(struct jpeg_compress_struct * const cinfoP,
+ 
+ /*----------------------------------------------------------------------------
+    The functions below here are essentially the file rdswitch.c from
+-   the JPEG library.  They perform the functions specified by the following
++   the JPEG library.  They perform the functions specifed by the following
+    pnmtojpeg options:
+ 
+    -qtables file          Read quantization tables from text file
+@@ -426,7 +426,7 @@ text_getc (FILE * file)
+ /* A comment/newline sequence is returned as a newline */
+ {
+     register int ch;
+-
++  
+     ch = getc(file);
+     if (ch == '#') {
+         do {
+@@ -454,12 +454,12 @@ readTextInteger(FILE * const fileP,
+ -----------------------------------------------------------------------------*/
+     int ch;
+     boolean retval;
+-
++  
+     /* Skip any leading whitespace, detect EOF */
+     do {
+         ch = text_getc(fileP);
+     } while (isspace(ch));
+-
++  
+     if (!isdigit(ch))
+         retval = FALSE;
+     else {
+@@ -554,7 +554,7 @@ read_scan_script(j_compress_ptr const cinfo,
+         ncomps = 1;
+         while (termchar == ' ') {
+             if (ncomps >= MAX_COMPS_IN_SCAN) {
+-                pm_message("Too many components in one scan in file %s",
++                pm_message("Too many components in one scan in file %s", 
+                            filename);
+                 fclose(fp);
+                 return FALSE;
+@@ -603,10 +603,14 @@ read_scan_script(j_compress_ptr const cinfo,
+         /* Stash completed scan list in cinfo structure.  NOTE: in
+            this program, JPOOL_IMAGE is the right lifetime for this
+            data, but if you want to compress multiple images you'd
+-           want JPOOL_PERMANENT.
++           want JPOOL_PERMANENT.  
          */
          const unsigned int scan_info_size = nscans * sizeof(jpeg_scan_info);
--        jpeg_scan_info * const scan_info = 
+-        jpeg_scan_info * const scan_info =
 +        const jpeg_scan_info * scan_info;
 +      
 +        overflow2(nscans, sizeof(jpeg_scan_info));
@@ -408,7 +624,170 @@ index 4482624..757d08d 100644
              (jpeg_scan_info *)
              (*cinfo->mem->alloc_small) ((j_common_ptr) cinfo, JPOOL_IMAGE,
                                          scan_info_size);
-@@ -938,6 +942,8 @@ compute_rescaling_array(JSAMPLE ** const rescale_p, const pixval maxval,
+@@ -656,7 +660,7 @@ read_quant_tables (j_compress_ptr cinfo, char * filename,
+                 if (tblno >= NUM_QUANT_TBLS) {
+                     pm_message("Too many tables in file %s", filename);
+                     error = TRUE;
+-                } else {
++                } else { 
+                     unsigned int table[DCTSIZE2];
+                     unsigned int i;
+ 
+@@ -686,7 +690,7 @@ read_quant_tables (j_compress_ptr cinfo, char * filename,
+         fclose(fp);
+         retval = !error;
+     }
+-
++        
+     return retval;
+ }
+ 
+@@ -717,7 +721,7 @@ set_quant_slots (j_compress_ptr cinfo, char *arg)
+                 return FALSE;
+             }
+             cinfo->comp_info[ci].quant_tbl_no = val;
+-            while (*arg && *arg++ != ',')
++            while (*arg && *arg++ != ',') 
+                 /* advance to next segment of arg string */
+                 ;
+         } else {
+@@ -747,7 +751,7 @@ set_sample_factors (j_compress_ptr cinfo, char *arg)
+             if ((ch1 != 'x' && ch1 != 'X') || ch2 != ',') /* syntax check */
+                 return FALSE;
+             if (val1 <= 0 || val1 > 4) {
+-                pm_message("Invalid sampling factor: %d.  "
++                pm_message("Invalid sampling factor: %d.  " 
+                            "JPEG sampling factors must be 1..4", val1);
+                 return FALSE;
+             }
+@@ -758,11 +762,11 @@ set_sample_factors (j_compress_ptr cinfo, char *arg)
+             }
+             cinfo->comp_info[ci].h_samp_factor = val1;
+             cinfo->comp_info[ci].v_samp_factor = val2;
+-            while (*arg && *arg++ != ',')
++            while (*arg && *arg++ != ',') 
+                 /* advance to next segment of arg string */
+                 ;
+         } else {
+-            /* reached end of parameter, set remaining components
++            /* reached end of parameter, set remaining components 
+                to 1x1 sampling */
+             cinfo->comp_info[ci].h_samp_factor = 1;
+             cinfo->comp_info[ci].v_samp_factor = 1;
+@@ -776,13 +780,13 @@ set_sample_factors (j_compress_ptr cinfo, char *arg)
+ static void
+ setup_jpeg(struct jpeg_compress_struct * const cinfoP,
+            struct jpeg_error_mgr       * const jerrP,
+-           struct cmdlineInfo            const cmdline,
++           struct cmdlineInfo            const cmdline, 
+            int                           const width,
+            int                           const height,
+            pixval                        const maxval,
+            int                           const input_fmt,
+            FILE *                        const output_file) {
+-
++  
+     int quality;
+     int q_scale_factor;
+ 
+@@ -794,14 +798,14 @@ setup_jpeg(struct jpeg_compress_struct * const cinfoP,
+ 
+     jpeg_set_defaults(cinfoP);
+ 
+-    cinfoP->data_precision = BITS_IN_JSAMPLE;
++    cinfoP->data_precision = BITS_IN_JSAMPLE; 
+         /* we always rescale data to this */
+     cinfoP->image_width = (unsigned int) width;
+     cinfoP->image_height = (unsigned int) height;
+ 
+     cinfoP->arith_code = cmdline.arith_code;
+     cinfoP->dct_method = cmdline.dct_method;
+-    if (cmdline.trace_level == 0 && cmdline.verbose)
++    if (cmdline.trace_level == 0 && cmdline.verbose) 
+         cinfoP->err->trace_level = 1;
+     else cinfoP->err->trace_level = cmdline.trace_level;
+     if (cmdline.grayscale)
+@@ -822,26 +826,26 @@ setup_jpeg(struct jpeg_compress_struct * const cinfoP,
+         quality = cmdline.quality;
+         q_scale_factor = jpeg_quality_scaling(cmdline.quality);
+     }
+-    if (cmdline.smoothing_factor != -1)
++    if (cmdline.smoothing_factor != -1) 
+         cinfoP->smoothing_factor = cmdline.smoothing_factor;
+ 
+     /* Set quantization tables for selected quality. */
+     /* Some or all may be overridden if user specified --qtables. */
+     jpeg_set_quality(cinfoP, quality, cmdline.force_baseline);
+-
++                   
+     if (cmdline.qtablefile != NULL) {
+         if (! read_quant_tables(cinfoP, cmdline.qtablefile,
+-                                q_scale_factor, cmdline.force_baseline))
++                                q_scale_factor, cmdline.force_baseline)) 
+             pm_error("Can't use quantization table file '%s'.",
+                      cmdline.qtablefile);
+     }
+-
++   
+     if (cmdline.qslots != NULL) {
+         if (! set_quant_slots(cinfoP, cmdline.qslots))
+-            pm_error("Bad quantization-table-selectors parameter string '%s'.",
++            pm_error("Bad quantization-table-selectors parameter string '%s'.", 
+                      cmdline.qslots);
+     }
+-
++          
+     if (cmdline.sample != NULL) {
+         if (! set_sample_factors(cinfoP, cmdline.sample))
+             pm_error("Bad sample-factors parameters string '%s'.",
+@@ -878,7 +882,7 @@ write_exif_header(struct jpeg_compress_struct * const cinfoP,
+ /*----------------------------------------------------------------------------
+    Generate an APP1 marker in the JFIF output that is an Exif header.
+ 
+-   The contents of the Exif header are in the file with filespec
++   The contents of the Exif header are in the file with filespec 
+    'exif_filespec' (file spec and contents are not validated).
+ 
+    exif_filespec = "-" means Standard Input.
+@@ -888,7 +892,7 @@ write_exif_header(struct jpeg_compress_struct * const cinfoP,
+ -----------------------------------------------------------------------------*/
+     FILE * exif_file;
+     unsigned short length;
+-
++    
+     exif_file = pm_openr(exif_filespec);
+ 
+     pm_readbigshort(exif_file, (short*)&length);
+@@ -900,7 +904,7 @@ write_exif_header(struct jpeg_compress_struct * const cinfoP,
+     else {
+         unsigned char * exif_data;
+         size_t rc;
+-        size_t const data_length = length - 2;
++        size_t const data_length = length - 2;  
+             /* Subtract 2 byte length field*/
+ 
+         assert(data_length > 0);
+@@ -917,16 +921,16 @@ write_exif_header(struct jpeg_compress_struct * const cinfoP,
+                      "%u bytes of data, read only %u",
+                      (unsigned)data_length, (unsigned)rc);
+ 
+-        jpeg_write_marker(cinfoP, JPEG_APP0+1,
++        jpeg_write_marker(cinfoP, JPEG_APP0+1, 
+                           (const JOCTET *) exif_data, data_length);
+ 
+         free(exif_data);
+     }
+-
++    
+     pm_close(exif_file);
+ }
+ 
+-
++                  
+ 
+ static void
+ compute_rescaling_array(JSAMPLE ** const rescale_p, const pixval maxval,
+@@ -938,9 +942,11 @@ compute_rescaling_array(JSAMPLE ** const rescale_p, const pixval maxval,
    const long half_maxval = maxval / 2;
    long val;
  
@@ -416,23 +795,188 @@ index 4482624..757d08d 100644
 +  overflow2(maxval+1, sizeof(JSAMPLE));
    *rescale_p = (JSAMPLE *)
      (cinfo.mem->alloc_small) ((j_common_ptr) &cinfo, JPOOL_IMAGE,
-                               (size_t) (((long) maxval + 1L) * 
-@@ -1016,6 +1022,7 @@ convert_scanlines(struct jpeg_compress_struct * const cinfo_p,
+-                              (size_t) (((long) maxval + 1L) *
++                              (size_t) (((long) maxval + 1L) * 
+                                         sizeof(JSAMPLE)));
+   for (val = 0; val <= maxval; val++) {
+     /* The multiplication here must be done in 32 bits to avoid overflow */
+@@ -951,9 +957,9 @@ compute_rescaling_array(JSAMPLE ** const rescale_p, const pixval maxval,
+ 
+ 
+ static void
+-translate_row(const pixel pnm_buffer[],
+-              JSAMPLE jpeg_buffer[],
+-              int const width,
++translate_row(const pixel pnm_buffer[], 
++              JSAMPLE jpeg_buffer[], 
++              int const width, 
+               int const input_components,
+               const JSAMPLE translate[]) {
+ /*----------------------------------------------------------------------------
+@@ -971,16 +977,16 @@ translate_row(const pixel pnm_buffer[],
+ 
+   switch (input_components) {
+   case 1:
+-      for (column = 0; column < width; column++)
++      for (column = 0; column < width; column++) 
+           jpeg_buffer[column] = translate[(int)PNM_GET1(pnm_buffer[column])];
+       break;
+   case 3:
+       for (column = 0; column < width; column++) {
+-          jpeg_buffer[column*3+0] =
++          jpeg_buffer[column*3+0] = 
+               translate[(int)PPM_GETR(pnm_buffer[column])];
+-          jpeg_buffer[column*3+1] =
++          jpeg_buffer[column*3+1] = 
+               translate[(int)PPM_GETG(pnm_buffer[column])];
+-          jpeg_buffer[column*3+2] =
++          jpeg_buffer[column*3+2] = 
+               translate[(int)PPM_GETB(pnm_buffer[column])];
+       }
+       break;
+@@ -1000,44 +1006,45 @@ convert_scanlines(struct jpeg_compress_struct * const cinfo_p,
+                   int                           const input_fmt,
+                   JSAMPLE                             xlate_table[]){
+ /*----------------------------------------------------------------------------
+-   Read scan lines from the input file, which is already opened in the
+-   netpbm library sense and ready for reading, and write them to the
++   Read scan lines from the input file, which is already opened in the 
++   netpbm library sense and ready for reading, and write them to the 
+    output JPEG object.  Translate the pnm sample values to JPEG sample
+    values through the thable xlate_table[].
+ -----------------------------------------------------------------------------*/
+-  xel * pnm_buffer;
++  xel * pnm_buffer;  
+     /* contains the row of the input image currently being processed,
+        in pnm_readpnmrow format
+     */
+   JSAMPARRAY buffer;
+-    /* Row 0 of this array contains the row of the output image currently
++    /* Row 0 of this array contains the row of the output image currently 
+        being processed, in JPEG compressor input format.  The array only
+        has that one row.
      */
  
    /* Allocate the libpnm output and compressor input buffers */
 +  overflow2(cinfo_p->image_width, cinfo_p->input_components);
    buffer = (*cinfo_p->mem->alloc_sarray)
      ((j_common_ptr) cinfo_p, JPOOL_IMAGE,
-      (unsigned int) cinfo_p->image_width * cinfo_p->input_components, 
+-     (unsigned int) cinfo_p->image_width * cinfo_p->input_components,
++     (unsigned int) cinfo_p->image_width * cinfo_p->input_components, 
+      (unsigned int) 1);
+-
++  
+   pnm_buffer = pnm_allocrow(cinfo_p->image_width);
+ 
+   while (cinfo_p->next_scanline < cinfo_p->image_height) {
+-    if (cinfo_p->err->trace_level > 1)
++    if (cinfo_p->err->trace_level > 1) 
+         pm_message("Converting Row %d...", cinfo_p->next_scanline);
+-    pnm_readpnmrow(input_file, pnm_buffer, cinfo_p->image_width,
++    pnm_readpnmrow(input_file, pnm_buffer, cinfo_p->image_width, 
+                    maxval, input_fmt);
+-    translate_row(pnm_buffer, buffer[0],
++    translate_row(pnm_buffer, buffer[0], 
+                   cinfo_p->image_width, cinfo_p->input_components,
+                   xlate_table);
+     jpeg_write_scanlines(cinfo_p, buffer, 1);
+-    if (cinfo_p->err->trace_level > 1)
++    if (cinfo_p->err->trace_level > 1) 
+         pm_message("Done.");
+   }
+ 
+   pnm_freerow(pnm_buffer);
+-  /* Don't worry about the compressor input buffer; it gets freed
++  /* Don't worry about the compressor input buffer; it gets freed 
+      automatically
+   */
+ }
+@@ -1053,11 +1060,11 @@ main(int     argc,
+     struct jpeg_error_mgr jerr;
+     FILE * input_file;
+     FILE * output_file;
+-    int height;
++    int height;  
+         /* height of the input image in rows, as specified by its header */
+-    int width;
++    int width;   
+         /* width of the input image in columns, as specified by its header */
+-    pixval maxval;
++    pixval maxval;  
+         /* maximum value of an input pixel component, as specified by header */
+     int input_fmt;
+         /* The input format, as determined by its header.  */
+@@ -1081,7 +1088,7 @@ main(int     argc,
+     if (cmdline.verbose) {
+         pm_message("Input file has format %c%c.\n"
+                    "It has %d rows of %d columns of pixels "
+-                   "with max sample value of %d.",
++                   "with max sample value of %d.", 
+                    (char) (input_fmt/256), (char) (input_fmt % 256),
+                    height, width, maxval);
+     }
+@@ -1091,13 +1098,13 @@ main(int     argc,
+ 
+     compute_rescaling_array(&rescale, maxval, cinfo);
+ 
+-    if (cmdline.comment)
+-        jpeg_write_marker(&cinfo, JPEG_COM, (const JOCTET *) cmdline.comment,
++    if (cmdline.comment) 
++        jpeg_write_marker(&cinfo, JPEG_COM, (const JOCTET *) cmdline.comment, 
+                           strlen(cmdline.comment));
+ 
+     if (cmdline.exif_filespec)
+         write_exif_header(&cinfo, cmdline.exif_filespec);
+-
++    
+     /* Translate and copy over the actual scanlines */
+     convert_scanlines(&cinfo, input_file, maxval, input_fmt, rescale);
+ 
+@@ -1110,10 +1117,7 @@ main(int     argc,
+         pm_close(input_file);
+ 
+     /* Program may have exited with non-zero completion code via
+-       various function calls above.
++       various function calls above. 
+     */
+     return jerr.num_warnings > 0 ? EXIT_WARNING : EXIT_SUCCESS;
+ }
+-
+-
+-
 diff --git a/converter/other/pnmtops.c b/converter/other/pnmtops.c
-index de0dfd8..09c28d5 100644
+index 45d856d..09c28d5 100644
 --- a/converter/other/pnmtops.c
 +++ b/converter/other/pnmtops.c
-@@ -294,17 +294,21 @@ parseCommandLine(int argc, const char ** argv,
+@@ -125,8 +125,8 @@ static bool verbose;
+ 
+ 
+ static void
+-parseDpi(const char *   const dpiOpt,
+-         unsigned int * const dpiXP,
++parseDpi(const char *   const dpiOpt, 
++         unsigned int * const dpiXP, 
+          unsigned int * const dpiYP) {
+ 
+     char *dpistr2;
+@@ -253,9 +253,9 @@ parseCommandLine(int argc, const char ** argv,
+     OPTENT3(0, "showpage",    OPT_FLAG,  NULL, &showpage,                0);
+     OPTENT3(0, "verbose",     OPT_FLAG,  NULL, &cmdlineP->verbose,       0);
+     OPTENT3(0, "debug",       OPT_FLAG,  NULL, &cmdlineP->debug,         0);
+-    OPTENT3(0, "level",       OPT_UINT, &cmdlineP->level,
++    OPTENT3(0, "level",       OPT_UINT, &cmdlineP->level, 
+             &cmdlineP->levelSpec,              0);
+-
++    
+     opt.opt_table = option_def;
+     opt.short_allowed = FALSE;
+     opt.allowNegNum = FALSE;
+@@ -293,18 +293,22 @@ parseCommandLine(int argc, const char ** argv,
+ 
      validateCompDimension(width, 72, "-width value");
      validateCompDimension(height, 72, "-height value");
-     
+-
++    
 +    overflow2(width, 72);
      cmdlineP->width  = width * 72;
 +    overflow2(height, 72);
@@ -452,6 +996,586 @@ index de0dfd8..09c28d5 100644
          cmdlineP->imageheight = imageheight * 72;
      }
      else
+@@ -318,7 +322,7 @@ parseCommandLine(int argc, const char ** argv,
+     if (cmdlineP->bitspersampleSpec)
+         validateBps_1_2_4_8_12(cmdlineP->bitspersample);
+ 
+-    if (argc-1 == 0)
++    if (argc-1 == 0) 
+         cmdlineP->inputFileName = "-";
+     else if (argc-1 != 1)
+         pm_error("Program takes zero or one argument (filename).  You "
+@@ -326,7 +330,7 @@ parseCommandLine(int argc, const char ** argv,
+     else
+         cmdlineP->inputFileName = argv[1];
+ 
+-    free(option_def);
++    free(option_def); 
+ }
+ 
+ 
+@@ -432,7 +436,7 @@ addToPidList(pid_t * const pidList,
+ /*===========================================================================
+   The output encoder
+   ===========================================================================*/
+-
++    
+ enum OutputType {AsciiHex, Ascii85};
+ 
+ typedef struct {
+@@ -453,7 +457,7 @@ bytesPerRow (unsigned int const cols,
+ -----------------------------------------------------------------------------*/
+     unsigned int retval;
+ 
+-    assert(bitsPerSample==1 || bitsPerSample==2 || bitsPerSample==4 ||
++    assert(bitsPerSample==1 || bitsPerSample==2 || bitsPerSample==4 || 
+            bitsPerSample==8 || bitsPerSample==12);
+ 
+     switch (bitsPerSample) {
+@@ -519,7 +523,7 @@ typedef void FilterFn(FILE *          const ifP,
+     /* This is a function that can be run in a separate process to do
+        arbitrary modifications of the raster data stream.
+     */
+-
++       
+ 
+ 
+ #ifndef NOFLATE
+@@ -545,7 +549,7 @@ initZlib(z_stream * const strmP) {
+ 
+ static FilterFn flateFilter;
+ 
+-static void
++static void 
+ flateFilter(FILE *          const ifP,
+             FILE *          const ofP,
+             OutputEncoder * const oeP) {
+@@ -600,12 +604,12 @@ flateFilter(FILE *          const ifP,
+     } while (flush != Z_FINISH);
+ 
+     free(in);
+-    free(out);
++    free(out); 
+     deflateEnd(&strm);
+     fclose(ifP);
+     fclose(ofP);
+ #else
+-    assert(false);    /* filter is never used */
++    assert(false);    /* filter is never used */ 
+ #endif
+ }
+ 
+@@ -687,7 +691,7 @@ asciiHexFilter(FILE *          const ifP,
+             unsigned int i;
+ 
+             for (i = 0; i < readCt; ++i) {
+-                int const item = inbuff[i];
++                int const item = inbuff[i]; 
+                 outbuff[i*2]   = hexits[item >> 4];
+                 outbuff[i*2+1] = hexits[item & 15];
+             }
+@@ -736,7 +740,7 @@ ascii85Filter(FILE *          const ifP,
+                 ++outcount;
+                 count = 0;
+             } else if (count == 4) {
+-                outbuff[4] = value % 85 + 33;  value/=85;
++                outbuff[4] = value % 85 + 33;  value/=85; 
+                 outbuff[3] = value % 85 + 33;  value/=85;
+                 outbuff[2] = value % 85 + 33;  value/=85;
+                 outbuff[1] = value % 85 + 33;
+@@ -745,7 +749,7 @@ ascii85Filter(FILE *          const ifP,
+                 writeFileChar(outbuff, count + 1, "ASCII 85 filter", ofP);
+ 
+                 count = value = 0;
+-                outcount += 5;
++                outcount += 5; 
+             }
+ 
+             if (outcount > 75) {
+@@ -794,9 +798,9 @@ closeAllBut(int const saveFd0,
+    'saveFd1', and 'saveFd2'.
+ 
+    This is helpful because even if this process doesn't touch other file
+-   descriptors, its very existence will keep the files open.
++   desriptors, its very existence will keep the files open.
+ -----------------------------------------------------------------------------*/
+-
++    
+     /* Unix provides no good way to do this; we just assume file descriptors
+        above 9 are not used in this program; Caller must ensure that is true.
+     */
+@@ -829,15 +833,15 @@ spawnFilter(FILE *          const ofP,
+     pid_t rc;
+ 
+     makePipe(pipeFd);
+-
++    
+     rc = fork();
+ 
+     if (rc == (pid_t)-1)
+-        pm_error("fork() of filter process failed.  errno=%d (%s)",
++        pm_error("fork() of filter process failed.  errno=%d (%s)", 
+                  errno, strerror(errno));
+     else if (rc == 0) {
+         /* This is the child process */
+-
++ 
+         FILE * ifP;
+ 
+         ifP = fdopen(pipeFd[0], "r");
+@@ -892,11 +896,11 @@ addFilter(const char *    const description,
+     pid_t pid;
+ 
+     spawnFilter(oldFeedFileP, filter, oeP, &newFeedFileP, &pid);
+-
++            
+     if (verbose)
+         pm_message("%s filter spawned: pid %u",
+                    description, (unsigned)pid);
+-
++    
+     if (debug) {
+         int const outFd    = fileno(oldFeedFileP);
+         int const supplyFd = fileno(newFeedFileP);
+@@ -971,7 +975,7 @@ waitForChildren(const pid_t * const pidList) {
+        signal is the default), the process' children do not become
+        zombies.  Consequently, waitpid() always fails with ECHILD - but
+        nonetheless waits for the child to exit.
+-
++    
+        We expect the process not to have the action for SIGCHLD set that
+        way.
+     */
+@@ -1004,9 +1008,9 @@ waitForChildren(const pid_t * const pidList) {
+ 
+ 
+ static void
+-validateComputableBoundingBox(float const scols,
++validateComputableBoundingBox(float const scols, 
+                               float const srows,
+-                              float const llx,
++                              float const llx, 
+                               float const lly) {
+ 
+     float const bbWidth  = llx + scols + 0.5;
+@@ -1036,22 +1040,22 @@ warnUserRescaling(float const scale) {
+ 
+ 
+ static void
+-computeImagePosition(int     const dpiX,
+-                     int     const dpiY,
+-                     int     const icols,
++computeImagePosition(int     const dpiX, 
++                     int     const dpiY, 
++                     int     const icols, 
+                      int     const irows,
+                      bool    const mustturn,
+                      bool    const canturn,
+                      bool    const center,
+-                     int     const pagewid,
+-                     int     const pagehgt,
++                     int     const pagewid, 
++                     int     const pagehgt, 
+                      float   const requestedScale,
+                      float   const imagewidth,
+                      float   const imageheight,
+                      bool    const equalpixels,
+                      float * const scolsP,
+                      float * const srowsP,
+-                     float * const llxP,
++                     float * const llxP, 
+                      float * const llyP,
+                      bool *  const turnedP ) {
+ /*----------------------------------------------------------------------------
+@@ -1091,7 +1095,7 @@ computeImagePosition(int     const dpiX,
+        rotated if applicable
+     */
+     bool shouldturn;  /* The image fits the page better if we turn it */
+-
++    
+     if (icols > irows && pagehgt > pagewid)
+         shouldturn = TRUE;
+     else if (irows > icols && pagewid > pagehgt)
+@@ -1120,27 +1124,27 @@ computeImagePosition(int     const dpiX,
+             scale = (float) imagewidth/cols;
+         else
+             scale = MIN((float)imagewidth/cols, (float)imageheight/rows);
+-
++    
+         *scolsP = cols*scale;
+         *srowsP = rows*scale;
+     } else {
+         /* He didn't give us a bounding box for the image so figure
+            out output image size from other inputs.
+         */
+-        const int devpixX = dpiX / 72.0 + 0.5;
+-        const int devpixY = dpiY / 72.0 + 0.5;
++        const int devpixX = dpiX / 72.0 + 0.5;        
++        const int devpixY = dpiY / 72.0 + 0.5;        
+         /* How many device pixels make up 1/72 inch, rounded to
+            nearest integer */
+         const float pixfacX = 72.0 / dpiX * devpixX;  /* 1, approx. */
+         const float pixfacY = 72.0 / dpiY * devpixY;  /* 1, approx. */
+         float scale;
+ 
+-        scale = MIN(requestedScale,
++        scale = MIN(requestedScale, 
+                     MIN((float)pagewid/cols, (float)pagehgt/rows));
+ 
+         *scolsP = scale * cols * pixfacX;
+         *srowsP = scale * rows * pixfacY;
+-
++    
+         if (scale != requestedScale)
+             warnUserRescaling(scale);
+ 
+@@ -1236,7 +1240,7 @@ defineReadstring(bool const rle) {
+ static void
+ setupReadstringNative(bool         const rle,
+                       bool         const color,
+-                      unsigned int const icols,
++                      unsigned int const icols, 
+                       unsigned int const bitsPerSample) {
+ /*----------------------------------------------------------------------------
+   Write to Standard Output statements to define /readstring and also
+@@ -1247,7 +1251,7 @@ setupReadstringNative(bool         const rle,
+         /* Size of row buffer, padded up to byte boundary. */
+ 
+     defineReadstring(rle);
+-
++    
+     if (color) {
+         printf("/rpicstr %d string def\n", bytesPerRow);
+         printf("/gpicstr %d string def\n", bytesPerRow);
+@@ -1266,18 +1270,18 @@ putFilters(unsigned int const postscriptLevel,
+            bool         const color) {
+ 
+     assert(postscriptLevel > 1);
+-
++    
+     /* We say to decode flate, then rle, so Caller must ensure it encodes
+        rel, then flate.
+     */
+ 
+     if (ascii85)
+         printf("/ASCII85Decode filter ");
+-    else
++    else 
+         printf("/ASCIIHexDecode filter ");
+     if (flate)
+         printf("/FlateDecode filter ");
+-    if (rle)
++    if (rle) 
+         printf("/RunLengthDecode filter ");
+ }
+ 
+@@ -1311,7 +1315,7 @@ putSetup(unsigned int const dictSize,
+     if (dictSize > 0)
+         /* inputf {r,g,b,}pictsr readstring readrlestring rlestring */
+         printf("%u dict begin\n", dictSize);
+-
++    
+     if (!psFilter)
+         setupReadstringNative(rle, color, icols, bitsPerSample);
+ 
+@@ -1353,7 +1357,7 @@ putInitPsFilter(unsigned int const postscriptLevel,
+     putFilters(postscriptLevel, rle, flate, ascii85, color);
+ 
+     putImage(filterTrue, color);
+-
++    
+     printf(" } exec");
+ }
+ 
+@@ -1365,7 +1369,7 @@ putInitReadstringNative(bool const color) {
+     bool const filterFalse = FALSE;
+ 
+     putReadstringNative(color);
+-
++    
+     putImage(filterFalse, color);
+ }
+ 
+@@ -1373,18 +1377,18 @@ putInitReadstringNative(bool const color) {
+ 
+ static void
+ putInit(unsigned int const postscriptLevel,
+-        char         const name[],
+-        int          const icols,
+-        int          const irows,
+-        float        const scols,
++        char         const name[], 
++        int          const icols, 
++        int          const irows, 
++        float        const scols, 
+         float        const srows,
+-        float        const llx,
++        float        const llx, 
+         float        const lly,
+         int          const bitsPerSample,
+-        int          const pagewid,
++        int          const pagewid, 
+         int          const pagehgt,
+-        bool         const color,
+-        bool         const turned,
++        bool         const color, 
++        bool         const turned, 
+         bool         const rle,
+         bool         const flate,
+         bool         const ascii85,
+@@ -1438,7 +1442,7 @@ putInit(unsigned int const postscriptLevel,
+ 
+ 
+ static void
+-putEnd(bool         const showpage,
++putEnd(bool         const showpage, 
+        bool         const psFilter,
+        bool         const ascii85,
+        unsigned int const dictSize,
+@@ -1486,7 +1490,7 @@ validateBpsRequest(unsigned int const bitsPerSampleReq,
+                  "-psfilter, the maximum is 8", bitsPerSampleReq);
+ }
+ 
+-
++    
+ 
+ static unsigned int
+ bpsFromInput(unsigned int const bitsRequiredByMaxval,
+@@ -1553,7 +1557,7 @@ warnUserAboutReducedDepth(unsigned int const bitsGot,
+ 
+ static void
+ computeDepth(xelval         const inputMaxval,
+-             unsigned int   const postscriptLevel,
++             unsigned int   const postscriptLevel, 
+              bool           const psFilter,
+              unsigned int   const bitsPerSampleReq,
+              unsigned int * const bitsPerSampleP) {
+@@ -1584,7 +1588,7 @@ computeDepth(xelval         const inputMaxval,
+                    "%u bits per sample, so maxval = %u",
+                    inputMaxval, *bitsPerSampleP, psMaxval);
+     }
+-}
++}    
+ 
+ 
+ 
+@@ -1643,7 +1647,7 @@ ba_add(BitAccumulator * const baP,
+ /*----------------------------------------------------------------------------
+   Combine bit sequences that do not fit into a byte.
+ 
+-  Used when bitsPerSample =1, 2, 4.
++  Used when bitsPerSample =1, 2, 4.  
+   Logic also works for bitsPerSample = 8, 16.
+ 
+   The accumulator, baP->value is unsigned int (usually 32 bits), but
+@@ -1725,7 +1729,7 @@ flushOutput(BitAccumulator * const baP,
+ 
+   convertRowNative and convertRowPsFilter are the general converters.
+   They are quite similar, the differences being:
+-  (1) Native output separates the color planes:
++  (1) Native output separates the color planes: 
+   (RRR...RRR GGG...GGG BBB...BBB),
+   whereas psFilter does not:
+   (RGB RGB RGB RGB ......... RGB).
+@@ -1765,10 +1769,10 @@ convertRowPbm(struct pam *     const pamP,
+ 
+ 
+ static void
+-convertRowNative(struct pam *     const pamP,
+-                 tuple *                tuplerow,
++convertRowNative(struct pam *     const pamP, 
++                 tuple *                tuplerow, 
+                  unsigned int     const bitsPerSample,
+-                 FILE           * const fP) {
++                 FILE           * const fP) { 
+ 
+     unsigned int const psMaxval = pm_bitstomaxval(bitsPerSample);
+ 
+@@ -1795,7 +1799,7 @@ static void
+ convertRowPsFilter(struct pam *     const pamP,
+                    tuple *                tuplerow,
+                    unsigned int     const bitsPerSample,
+-                   FILE           * const fP) {
++                   FILE           * const fP) { 
+ 
+     unsigned int const psMaxval = pm_bitstomaxval(bitsPerSample);
+ 
+@@ -1828,7 +1832,7 @@ selectPostscriptLevel(bool           const levelIsGiven,
+                       bool           const psFilter,
+                       unsigned int * const postscriptLevelP) {
+ 
+-    unsigned int const maxPermittedLevel =
++    unsigned int const maxPermittedLevel = 
+         levelIsGiven ? levelGiven : UINT_MAX;
+     unsigned int minPossibleLevel;
+ 
+@@ -1877,7 +1881,7 @@ convertRaster(struct pam * const inpamP,
+    Read the raster described by *inpamP, and write a bit stream of samples
+    to *fP.  This stream has to be compressed and converted to text before it
+    can be part of a Postscript program.
+-
++   
+    'psFilter' means to do the conversion using built in Postscript filters, as
+    opposed to our own filters via /readstring.
+ 
+@@ -1897,7 +1901,7 @@ convertRaster(struct pam * const inpamP,
+     } else  {
+         tuple *tuplerow;
+         unsigned int row;
+-
++        
+         tuplerow = pnm_allocpamrow(inpamP);
+ 
+         for (row = 0; row < inpamP->height; ++row) {
+@@ -1920,31 +1924,31 @@ convertRaster(struct pam * const inpamP,
+    pipe but this program's output, then we don't want it closed when the
+    filter terminates because we'll need it to be open for the next image
+    the program converts (with a whole new chain of filters).
+-
+-   To prevent the program output file from getting closed, we pass a
++   
++   To prevent the progam output file from getting closed, we pass a
+    duplicate of it to spawnFilters() and keep the original open.
+ */
+ 
+ 
+ 
+ static void
+-convertPage(FILE *       const ifP,
+-            int          const turnflag,
+-            int          const turnokflag,
++convertPage(FILE *       const ifP, 
++            int          const turnflag, 
++            int          const turnokflag, 
+             bool         const psFilter,
+-            bool         const rle,
++            bool         const rle, 
+             bool         const flate,
+             bool         const ascii85,
+             bool         const setpage,
+             bool         const showpage,
+-            bool         const center,
++            bool         const center, 
+             float        const scale,
+-            int          const dpiX,
+-            int          const dpiY,
+-            int          const pagewid,
++            int          const dpiX, 
++            int          const dpiY, 
++            int          const pagewid, 
+             int          const pagehgt,
+-            int          const imagewidth,
+-            int          const imageheight,
++            int          const imagewidth, 
++            int          const imageheight, 
+             bool         const equalpixels,
+             unsigned int const bitsPerSampleReq,
+             char         const name[],
+@@ -1952,7 +1956,7 @@ convertPage(FILE *       const ifP,
+             bool         const vmreclaim,
+             bool         const levelIsGiven,
+             unsigned int const levelGiven) {
+-
++    
+     struct pam inpam;
+     float scols, srows;
+     float llx, lly;
+@@ -1960,7 +1964,7 @@ convertPage(FILE *       const ifP,
+     bool color;
+     unsigned int postscriptLevel;
+     unsigned int bitsPerSample;
+-    unsigned int dictSize;
++    unsigned int dictSize;  
+         /* Size of Postscript dictionary we should define */
+     OutputEncoder oe;
+     pid_t filterPidList[MAX_FILTER_CT + 1];
+@@ -1974,19 +1978,19 @@ convertPage(FILE *       const ifP,
+     pnm_readpaminit(ifP, &inpam, PAM_STRUCT_SIZE(tuple_type));
+ 
+     validateCompDimension(inpam.width, 16, "Input image width");
+-
++    
+     if (!STRSEQ(inpam.tuple_type, PAM_PBM_TUPLETYPE) &&
+         !STRSEQ(inpam.tuple_type, PAM_PGM_TUPLETYPE) &&
+         !STRSEQ(inpam.tuple_type, PAM_PPM_TUPLETYPE))
+         pm_error("Unrecognized tuple type %s.  This program accepts only "
+-                 "PBM, PGM, PPM, and equivalent PAM input images",
++                 "PBM, PGM, PPM, and equivalent PAM input images", 
+                  inpam.tuple_type);
+ 
+     color = STRSEQ(inpam.tuple_type, PAM_PPM_TUPLETYPE);
+-
+-    selectPostscriptLevel(levelIsGiven, levelGiven, color,
++    
++    selectPostscriptLevel(levelIsGiven, levelGiven, color, 
+                           dict, flate, ascii85, psFilter, &postscriptLevel);
+-
++    
+     if (color)
+         pm_message("generating color Postscript program.");
+ 
+@@ -1996,16 +2000,16 @@ convertPage(FILE *       const ifP,
+     /* In positioning/scaling the image, we treat the input image as if
+        it has a density of 72 pixels per inch.
+     */
+-    computeImagePosition(dpiX, dpiY, inpam.width, inpam.height,
++    computeImagePosition(dpiX, dpiY, inpam.width, inpam.height, 
+                          turnflag, turnokflag, center,
+                          pagewid, pagehgt, scale, imagewidth, imageheight,
+                          equalpixels,
+                          &scols, &srows, &llx, &lly, &turned);
+ 
+     determineDictionaryRequirement(dict, psFilter, &dictSize);
+-
+-    putInit(postscriptLevel, name, inpam.width, inpam.height,
+-            scols, srows, llx, lly, bitsPerSample,
++    
++    putInit(postscriptLevel, name, inpam.width, inpam.height, 
++            scols, srows, llx, lly, bitsPerSample, 
+             pagewid, pagehgt, color,
+             turned, rle, flate, ascii85, setpage, psFilter, dictSize);
+ 
+@@ -2017,7 +2021,7 @@ convertPage(FILE *       const ifP,
+         /* spawnFilters() closes this.  See FILE MANAGEMENT above */
+ 
+     spawnFilters(filterChainOfP, &oe, &feedFileP, filterPidList);
+-
++ 
+     convertRaster(&inpam, bitsPerSample, psFilter, feedFileP);
+ 
+     fflush(feedFileP);
+@@ -2081,17 +2085,17 @@ main(int argc, const char * argv[]) {
+ 
+         eof = FALSE;  /* There is always at least one image */
+         for (imageSeq = 0; !eof; ++imageSeq) {
+-            convertPage(ifP, cmdline.mustturn, cmdline.canturn,
++            convertPage(ifP, cmdline.mustturn, cmdline.canturn, 
+                         cmdline.psfilter,
+-                        cmdline.rle, cmdline.flate, cmdline.ascii85,
++                        cmdline.rle, cmdline.flate, cmdline.ascii85, 
+                         cmdline.setpage, cmdline.showpage,
+                         cmdline.center, cmdline.scale,
+                         cmdline.dpiX, cmdline.dpiY,
+-                        cmdline.width, cmdline.height,
+-                        cmdline.imagewidth, cmdline.imageheight,
++                        cmdline.width, cmdline.height, 
++                        cmdline.imagewidth, cmdline.imageheight, 
+                         cmdline.equalpixels,
+                         cmdline.bitspersampleSpec ? cmdline.bitspersample : 0,
+-                        name,
++                        name, 
+                         cmdline.dict, cmdline.vmreclaim,
+                         cmdline.levelSpec, cmdline.level);
+             pnm_nextimage(ifP, &eof);
+@@ -2121,7 +2125,7 @@ main(int argc, const char * argv[]) {
+ **  wrzl@gup.uni-linz.ac.at.
+ **
+ ** July 2011 afu
+-** row converters rewritten, fast PBM-only row converter added,
++** row convertors rewritten, fast PBM-only row convertor added,
+ ** rle compression slightly modified, flate compression added
+ ** ascii85 output end added.
+ **
 diff --git a/converter/other/rletopnm.c b/converter/other/rletopnm.c
 index 97f271d..72b63d3 100644
 --- a/converter/other/rletopnm.c
@@ -478,7 +1602,7 @@ index fafcc91..9fe49d0 100644
  	    planesize = cols * rows;
              if ( !( sirarray = (unsigned char*) malloc( picsize ) ) ) 
 diff --git a/converter/other/tifftopnm.c b/converter/other/tifftopnm.c
-index c1e7af8..ef9253b 100644
+index 05493e7..26a5d7f 100644
 --- a/converter/other/tifftopnm.c
 +++ b/converter/other/tifftopnm.c
 @@ -1372,7 +1372,9 @@ convertRasterByRows(pnmOut *       const pnmOutP,
@@ -493,7 +1617,7 @@ index c1e7af8..ef9253b 100644
          pm_error("can't allocate memory for row buffer");
  
 diff --git a/converter/other/xwdtopnm.c b/converter/other/xwdtopnm.c
-index df3c737..6c19ade 100644
+index a74da34..4d26a31 100644
 --- a/converter/other/xwdtopnm.c
 +++ b/converter/other/xwdtopnm.c
 @@ -210,6 +210,10 @@ processX10Header(X10WDFileHeader *  const h10P,
@@ -516,7 +1640,7 @@ index df3c737..6c19ade 100644
          h11FixedP->bytes_per_line * 8 -
          h11FixedP->pixmap_width * h11FixedP->bits_per_pixel;
 diff --git a/converter/pbm/mdatopbm.c b/converter/pbm/mdatopbm.c
-index d8e0657..12c7468 100644
+index 461b3f8..c8bab6c 100644
 --- a/converter/pbm/mdatopbm.c
 +++ b/converter/pbm/mdatopbm.c
 @@ -245,10 +245,13 @@ main(int argc, char **argv) {
@@ -569,7 +1693,7 @@ index 1d97ac6..c4c8cbb 100644
  	{
          pm_error( "Cannot allocate memory" );
 diff --git a/converter/pbm/pbmtogem.c b/converter/pbm/pbmtogem.c
-index 9eab041..13b0257 100644
+index 4fd30e9..c82757d 100644
 --- a/converter/pbm/pbmtogem.c
 +++ b/converter/pbm/pbmtogem.c
 @@ -79,6 +79,7 @@ putinit (int const rows, int const cols)
@@ -581,7 +1705,7 @@ index 9eab041..13b0257 100644
    outrow = (unsigned char *) pm_allocrow (outmax, sizeof (unsigned char));
    lastrow = (unsigned char *) pm_allocrow (outmax, sizeof (unsigned char));
 diff --git a/converter/pbm/pbmtogo.c b/converter/pbm/pbmtogo.c
-index 23b2ee9..d2ee91f 100644
+index 4f84f39..943dc84 100644
 --- a/converter/pbm/pbmtogo.c
 +++ b/converter/pbm/pbmtogo.c
 @@ -158,6 +158,7 @@ main(int           argc,
@@ -1039,7 +2163,7 @@ index 003ef8d..b97349d 100644
  		ppmtobmp ppmtoeyuv ppmtogif ppmtoicr ppmtoilbm \
  		ppmtoleaf ppmtolj ppmtomitsu ppmtoneo \
 diff --git a/converter/ppm/ilbmtoppm.c b/converter/ppm/ilbmtoppm.c
-index 92d4d6f..60853dd 100644
+index b9b8986..f4fe331 100644
 --- a/converter/ppm/ilbmtoppm.c
 +++ b/converter/ppm/ilbmtoppm.c
 @@ -608,6 +608,7 @@ decode_row(FILE *          const ifP,
@@ -1205,7 +2329,7 @@ index e252ba2..270ae3b 100644
      if (headerCols > rawcols) {
          pm_message("warning - BytesPerLine = %d, "
 diff --git a/converter/ppm/picttoppm.c b/converter/ppm/picttoppm.c
-index b8fb864..177bc30 100644
+index 9cf570e..6020f67 100644
 --- a/converter/ppm/picttoppm.c
 +++ b/converter/ppm/picttoppm.c
 @@ -1,3 +1,4 @@
@@ -1214,7 +2338,7 @@ index b8fb864..177bc30 100644
   * picttoppm.c -- convert a MacIntosh PICT file to PPM format.
   *
 diff --git a/converter/ppm/pjtoppm.c b/converter/ppm/pjtoppm.c
-index b8b94f7..62ce77e 100644
+index ffb01d0..e7f9392 100644
 --- a/converter/ppm/pjtoppm.c
 +++ b/converter/ppm/pjtoppm.c
 @@ -11,87 +11,65 @@
@@ -1572,7 +2696,7 @@ index 7ed814e..b4e7db1 100644
      cbuf = (unsigned char *) pm_allocrow(cols * 6, sizeof(unsigned char));
      if (mode == C_TRANS_MODE_DELTA)
 diff --git a/converter/ppm/ppmtomitsu.c b/converter/ppm/ppmtomitsu.c
-index 5b0b324..11db755 100644
+index 50b790d..63d3182 100644
 --- a/converter/ppm/ppmtomitsu.c
 +++ b/converter/ppm/ppmtomitsu.c
 @@ -685,6 +685,8 @@ main(int argc, char * argv[]) {
@@ -1585,10 +2709,10 @@ index 5b0b324..11db755 100644
          medias.maxrows *= 2;
      }
 diff --git a/converter/ppm/ppmtopcx.c b/converter/ppm/ppmtopcx.c
-index fa68edc..97dfb2b 100644
+index 76f0629..e7b06ff 100644
 --- a/converter/ppm/ppmtopcx.c
 +++ b/converter/ppm/ppmtopcx.c
-@@ -425,6 +425,8 @@ ppmTo16ColorPcx(pixel **            const pixels,
+@@ -422,6 +422,8 @@ ppmTo16ColorPcx(pixel **            const pixels,
              else                   Planes = 1;
          }
      }
@@ -1742,7 +2866,7 @@ index 935463e..653084c 100644
  	pm_error( "out of memory" );
  
 diff --git a/converter/ppm/sldtoppm.c b/converter/ppm/sldtoppm.c
-index 2dc049f..2a482be 100644
+index 2fef023..1f30cbd 100644
 --- a/converter/ppm/sldtoppm.c
 +++ b/converter/ppm/sldtoppm.c
 @@ -154,127 +154,85 @@ vscale(int * const px,
@@ -1953,7 +3077,7 @@ index 2dc049f..2a482be 100644
      PPM_ASSIGN(rgbcolor, 0, 0, 0);
      ppmd_filledrectangle(pixels, pixcols, pixrows, pixmaxval, 0, 0,
 diff --git a/converter/ppm/ximtoppm.c b/converter/ppm/ximtoppm.c
-index 75faac6..5758739 100644
+index 9620942..e9083f3 100644
 --- a/converter/ppm/ximtoppm.c
 +++ b/converter/ppm/ximtoppm.c
 @@ -118,6 +118,7 @@ ReadXimHeader(FILE *     const in_fp,
@@ -1989,10 +3113,10 @@ index 75faac6..5758739 100644
                  sizeof(Color));
          if (header->colors == NULL) {
 diff --git a/editor/pamcut.c b/editor/pamcut.c
-index db5b5b3..5fc0267 100644
+index 1fc9d9b..ad0e030 100644
 --- a/editor/pamcut.c
 +++ b/editor/pamcut.c
-@@ -773,6 +773,8 @@ cutOneImage(FILE *             const ifP,
+@@ -799,6 +799,8 @@ cutOneImage(FILE *             const ifP,
  
      outpam = inpam;    /* Initial value -- most fields should be same */
      outpam.file   = ofP;
@@ -2002,7 +3126,7 @@ index db5b5b3..5fc0267 100644
      outpam.height = bottomrow - toprow + 1;
  
 diff --git a/editor/pnmgamma.c b/editor/pnmgamma.c
-index b357b0d..ec612d3 100644
+index 1fdf20e..98b7e90 100644
 --- a/editor/pnmgamma.c
 +++ b/editor/pnmgamma.c
 @@ -596,6 +596,7 @@ createGammaTables(enum transferFunction const transferFunction,
@@ -2160,20 +3284,365 @@ index a8f140b..e6986f1 100644
      if (tuplerow != NULL) {
          /* Now we initialize the pointers to the individual tuples
 diff --git a/lib/libpammap.c b/lib/libpammap.c
-index 2222491..ba27a4c 100644
+index 569156f..ba27a4c 100644
 --- a/lib/libpammap.c
 +++ b/lib/libpammap.c
-@@ -108,7 +108,9 @@ allocTupleIntListItem(struct pam * const pamP) {
+@@ -64,7 +64,7 @@ pnm_createtuplehash(void) {
+         pm_error("Out of memory allocating tuple hash of size %u",
+                  HASH_SIZE);
+ 
+-    for (i = 0; i < HASH_SIZE; ++i)
++    for (i = 0; i < HASH_SIZE; ++i) 
+         retval[i] = NULL;
+ 
+     return retval;
+@@ -82,13 +82,13 @@ pnm_destroytuplehash(tuplehash const tuplehash) {
+     for (i = 0; i < HASH_SIZE; ++i) {
+         struct tupleint_list_item * p;
+         struct tupleint_list_item * next;
+-
++        
+         /* Walk this chain, freeing each element */
+         for (p = tuplehash[i]; p; p = next) {
+             next = p->next;
+ 
+             free(p);
+-        }
++        }            
+     }
+ 
+     /* Free the table of chains */
+@@ -98,18 +98,20 @@ pnm_destroytuplehash(tuplehash const tuplehash) {
+ 
+ 
+ 
+-static struct tupleint_list_item *
++static struct tupleint_list_item * 
+ allocTupleIntListItem(struct pam * const pamP) {
+ 
+ 
+-    /* This is complicated by the fact that the last element of a
++    /* This is complicated by the fact that the last element of a 
+        tupleint_list_item is of variable length, because the last element
+-       of _it_ is of variable length
++       of _it_ is of variable length 
      */
      struct tupleint_list_item * retval;
  
--    unsigned int const size = 
 +    overflow2(pamP->depth, sizeof(sample));
 +    overflow_add(sizeof(*retval)-sizeof(retval->tupleint.tuple), pamP->depth*sizeof(sample));
-+    unsigned int const size =
-         sizeof(*retval) - sizeof(retval->tupleint.tuple) 
+     unsigned int const size =
+-        sizeof(*retval) - sizeof(retval->tupleint.tuple)
++        sizeof(*retval) - sizeof(retval->tupleint.tuple) 
          + pamP->depth * sizeof(sample);
  
+     retval = (struct tupleint_list_item *) malloc(size);
+@@ -121,7 +123,7 @@ allocTupleIntListItem(struct pam * const pamP) {
+ 
+ void
+ pnm_addtotuplehash(struct pam *   const pamP,
+-                   tuplehash      const tuplehash,
++                   tuplehash      const tuplehash, 
+                    tuple          const tupletoadd,
+                    int            const value,
+                    int *          const fitsP) {
+@@ -138,7 +140,7 @@ pnm_addtotuplehash(struct pam *   const pamP,
+         *fitsP = FALSE;
+     else {
+         unsigned int const hashvalue = pnm_hashtuple(pamP, tupletoadd);
+-
++    
+         *fitsP = TRUE;
+ 
+         pnm_assigntuple(pamP, listItemP->tupleint.tuple, tupletoadd);
+@@ -151,10 +153,10 @@ pnm_addtotuplehash(struct pam *   const pamP,
+ 
+ 
+ void
+-pnm_lookuptuple(struct pam *    const pamP,
+-                const tuplehash       tuplehash,
+-                const tuple           searchval,
+-                int *           const foundP,
++pnm_lookuptuple(struct pam *    const pamP, 
++                const tuplehash       tuplehash, 
++                const tuple           searchval, 
++                int *           const foundP, 
+                 int *           const retvalP) {
+ /*----------------------------------------------------------------------------
+    Return as *revtvalP the index of the tuple value 'searchval' in the
+@@ -183,18 +185,18 @@ pnm_lookuptuple(struct pam *    const pamP,
+ 
+ 
+ static void
+-addColorOccurrenceToHash(tuple          const color,
++addColorOccurrenceToHash(tuple          const color, 
+                          tuplehash      const tuplefreqhash,
+                          struct pam *   const pamP,
+                          unsigned int   const maxsize,
+                          unsigned int * const sizeP,
+                          bool *         const fullP) {
+-
++               
+     unsigned int const hashvalue = pnm_hashtuple(pamP, color);
+-
++            
+     struct tupleint_list_item *p;
+ 
+-    for (p = tuplefreqhash[hashvalue];
++    for (p = tuplefreqhash[hashvalue]; 
+          p && !pnm_tupleequal(pamP, p->tupleint.tuple, color);
+          p = p->next);
+ 
+@@ -205,7 +207,7 @@ addColorOccurrenceToHash(tuple          const color,
+     } else {
+         /* It's not in the hash yet, so add it (if allowed) */
+         ++(*sizeP);
+-        if (maxsize > 0 && *sizeP > maxsize)
++        if (maxsize > 0 && *sizeP > maxsize) 
+             *fullP = TRUE;
+         else {
+             *fullP = FALSE;
+@@ -228,7 +230,7 @@ pnm_addtuplefreqoccurrence(struct pam *   const pamP,
+                            tuplehash      const tuplefreqhash,
+                            int *          const firstOccurrenceP) {
+ /*----------------------------------------------------------------------------
+-  Tally one more occurrence of the tuple value 'value' to the tuple frequency
++  Tally one more occurence of the tuple value 'value' to the tuple frequencey
+   hash 'tuplefreqhash', adding the tuple to the hash if it isn't there
+   already.
+ 
+@@ -238,10 +240,10 @@ pnm_addtuplefreqoccurrence(struct pam *   const pamP,
+   program.
+ -----------------------------------------------------------------------------*/
+     unsigned int const hashvalue = pnm_hashtuple(pamP, value);
+-
++            
+     struct tupleint_list_item * p;
+ 
+-    for (p = tuplefreqhash[hashvalue];
++    for (p = tuplefreqhash[hashvalue]; 
+          p && !pnm_tupleequal(pamP, p->tupleint.tuple, value);
+          p = p->next);
+ 
+@@ -270,8 +272,8 @@ pnm_addtuplefreqoccurrence(struct pam *   const pamP,
+ 
+ static void
+ computehashrecoverable(struct pam *   const pamP,
+-                       tuple **       const tupleArray,
+-                       unsigned int   const maxsize,
++                       tuple **       const tupleArray, 
++                       unsigned int   const maxsize, 
+                        unsigned int   const newDepth,
+                        sample         const newMaxval,
+                        unsigned int * const sizeP,
+@@ -295,20 +297,20 @@ computehashrecoverable(struct pam *   const pamP,
+ 
+     *tuplefreqhashP = pnm_createtuplehash();
+     *sizeP = 0;   /* initial value */
+-
++    
+     *rowbufferP = pnm_allocpamrow(pamP);
+-
++    
+     *colorP = pnm_allocpamtuple(pamP);
+-
++    
+     full = FALSE;  /* initial value */
+-
++    
+     /* Go through the entire raster, building a hash table of
+-       tuple values.
++       tuple values. 
+     */
+     for (row = 0; row < pamP->height && !full; ++row) {
+         unsigned int col;
+         const tuple * tuplerow;  /* The row of tuples we are processing */
+-
++        
+         if (tupleArray)
+             tuplerow = tupleArray[row];
+         else {
+@@ -335,8 +337,8 @@ computehashrecoverable(struct pam *   const pamP,
+ 
+ static tuplehash
+ computetuplefreqhash(struct pam *   const pamP,
+-                     tuple **       const tupleArray,
+-                     unsigned int   const maxsize,
++                     tuple **       const tupleArray, 
++                     unsigned int   const maxsize, 
+                      unsigned int   const newDepth,
+                      sample         const newMaxval,
+                      unsigned int * const sizeP) {
+@@ -350,18 +352,18 @@ computetuplefreqhash(struct pam *   const pamP,
+ 
+   2) an open PAM file, positioned to the raster.  In this case,
+      'tupleArray' is NULL.  *pamP contains the file descriptor.
+-
+-     We return with the file still open and its position undefined.
++  
++     We return with the file still open and its position undefined.  
+ 
+   In either case, *pamP contains parameters of the tuple array.
+ 
+   Return the number of unique tuple values found as *sizeP.
+ 
+-  However, if the number of unique tuple values is greater than 'maxsize',
++  However, if the number of unique tuple values is greater than 'maxsize', 
+   return a null return value and *sizeP undefined.
+ 
+   The tuple values that index the hash have depth 'newDepth'.  We look at
+-  only the first 'newDepth' planes of the input.  Caller must ensure that
++  only the first 'newDepth' planes of the input.  Caler must ensure that
+   the input has at least that many planes.
+ 
+   The tuple values that index the hash are scaled to a new maxval of
+@@ -374,18 +376,18 @@ computetuplefreqhash(struct pam *   const pamP,
+         /* Buffer for a row read from the input file; undefined (but still
+            allocated) if input is not from a file.
+         */
+-    tuple color;
++    tuple color;  
+         /* The color currently being added, scaled to the new maxval */
+     jmp_buf jmpbuf;
+     jmp_buf * origJmpbufP;
+-
++    
+     /* Initialize to "none" for purposes of error recovery */
+     tuplefreqhash = NULL;
+     rowbuffer = NULL;
+     color = NULL;
+ 
+     if (setjmp(jmpbuf) != 0) {
+-        if (color)
++        if (color) 
+             pnm_freepamtuple(color);
+         if (rowbuffer)
+             pnm_freepamrow(rowbuffer);
+@@ -413,24 +415,24 @@ pnm_computetuplefreqhash(struct pam *   const pamP,
+    Compute the tuple frequency hash for the tuple array tupleArray[][].
+ -----------------------------------------------------------------------------*/
+     return computetuplefreqhash(pamP, tupleArray, maxsize,
+-                                pamP->depth, pamP->maxval,
++                                pamP->depth, pamP->maxval, 
+                                 sizeP);
+ }
+ 
+ 
+ 
+ static void
+-alloctupletable(const struct pam * const pamP,
++alloctupletable(const struct pam * const pamP, 
+                 unsigned int       const size,
+                 tupletable *       const tupletableP,
+                 const char **      const errorP) {
+-
++    
+     if (UINT_MAX / sizeof(struct tupleint) < size)
+         pm_asprintf(errorP, "size %u is too big for arithmetic", size);
+     else {
+         unsigned int const mainTableSize = size * sizeof(struct tupleint *);
+-        unsigned int const tupleIntSize =
+-            sizeof(struct tupleint) - sizeof(sample)
++        unsigned int const tupleIntSize = 
++            sizeof(struct tupleint) - sizeof(sample) 
+             + pamP->depth * sizeof(sample);
+ 
+         /* To save the enormous amount of time it could take to allocate
+@@ -442,7 +444,7 @@ alloctupletable(const struct pam * const pamP,
+         else {
+             unsigned int const allocSize = mainTableSize + size * tupleIntSize;
+             void * pool;
+-
++    
+             pool = malloc(allocSize);
+ 
+             if (!pool)
+@@ -469,7 +471,7 @@ alloctupletable(const struct pam * const pamP,
+ 
+ 
+ tupletable
+-pnm_alloctupletable(const struct pam * const pamP,
++pnm_alloctupletable(const struct pam * const pamP, 
+                     unsigned int       const size) {
+ 
+     tupletable retval;
+@@ -491,8 +493,8 @@ void
+ pnm_freetupletable(const struct pam * const pamP,
+                    tupletable         const tupletable) {
+ 
+-    /* Note that the address 'tupletable' is, to the operating system,
+-       the address of a larger block of memory that contains not only
++    /* Note that the address 'tupletable' is, to the operating system, 
++       the address of a larger block of memory that contains not only 
+        tupletable, but all the samples to which it points (e.g.
+        tupletable[0].tuple[0])
+     */
+@@ -574,7 +576,7 @@ pnm_tuplehashtotable(const struct pam * const pamP,
+ 
+ 
+ tuplehash
+-pnm_computetupletablehash(struct pam * const pamP,
++pnm_computetupletablehash(struct pam * const pamP, 
+                           tupletable   const tupletable,
+                           unsigned int const tupletableSize) {
+ /*----------------------------------------------------------------------------
+@@ -591,12 +593,12 @@ pnm_computetupletablehash(struct pam * const pamP,
+     tuplehash tupletablehash;
+     unsigned int i;
+     int fits;
+-
++    
+     tupletablehash = pnm_createtuplehash();
+ 
+     fits = TRUE;  /* initial assumption */
+     for (i = 0; i < tupletableSize && fits; ++i) {
+-        pnm_addtotuplehash(pamP, tupletablehash,
++        pnm_addtotuplehash(pamP, tupletablehash, 
+                            tupletable[i]->tuple, i, &fits);
+     }
+     if (!fits) {
+@@ -658,7 +660,7 @@ pnm_computetuplefreqtable3(struct pam *   const pamP,
+                  "argument (%u) greater than input depth (%u)",
+                  newDepth, pamP->depth);
+ 
+-    tuplefreqhash = computetuplefreqhash(pamP, tupleArray, maxsize,
++    tuplefreqhash = computetuplefreqhash(pamP, tupleArray, maxsize, 
+                                          newDepth, newMaxval, &uniqueCount);
+     if (tuplefreqhash == NULL)
+         tuplefreqtable = NULL;
+@@ -704,8 +706,8 @@ pnm_computetuplefreqtable(struct pam *   const pamP,
+ 
+ 
+ char*
+-pam_colorname(struct pam *         const pamP,
+-              tuple                const color,
++pam_colorname(struct pam *         const pamP, 
++              tuple                const color, 
+               enum colornameFormat const format) {
+ 
+     unsigned int r, g, b;
+@@ -726,9 +728,9 @@ pam_colorname(struct pam *         const pamP,
+         while (!done) {
+             struct colorfile_entry const ce = pm_colorget(f);
+             if (ce.colorname) {
+-                unsigned int const this_diff =
+-                    abs((int)r - (int)ce.r) +
+-                    abs((int)g - (int)ce.g) +
++                unsigned int const this_diff = 
++                    abs((int)r - (int)ce.r) + 
++                    abs((int)g - (int)ce.g) + 
+                     abs((int)b - (int)ce.b);
+ 
+                 if (this_diff < best_diff) {
+@@ -739,7 +741,7 @@ pam_colorname(struct pam *         const pamP,
+                 done = TRUE;
+         }
+         fclose(f);
+-        if (best_diff != 32767 &&
++        if (best_diff != 32767 && 
+             (best_diff == 0 || format == PAM_COLORNAME_ENGLISH))
+             return colorname;
+     }
 diff --git a/lib/libpm.c b/lib/libpm.c
 index 47a2f49..a263598 100644
 --- a/lib/libpm.c
@@ -5356,10 +6825,50 @@ index 0000000..62f2fb0
 + 	    to_hdr->comments = (CONST_DECL char **)malloc( size );
 + 	    RLE_CHECK_ALLOC( to_hdr->cmd, to_hdr->comments, "comments" );
 diff --git a/urt/rle_open_f.c b/urt/rle_open_f.c
-index ae8548b..c2ef37d 100644
+index 1aeb644..c2ef37d 100644
 --- a/urt/rle_open_f.c
 +++ b/urt/rle_open_f.c
-@@ -163,65 +163,7 @@ dealWithSubprocess(const char *  const file_name,
+@@ -1,7 +1,7 @@
+-/*
++/* 
+  * rle_open_f.c - Open a file with defaults.
+- *
+- * Author :     Jerry Winters
++ * 
++ * Author :     Jerry Winters 
+  *      EECS Dept.
+  *      University of Michigan
+  * Date:    11/14/89
+@@ -37,8 +37,8 @@
+ 
+ 
+ static FILE *
+-my_popen(const char * const cmd,
+-         const char * const mode,
++my_popen(const char * const cmd, 
++         const char * const mode, 
+          int  *       const pid) {
+ 
+     FILE *retfile;
+@@ -55,7 +55,7 @@ my_popen(const char * const cmd,
+ 
+     if (pm_pipe(pipefd) < 0 )
+         return NULL;
+-
++    
+     /* Flush known files. */
+     fflush(stdout);
+     fflush(stderr);
+@@ -86,7 +86,7 @@ my_popen(const char * const cmd,
+         if ( execl("/bin/sh", "sh", "-c", cmd, NULL) < 0 )
+             exit(127);
+         /* NOTREACHED */
+-    }
++    }   
+ 
+     /* Close file descriptors, and gen up a FILE ptr */
+     if ( *mode == 'r' )
+@@ -163,72 +163,14 @@ dealWithSubprocess(const char *  const file_name,
                     FILE **       const fpP,
                     bool *        const noSubprocessP,
                     const char ** const errorP) {
@@ -5373,10 +6882,10 @@ index ae8548b..c2ef37d 100644
 -
 -    /*  Real file, not stdin or stdout.  If name ends in ".Z",
 -     *  pipe from/to un/compress (depending on r/w mode).
--     *  
+-     *
 -     *  If it starts with "|", popen that command.
 -     */
--        
+-
 -    cp = file_name + strlen(file_name) - 2;
 -    /* Pipe case. */
 -    if (file_name[0] == '|') {
@@ -5398,14 +6907,14 @@ index ae8548b..c2ef37d 100644
 -        const char * command;
 -
 -        *noSubprocessP = FALSE;
--        
+-
 -        if (*mode == 'w')
 -            pm_asprintf(&command, "compress > %s", file_name);
 -        else if (*mode == 'a')
 -            pm_asprintf(&command, "compress >> %s", file_name);
 -        else
 -            pm_asprintf(&command, "compress -d < %s", file_name);
--        
+-
 -        *fpP = my_popen(command, mode, &thepid);
 -
 -        if (*fpP == NULL)
@@ -5425,6 +6934,70 @@ index ae8548b..c2ef37d 100644
  }
  
  
+ 
+ 
+-/*
+- *  Purpose : Open a file for input or output as controlled by the mode
++/* 
++ *  Purpose : Open a file for input or ouput as controlled by the mode
+  *  parameter.  If no file name is specified (ie. file_name is null) then
+  *  a pointer to stdin or stdout will be returned.  The calling routine may
+  *  call this routine with a file name of "-".  For this case rle_open_f
+@@ -246,11 +188,11 @@ dealWithSubprocess(const char *  const file_name,
+  *
+  *   output:
+  *     a file pointer
+- *
++ * 
+  */
+ FILE *
+-rle_open_f_noexit(const char * const prog_name,
+-                  const char * const file_name,
++rle_open_f_noexit(const char * const prog_name, 
++                  const char * const file_name, 
+                   const char * const mode ) {
+ 
+     FILE * retval;
+@@ -265,12 +207,12 @@ rle_open_f_noexit(const char * const prog_name,
+         fp = stdout;     /* Set the default value */
+     else
+         fp = stdin;
+-
++    
+     if (file_name != NULL && !streq(file_name, "-")) {
+         bool noSubprocess;
+         dealWithSubprocess(file_name, mode, &catching_children, pids,
+                            &fp, &noSubprocess, &err_str);
+-
++        
+         if (!err_str) {
+             if (noSubprocess) {
+                 /* Ordinary, boring file case. */
+@@ -286,7 +228,7 @@ rle_open_f_noexit(const char * const prog_name,
+                 mode_string[0] = mode[0];
+                 mode_string[1] = 'b';
+                 strcpy( mode_string + 2, mode + 1 );
+-
++        
+                 fp = fopen(file_name, mode_string);
+                 if (fp == NULL )
+                     err_str = "%s: can't open %s for %s: ";
+@@ -325,7 +267,7 @@ rle_open_f(const char * prog_name, const char * file_name, const char * mode)
+ 
+ /*****************************************************************
+  * TAG( rle_close_f )
+- *
++ * 
+  * Close a file opened by rle_open_f.  If the file is stdin or stdout,
+  * it will not be closed.
+  * Inputs:
+@@ -347,6 +289,3 @@ rle_close_f( fd )
+     else
+         fclose( fd );
+ }
+-
+-
+-
 diff --git a/urt/rle_putcom.c b/urt/rle_putcom.c
 index ab2eb20..ce83615 100644
 --- a/urt/rle_putcom.c

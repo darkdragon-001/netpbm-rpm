@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         10.89.00
-Release:         3%{?dist}
+Version:         10.90.00
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -230,6 +230,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Thu Mar 26 2020 Josef Ridky <jridky@redhat.com> - 10.90.00-1
+- New upstream release 10.90.00 (#1817279)
+
 * Wed Mar 25 2020 Jitka Plesnikova <jplesnik@redhat.com> - 10.89.00-3
 - Add perl dependencies for build
 
